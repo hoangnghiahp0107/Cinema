@@ -24,3 +24,4 @@ Chứa các functions và modules sử dụng cho xuyên trang web, như là API
 
 ## Cấu trúc thư mục như hình:
 
+![Cấu trúc thư mục] (User/vietbao/Destop/Screenshot 2023-04-14 at 15.19.39.png)
