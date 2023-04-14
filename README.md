@@ -26,4 +26,4 @@ Chứa các functions và modules sử dụng cho xuyên trang web, như là API
 
 <img src="https://user-images.githubusercontent.com/118450812/231988937-0f9a0dd5-15ac-4a92-9cd0-16f96f8b1472.png" style="max-width: 20%;">
 
-<img src="https://user-images.githubusercontent.com/118450812/231988937-0f9a0dd5-15ac-4a92-9cd0-16f96f8b1472.png" style="max-width: 20%;">
+<img src="https://user-images.githubusercontent.com/118450812/231988937-0f9a0dd5-15ac-4a92-9cd0-16f96f8b1472.png" style="width: 20%;">
