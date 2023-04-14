@@ -24,4 +24,4 @@ Chứa các functions và modules sử dụng cho xuyên trang web, như là API
 
 ## Cấu trúc thư mục như hình:
 
-![Cấu trúc thư mục] (https://github.com/bao-tv/movies-ticket-booking/issues/1#issue-1667778492)
+![Cấu trúc thư mục] (https://user-images.githubusercontent.com/118450812/231988937-0f9a0dd5-15ac-4a92-9cd0-16f96f8b1472.png)
