@@ -22,4 +22,29 @@
     --text-secondary-color: #a3a3a3;
 }
 
+@font-face {
+    font-family: 'font-movies';
+    src: url('../fonts/Nunito-VariableFont_wght.ttf');
+}
 
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--font-color);
+    font-family: 'Quicksand', sans-serif;
+}
+
+.movies {
+    font-family: font-movies;
+}
