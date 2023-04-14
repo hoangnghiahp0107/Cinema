@@ -21,3 +21,6 @@ Chứa các trang page, như Home, About, Contact, and so on. Mỗi page folder 
 ### utils: 
 
 Chứa các functions và modules sử dụng cho xuyên trang web, như là API calls, helpers, reducer, and so on.
+
+## Cấu trúc thư mục như hình:
+
