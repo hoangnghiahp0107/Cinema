@@ -1,10 +1,12 @@
-import React from 'react';
-
+import React from "react";
 
 function MoviesTicketBooking() {
   return (
-    <div className='container movies'>MoviesTicketBooking</div>
-  )
+    <div className="container movies">
+      <h1>MoviesTicketBooking</h1>
+
+    </div>
+  );
 }
 
-export default MoviesTicketBooking
+export default MoviesTicketBooking;
