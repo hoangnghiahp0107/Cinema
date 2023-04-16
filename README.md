@@ -2,7 +2,7 @@
 
 This project was deploy with [Movies ticket booking](https://#).
 
-## Cấu trúc thư mục
+## 1.Cấu trúc thư mục
 
 Theo các thư mục sau:
 
@@ -26,9 +26,9 @@ Chứa các functions và modules sử dụng cho xuyên trang web, như là API
 
 <img src="https://user-images.githubusercontent.com/118450812/231988937-0f9a0dd5-15ac-4a92-9cd0-16f96f8b1472.png" style="width: 20%;">
 
-## Các thư viện hiện tại:
+## 2.Các thư viện hiện tại:
 
-Redux: 8.0.5
-Redux/toolkit: 1.9.3
-Axios: 1.3.4
-Tailwindcss: 3.3.1
+- Redux: 8.0.5
+- Redux/toolkit: 1.9.3
+- Axios: 1.3.4
+- Tailwindcss: 3.3.1
