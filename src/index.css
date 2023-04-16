@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --white-color: #ffffff;
+    --back-color: #000000;
+    --blue-color:#0ca5e9;
+    --pink-color: #d82d8b;
+    --pink-hover-color: #a50064;
+
+    --bg-pink-color: #fef1f6;
+    --bg-light-color: #fafafa;
+    --bg-dark-color: #262626;
+    --bg-13-yellor-color: #ddbc3e;
+    --bg-16-yellor-color: #e88022;
+    --bg-18-red-color: #9b211f;
+    --bg-P-green-color: #579b42;
+
+    --bg-ghe-thuong: #722ed1;
+    --bg-ghe-vip: #f5212d;
+    --bg-ghe-doi: #eb2f95;
+    --bg-ghe-da-dat: #404040;
+
+    --text-dark-color: #525252;
+    --text-secondary-color: #a3a3a3;
+}
+
+@font-face {
+    font-family: 'font-movies';
+    src: url('./assets/fonts/Nunito-VariableFont_wght.ttf'), 
+        url('./assets/fonts/Nunito-Italic-VariableFont_wght.ttf') format('ttf');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--font-color);
+    font-family: 'Quicksand', sans-serif;
+}
+
+.movies {
+    font-family: font-movies;
+}

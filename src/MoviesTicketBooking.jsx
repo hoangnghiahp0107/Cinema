@@ -2,8 +2,8 @@ import React from "react";
 
 function MoviesTicketBooking() {
   return (
-    <div className="container movies">
-      <h1>MoviesTicketBooking</h1>
+    <div className="container mx-auto movies">
+      <h1 className="">MoviesTicketBooking</h1>
 
     </div>
   );
