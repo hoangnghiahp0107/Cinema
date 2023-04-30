@@ -7,6 +7,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    // xóa 2 cái lớp bọc ngoài cho nhẹ(mục đích 2 lớp đó là để check lỗi sau này á, mà tui thấy nó nặng hơn nên tắt cho nhẹ máy)
     <App />
 );
 

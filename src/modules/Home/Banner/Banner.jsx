@@ -72,8 +72,8 @@ function Banner() {
 
             )})}
       </Swiper>
-      <div className={style.nexts}><i class="bi bi-chevron-right"></i></div>
-      <div className={style.prevs}><i class="bi bi-chevron-left"></i></div>
+      <div className={style.nexts}><i className="bi bi-chevron-right"></i></div>
+      <div className={style.prevs}><i className="bi bi-chevron-left"></i></div>
       <div className={style.swiper_pagination}>
         <span className={style.active}></span>
       </div>

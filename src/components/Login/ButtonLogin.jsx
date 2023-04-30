@@ -1,33 +1,31 @@
-import {useState,useEffect, useRef} from "react";
+import React, {useState} from "react";
 import { Animated } from "react-animated-css";
 import {Modal,Form,InputGroup,Button} from 'react-bootstrap';
 import style from "./ButtonLogin.module.scss";
 
-// import { Dialog, Transition } from '@headlessui/react'
-// import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 function ButtonLogin() {
-  const [isLogin, setIslogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
   const [isRegister, setIsRegister] = useState (false);
   const login = (event) => {
-    setIslogin(true);
+    setIsLogin(true);
     setIsRegister(false);
     event.preventDefault()
   }
   const register = (event) => {
-    setIslogin(false);
+    setIsLogin(false);
     setIsRegister(true);
     event.preventDefault()
   }
   const handleClose = () => {
-    setIslogin(false);
+    setIsLogin(false);
     setIsRegister(false);
   }
   
   return (
     <div>
       {/* btn đăng nhập */}
-      <Button onClick={() => setIslogin(true)} disabled={isLogin} bsPrefix={style.btnPrimary}>ĐĂNG NHẬP</Button>
+      <Button onClick={() => setIsLogin(true)} disabled={isLogin} bsPrefix={style.btnPrimary}>ĐĂNG NHẬP</Button>
       <Animated
         className="position-absolute z-10"
         animationIn="fadeInUp"
@@ -103,7 +101,7 @@ function ButtonLogin() {
   // {isUserShow && (
   //   <div className="d-flex" style={{display: !isUserShow? 'none' : 'block'}}>
   //     <div className={`${style.userShow} me-2 rounded-circle bg-gray-400 position-relative`}>
-  //       <i class="bi bi-bell"></i>
+  //       <i className="bi bi-bell"></i>
   //       <div className="position-absolute thongbaoNum">1</div>
   //     </div>
   //     <div className={style.userShow}>

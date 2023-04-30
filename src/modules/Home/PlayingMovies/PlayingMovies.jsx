@@ -18,15 +18,18 @@ import "./PlayingMovies.scss";
 import {Autoplay, Pagination, Navigation } from "swiper";
 
 function PlayingMovies() {
+  // các hook state để báo lỗi và lưu phim
   const [movies, setMovies] = useState([]);
   const [err, setErr] = useState(null);
+
+  // call API get Movie và filter đang chiếu
   const getMovies = async () => {
     try {
       const data = await apiGetMovies();
       setMovies((data.content).filter((item) => {
         return item.dangChieu === true;
       }));
-      // console.log(data.content);
+
     } catch (err) {
       console.log(err);
       setErr(err)
@@ -37,6 +40,7 @@ function PlayingMovies() {
     getMovies();
   },[]);
 
+  // nếu có lỗi thì return ko hiện
   if(err) return null;
   return (
     <div className='bg-black playingMovies'>
