@@ -1,4 +1,4 @@
-// custom
+// custom màu, các thứ linh tinh để dùng làm variables khi CSS
 @import './assets/config/variables';
 
 // bootstrap
@@ -7,6 +7,7 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 
+// thêm màu vào các className utiliti API của bootstrap 5.2
 $custom-colors: (
     'pink-primary': #d82d8b,
     'blue-color':#0ca5e9,
@@ -31,12 +32,14 @@ $custom-colors: (
     'header-border-color': rgb(226 232 240),
 );
 
+// merge theo hướng dẫn của boóttrap5
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 $all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans);
 
+// phải co bước này thì mới tự thêm theo quy tắc của bs5
 $utilities: map-merge(
   $utilities,
   (

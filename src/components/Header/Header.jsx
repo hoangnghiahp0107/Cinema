@@ -11,7 +11,7 @@ function Header() {
     <div className="sticky-top bg-white bg-opacity-75 py-3">
       <div className="container mx-auto d-flex justify-content-between align-items-center">
         <div className={style.logo}>
-         <i class="bi bi-ticket-perforated fs-2 me-3"></i>
+         <i className="bi bi-ticket-perforated fs-2 me-3"></i>
          <span className="fs-3">BHN</span>
         </div>
 
@@ -21,7 +21,7 @@ function Header() {
             onMouseLeave={() => setIsVisibleRapChieu(false)}
             onMouseEnter={() => setIsVisibleRapChieu(true)}
           >
-            <span className={style.textHeaderHover}>Rạp chiếu<i class="bi bi-chevron-down ms-2 fs-7 "></i></span>
+            <span className={style.textHeaderHover}>Rạp chiếu<i className="bi bi-chevron-down ms-2 fs-7 "></i></span>
             <Animated
               className="position-absolute z-10 "
               animationIn="fadeInUp"
@@ -52,7 +52,7 @@ function Header() {
             className="mx-3 py-6 position-relative"
             onMouseLeave={() => setIsVisibleLichChieu(false)}
             onMouseEnter={() => setIsVisibleLichChieu(true)}
-          ><span className={style.textHeaderHover}>Lịch chiếu<i class="bi bi-chevron-down ms-2 fs-7"></i></span>
+          ><span className={style.textHeaderHover}>Lịch chiếu<i className="bi bi-chevron-down ms-2 fs-7"></i></span>
             <Animated
               className="position-absolute z-10"
               animationIn="fadeInUp"
@@ -83,7 +83,7 @@ function Header() {
             onMouseLeave={() => setIsVisibleBlockChieu(false)}
             onMouseEnter={() => setIsVisibleBlockChieu(true)}
           >
-          <span className={style.textHeaderHover}>Block phim<i class="bi bi-chevron-down ms-2 fs-7"></i></span>
+          <span className={style.textHeaderHover}>Block phim<i className="bi bi-chevron-down ms-2 fs-7"></i></span>
           <Animated
               className="position-absolute z-10"
               animationIn="fadeInUp"
@@ -112,6 +112,7 @@ function Header() {
         </nav>
 
         <ButtonLogin/>
+        {/* này ông Hoàng làm nè, vừa login và kiểu sau khi login thì ông set hiện avatar.... tùy ý tưởng của ông */}
       </div>
 
         {/* <div className="flex justify-center items-center">
