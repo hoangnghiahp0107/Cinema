@@ -1,31 +1,54 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Animated } from "react-animated-css";
-import {Modal,Form,InputGroup,Button} from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
+import {useSelector, useDispatch } from "react-redux";
+import {useParams} from 'react-router-dom';
+
+import SignIn from "../../modules/Authentication/singin/SignIn";
+import { signout } from "../../slices/userSlice";
+// my style
 import style from "./ButtonLogin.module.scss";
 
-
 function ButtonLogin() {
+  // debugger;
+  const {bookingID} = useParams();
+  const {user} = useSelector((state) => state.user);
   const [isLogin, setIsLogin] = useState(false);
-  const [isRegister, setIsRegister] = useState (false);
-  const login = (event) => {
+  // chờ nếu có user -> đăng nhập thành công tắt form bằng cách set cờ về false
+  // ngược lại nếu là trang booking chưa login bật cờ để user login
+  useEffect(() => {
+    if(user) {
+      setIsLogin(false);
+    }
+  },[user]);
+
+  // nếu là trang booking và ko có user -> bật bật cờ đăng nhập
+  // phải chờ sau lần render đầu tiên và nếu có bookingID thay đổi mới set cờ
+  useEffect(() => {
+    if(bookingID && !user) setIsLogin(true);
+  }, [bookingID])
+
+  const handleLogin = (event) => {
     setIsLogin(true);
-    setIsRegister(false);
-    event.preventDefault()
+    event.preventDefault();
   }
-  const register = (event) => {
-    setIsLogin(false);
-    setIsRegister(true);
-    event.preventDefault()
-  }
+
   const handleClose = () => {
     setIsLogin(false);
-    setIsRegister(false);
   }
-  
+
+  const dispatch = useDispatch();
+  // logout
+  const handleSignOut = () => {
+    dispatch(signout());
+    localStorage.removeItem('user');
+  }
+
   return (
     <div>
       {/* btn đăng nhập */}
-      <Button onClick={() => setIsLogin(true)} disabled={isLogin} bsPrefix={style.btnPrimary}>ĐĂNG NHẬP</Button>
+      {!user && <Button onClick={() => setIsLogin(true)} disabled={isLogin} bsPrefix={style.btnPrimary}>ĐĂNG NHẬP</Button>}
+      
       <Animated
         className="position-absolute z-10"
         animationIn="fadeInUp"
@@ -34,77 +57,36 @@ function ButtonLogin() {
         animationOutDuration={200}
         isVisible={isLogin}
       >
-        <Modal show={isLogin || isRegister} onHide={handleClose} className="text-light-emphasis" >
+        <Modal show={isLogin} onHide={handleClose} className="text-light-emphasis" >
           <Modal.Header>
               <ul className={style.headerLogin}>
                 <li className={`ms-1 ${isLogin? style.active : ''}`}>
-                  <a href="" onClick={login}>Đăng nhập</a>
+                  <a href="" onClick={handleLogin}>Đăng nhập</a>
                 </li>
-                <li className="ms-3">/</li>
-                <li className={`ms-3 ${isRegister? style.active : ''}`}>
-                  <a href="" onClick={register}>Đăng ký</a>
-                </li>
+                {/* <li className={`ms-3 ${isRegister? style.active : ''}`}>
+                  <a href="" onClick={handleRegister}>Đăng ký</a>
+                </li> */}
               </ul>
           </Modal.Header>
-          <Modal.Body>
-            <InputGroup className="mb-2">
-              <InputGroup.Text className="row col-4 mx-1">Tài khoản</InputGroup.Text>
-              <Form.Control/>
-              <Form.Control.Feedback tooltip='true' className="ms-1">Looks good!</Form.Control.Feedback>
-            </InputGroup>
-            <InputGroup className="mb-2">
-              <InputGroup.Text className="row col-4 mx-1" >Mật khẩu</InputGroup.Text>
-              <Form.Control  type="password"/>
-              <Form.Control.Feedback type="invalid" className="ms-1">Looks good!</Form.Control.Feedback>
-            </InputGroup>
-            <div className={isRegister? 'd-block' : 'd-none'}>
-              <InputGroup className="mb-2">
-                <InputGroup.Text className="row col-4 mx-1">Nhập lại mật khẩu</InputGroup.Text>
-                <Form.Control  type="password"/>
-                <Form.Control.Feedback className="ms-1">Looks good!</Form.Control.Feedback>
-              </InputGroup>
-              <InputGroup className="mb-2">
-                <InputGroup.Text className="row col-4 mx-1">Họ và tên</InputGroup.Text>
-                <Form.Control/>
-                <Form.Control.Feedback className="ms-1">Looks good!</Form.Control.Feedback>
-              </InputGroup>
-              <InputGroup className="mb-2">
-                <InputGroup.Text className="row col-4 mx-1">Email</InputGroup.Text>
-                <Form.Control type="email"/>
-                <Form.Control.Feedback className="ms-1">Looks good!</Form.Control.Feedback>
-              </InputGroup>
-              <InputGroup>
-                <InputGroup.Text className="row col-4 mx-1">Số điện thoại</InputGroup.Text>
-                <Form.Control/>
-                <Form.Control.Feedback className="ms-1">Looks good!</Form.Control.Feedback>
-              </InputGroup>
-            </div>
-            <div className="ms-2 mt-3">
-              <a href="" className={style.quenPass}>Quên mật khẩu</a>
-            </div>
-          </Modal.Body>
-          <Modal.Footer className="w-100 justify-content-center">
-            
-            <div className="w-100">
-              <button type="submit" className={`${style.btnPrimary} w-100`}>{isLogin? 'Đăng nhập' : ' Đăng ký'}</button>
-            </div>
-          </Modal.Footer>
+          <SignIn />
         </Modal>
       </Animated>
+
+      {/* avatar */}
+      {user && (
+        <div className="d-flex">
+          <div className={`${style.userShow} me-2 rounded-circle bg-gray-400 position-relative`}>
+            <i className="bi bi-bell"></i>
+            <div className="position-absolute thongbaoNum">1</div>
+          </div>
+          <div className={style.userShow}>
+            <img className={style.avatarImg} src="/img/avatar.jpeg"/>
+          </div>
+          <button onClick={handleSignOut}>Đăng xuất</button>
+        </div>)}
     </div>
   );
 }
   
   export default ButtonLogin;
   
-  /* avatar */
-  // {isUserShow && (
-  //   <div className="d-flex" style={{display: !isUserShow? 'none' : 'block'}}>
-  //     <div className={`${style.userShow} me-2 rounded-circle bg-gray-400 position-relative`}>
-  //       <i className="bi bi-bell"></i>
-  //       <div className="position-absolute thongbaoNum">1</div>
-  //     </div>
-  //     <div className={style.userShow}>
-  //       <img className={style.avatarImg} src="/img/avatar.jpeg"/>
-  //     </div>
-  //   </div>)

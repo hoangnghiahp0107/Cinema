@@ -12,9 +12,9 @@ import "./test.css";
 // import required modules
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
-function TestComponent() {
+export default function App() {
   return (
-    <div className="test">
+    <>
       <Swiper
         direction={"vertical"}
         slidesPerView={"auto"}
@@ -142,8 +142,6 @@ function TestComponent() {
           </p>
         </SwiperSlide>
       </Swiper>
-    </div>
-  )
+    </>
+  );
 }
-
-export default TestComponent

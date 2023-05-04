@@ -7,6 +7,7 @@ function Header() {
   const [isVisibleRapChieu, setIsVisibleRapChieu] = useState(false);
   const [isVisibleLichChieu, setIsVisibleLichChieu] = useState(false);
   const [isVisibleBlockChieu, setIsVisibleBlockChieu] = useState(false);
+
   return (
     <div className="sticky-top bg-white bg-opacity-75 py-3">
       <div className="container mx-auto d-flex justify-content-between align-items-center">

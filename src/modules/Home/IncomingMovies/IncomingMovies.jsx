@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Card from 'react-bootstrap/Card';
-import BtnPlay from "../../../components/Button/BtnPlay/BtnPlay";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import {Autoplay, Pagination, Navigation } from "swiper";
+import {useNavigate} from "react-router-dom";
+
+import BtnPlay from "../../../components/Button/BtnPlay/BtnPlay";
 
 // api
 import { apiGetMovies } from "../../../apis/movieAPI";
@@ -15,11 +18,11 @@ import "swiper/css/pagination";
 import "./IncomingMovies.scss";
 
 // import required modules
-import {Autoplay, Pagination, Navigation } from "swiper";
 
 function IncomingMovies() {
   const [movies, setMovies] = useState([]);
   const [err, setErr] = useState(null);
+  const navigate = useNavigate();
   const getMovies = async () => {
     try {
       const data = await apiGetMovies();
@@ -61,7 +64,7 @@ function IncomingMovies() {
           {movies.map((item, index) => {
             return (
               <SwiperSlide key={item.maPhim} className="swiperIncomingMovies-slide -mx-5">
-                <Card style={{ width: '18rem', backgroundColor: 'transparent'}}>
+                <Card style={{ width: '18rem', backgroundColor: 'transparent'}} onClick={() => navigate(`/movie/${item.maPhim}`)}>
                   <div className="incomingMovieHeader">
                     <Card.Img variant="top" className="incomingMovieImg" src={item.hinhAnh} alt={item.biDanh}/>
                     <p className="numMovies">{index+1}</p>
@@ -72,7 +75,7 @@ function IncomingMovies() {
                     
                   </div>
                   <Card.Body className="text-white mt-2 p-0">
-                    <a href="" className="infoMovies text-start">
+                    <a href="" className="infoMovies text-start" onClick={() => navigate(`/movie/${item.maPhim}`)}>
                       <Card.Title className="nameMovie">
                         {item.tenPhim}
                      </Card.Title>

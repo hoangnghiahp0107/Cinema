@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const maNhom = 'GP03';
+
 const axiosClient = axios.create({
     baseURL: 'https://movienew.cybersoft.edu.vn/api',
     headers: {

@@ -93,6 +93,8 @@
                 justify-content: space-between;
                 padding: 0.5rem 1rem;
                 border-bottom: solid 1px $header-border-color;
+                cursor: pointer;
+                transition: all 0.3s;
                 &:hover{
                     background-color: $bg-pink-color;
                 }
@@ -187,6 +189,7 @@
                             align-items: center;
                             overflow: hidden;
                             padding: 0 4px;
+                            cursor: pointer;
                             &:hover img{
                                 scale: 1.1;
                             }
@@ -195,6 +198,7 @@
                                 width: 100%;
                                 height: 100%;
                                 display: block;
+                                transition: all 0.3s;
                             }
                         }
                         .movieDetail_right{
@@ -202,6 +206,7 @@
                             .movieName{
                                 font-weight: 600;
                                 color: $text-dark-color;
+                                cursor: pointer;
                             }
                             .showTimeMovie{
                                 
@@ -218,6 +223,7 @@
                                     display: flex;
                                     align-items: center;
                                     font-weight: 600;
+                                    cursor: pointer;
                                     &:hover{
                                         border: solid 1px $pink-primary;
                                         span{
@@ -225,6 +231,7 @@
                                         }
                                     } 
                                     span{
+                                        transition: all 0.2s;
                                         padding-left: 6px;
                                         font-size: 0.8rem;
                                         color: $blue-color;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 import {apiGetCinema} from "../../../apis/movieAPI";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,7 +20,7 @@ function CumRap({heThongCumRap}) {
     const [cumRap, setCumRap] = useState([]);
     const [lichChieu, setLichChieu] = useState(null);
     // console.log(cumRap[0]?.lstCumRap[0]);
-
+    const navigate = useNavigate();
   const getInfoCumRap = async () => {
     try {
       const data = await apiGetCinema(heThongCumRap?.maHeThongRap);
@@ -61,6 +62,7 @@ function CumRap({heThongCumRap}) {
   return (
     <div className="row">
         <div className={`${style.left} col-4`}>
+          {/* render cụm rạp CGV, Galaxy... */}
         <Swiper
             direction={"vertical"}
             slidesPerView={"auto"}
@@ -114,9 +116,10 @@ function CumRap({heThongCumRap}) {
                                     <p>Thời gian chiếu</p>
                                     <div className="row">
                                         {item.lstLichChieuTheoPhim.map((timeShow, index) => {
+                                          // console.log(timeShow);
                                             return(
                                                 <div className="col-3 px-1" key={index}>
-                                                    <div className={style.showTimeMovieDetail}><span>{timeShow.ngayChieuGioChieu}</span></div>
+                                                    <div className={style.showTimeMovieDetail} onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}><span>{timeShow.ngayChieuGioChieu}</span></div>
                                                 </div>
                                             )
                                         })}

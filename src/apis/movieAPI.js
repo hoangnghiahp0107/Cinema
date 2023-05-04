@@ -1,5 +1,7 @@
 import axiosClient from "./axiosClient";
 
+
+// lấy ds lịch chiếu phim
 export const apiGetMovies = async () => {
     const {data} = await axiosClient.get('/QuanLyPhim/LayDanhSachPhim', {
         params: {
