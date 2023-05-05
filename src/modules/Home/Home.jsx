@@ -5,7 +5,6 @@ import ShowTimes from './ShowTimes/ShowTimes';
 import IncomingMovies from './IncomingMovies/IncomingMovies';
 import Footer from '../../components/Footers/Footer';
 
-
 function Home() {
   return (
     <>
@@ -17,7 +16,6 @@ function Home() {
 
         <ShowTimes />
 
-        <Footer/>
     </>
   )
 }

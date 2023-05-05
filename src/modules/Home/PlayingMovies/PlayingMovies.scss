@@ -23,6 +23,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 450px;
+        padding: 0;
             &img {
             display: block;
             width: 100%;
@@ -35,7 +37,7 @@
             border-radius: 5px;
             border: solid 1px $header-border-color;
             overflow: hidden;
-
+            height: 300px;
             &:hover .playingMovieImg{
                 scale: 1.1;
                 transition: all 0.3s;
@@ -75,7 +77,12 @@
             }
         }
 
+        .card-body{
+            height: 130px;
+        }
+
         .infoMovies{
+            height: 90px;
             .nameMovie{
                 font-size: 1rem;
                 font-weight: 600;
@@ -96,7 +103,7 @@
             background-color: #fff;
             border: solid 1px $text-dark-color;
             border-radius: 100%;
-            top: 45%;
+            top: 35%;
             &::after {
                 font-size: 20px;
             }

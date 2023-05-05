@@ -18,6 +18,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        height: 450px;
+        padding: 0;
             &img {
             display: block;
             width: 100%;
@@ -31,7 +33,7 @@
             border-radius: 5px;
             border: solid 1px $text-dark-color;
             overflow: hidden;
-
+            height: 300px;
             &:hover .incomingMovieImg{
                 scale: 1.1;
                 transition: all 0.3s;
@@ -71,6 +73,9 @@
             }
         }
 
+        .card-body{
+            height: 130px;
+        }
 
         .infoMovies{
             .nameMovie{
@@ -94,7 +99,7 @@
             background-color: #fff;
             border: solid 1px $text-dark-color;
             border-radius: 100%;
-            top: 45%;
+            top: 35%;
             &::after {
                 font-size: 20px;
             }
@@ -112,7 +117,7 @@
 
 
           .swiper-pagination{
-            bottom: -2%;
+            bottom: -3%;
             .swiper-pagination-bullet {
               padding: 3px;
               margin: 9px;

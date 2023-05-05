@@ -39,7 +39,7 @@ function Banner() {
           rewind={true}
           // effect={"fade"}
           speed={1000}
-          spaceBetween={30}
+          // spaceBetween={30}
           // centered
           pagination={{
             el: `.${style.swiper_pagination}`,

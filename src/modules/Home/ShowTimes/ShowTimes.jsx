@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {apiGetListHeThongCumRap, apiGetCinema} from "../../../apis/movieAPI";
-
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/free-mode";
-import "swiper/css/scrollbar";
+import {apiGetListHeThongCumRap} from "../../../apis/movieAPI";
 
 //my scss
 import style from "./ShowTimes.module.scss";
 
-// import required modules
-import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 import CumRap from './CumRap';
 
 function ShowTimes() {
