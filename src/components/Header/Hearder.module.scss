@@ -1,0 +1,88 @@
+// @import "../../../node_modules/bootstrap/scss/variables";
+@import "../../index.scss";
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: $pink-primary;
+    &::before {
+        content: '';
+        border-left: 2px solid rgb(82 82 82 / 30%);
+        position: absolute;
+        left: 40px;
+        top: calc(50% - 10px);
+        width: 0;
+        height: 20px;
+    };
+    &:hover {
+        color: $pink-primary;
+        cursor: pointer;
+        scale: 1.1;
+        transition: all 0.2s;
+    };
+}
+.headeRapChieu {
+    width: 350px;
+    transform: translateY(25px);
+    border: solid 1px $header-border-color;
+    border-radius: 5px;
+    background-color: white;
+    &::before {
+        border: solid transparent;
+        content: " ";
+        display: block;
+        height: 0;
+        position: absolute;
+        pointer-events: none;
+        width: 0;
+        top: -26px;
+        border-bottom-color: white;
+        left: 8%;
+        margin-left: -13px;
+        border-width: 13px;
+        z-index: 10;
+    };
+    &::after {
+        border: solid transparent;
+        content: " ";
+        display: block;
+        height: 0;
+        position: absolute;
+        pointer-events: none;
+        width: 0;
+        bottom: 100%;
+        border-bottom-color: $header-border-color;
+        left: 8%;
+        margin-left: -14px;
+        border-width: 14px;
+    };
+}
+
+
+
+.headerRapChieuItem:hover {
+    background-color: $bg-pink-color;
+    border-radius: 5px;
+    color: $pink-primary;
+    cursor: pointer;
+}
+
+// .my-ticket:before {
+//     content: '';
+//     border-left: 1px solid rgb(82 82 82 / 30%);
+//     position: absolute;
+//     left: 36px;
+//     top: calc(50% - 10px);
+//     width: 0;
+//     height: 20px;
+// }
+
+
+.textHeaderHover{
+    &:hover {
+        color: $pink-primary;
+        cursor: pointer;
+    }
+}
