@@ -145,3 +145,34 @@
 //     </>
 //   );
 // }
+import React from "react";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+function TestComponent() {
+  const MySwal = withReactContent(Swal);
+  const handleClick = () => {
+    MySwal.fire({
+      title: "Bạn có chắc chắn muốn xóa?",
+      text: "Bạn sẽ không thể khôi phục lại dữ liệu sau khi xóa!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Có, xóa đi!",
+      cancelButtonText: "Không, hủy bỏ!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Xử lý khi người dùng xác nhận xóa
+      }
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>click </button>
+    </div>
+  );
+}
+
+export default TestComponent;

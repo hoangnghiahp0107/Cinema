@@ -1,28 +1,28 @@
-import axios from 'axios';
+import axios from "axios";
 // import {refreshTokenFn} from './refreshToken';
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
-export const maNhom = 'GP03';
+export const maNhom = "GP03";
 
 const axiosClient = axios.create({
-    baseURL: 'https://movienew.cybersoft.edu.vn/api',
-    headers: {
-        TokenCybersoft: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA0MiIsIkhldEhhblN0cmluZyI6IjMwLzA5LzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY5NjAzMjAwMDAwMCIsIm5iZiI6MTY2NzA2MjgwMCwiZXhwIjoxNjk2MTc5NjAwfQ.i6JqYnGkwyHl6dkDHnjFWbPfBEl2l4SXAp4r7h9Ecpw',
-    },
+  baseURL: "https://movienew.cybersoft.edu.vn/api",
+  headers: {
+    TokenCybersoft:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCA0MiIsIkhldEhhblN0cmluZyI6IjMwLzA5LzIwMjMiLCJIZXRIYW5UaW1lIjoiMTY5NjAzMjAwMDAwMCIsIm5iZiI6MTY2NzA2MjgwMCwiZXhwIjoxNjk2MTc5NjAwfQ.i6JqYnGkwyHl6dkDHnjFWbPfBEl2l4SXAp4r7h9Ecpw",
+  },
 });
 
 axiosClient.interceptors.request.use((confign) => {
-    // config: chứa thông tin của request từ client gửi lên sever
+  // config: chứa thông tin của request từ client gửi lên sever
 
-    // thêm key Authorization vào headers của request nếu user đã đăng nhập
-    const user = JSON.parse(localStorage.getItem('user'));
-    if(user) {
-        confign.headers.Authorization = `Bearer ${user.accessToken}`;
-    }
-    console.log(confign);
-    return confign;
-}
-);
+  // thêm key Authorization vào headers của request nếu user đã đăng nhập
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
+    confign.headers.Authorization = `Bearer ${user.accessToken}`;
+  }
+  console.log(confign);
+  return confign;
+});
 
 //nếu lỗi token tự động get new token nếu localstore có dữ liệu user và pass
 // axiosClient.interceptors.response.use(
@@ -49,25 +49,25 @@ axiosClient.interceptors.request.use((confign) => {
 
 axiosClient.interceptors.response.use(
   (response) => {
-      return response
+    return response;
   },
   (error) => {
-      // xử lý lỗi chung, vd 401
-      if(error.response.status === 401) {
-          localStorage.removeItem('user');
-          // khác navigate của react-router-dom là sẽ reload trình duyệt mất luôn state của redux
-          // window.lo.replaceState(null, "/signin")
-          swal({
-            title: "Đã xảy ra lỗi đăng nhập",
-            text: "Nhấn Ok để đăng nhập lại!",
-            icon: "error",
-          })
-          .then((willSuccess) => {
-            if (willSuccess) {
-                window.location.href = '/signin';
-            } 
-          });
-      }
+    // xử lý lỗi chung, vd 401
+    if (error.response.status === 401) {
+      localStorage.removeItem("user");
+      // khác navigate của react-router-dom là sẽ reload trình duyệt mất luôn state của redux
+      // window.lo.replaceState(null, "/signin")
+      swal({
+        title: "Đã xảy ra lỗi đăng nhập",
+        text: "Nhấn Ok để đăng nhập lại!",
+        icon: "error",
+      }).then((willSuccess) => {
+        if (willSuccess) {
+          window.location.href = "/signin";
+        }
+      });
+    }
+    throw error;
   }
 );
 
