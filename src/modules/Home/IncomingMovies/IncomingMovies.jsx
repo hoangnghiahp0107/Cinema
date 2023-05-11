@@ -64,9 +64,9 @@ function IncomingMovies() {
           {movies.map((item, index) => {
             return (
               <SwiperSlide key={item.maPhim} className="swiperIncomingMovies-slide -mx-5">
-                <Card style={{ width: '18rem', backgroundColor: 'transparent'}} onClick={() => navigate(`/movie/${item.maPhim}`)}>
+                <Card style={{ width: '18rem', backgroundColor: 'transparent'}} >
                   <div className="incomingMovieHeader">
-                    <Card.Img variant="top" className="incomingMovieImg" src={item.hinhAnh} alt={item.biDanh}/>
+                    <Card.Img variant="top" className="incomingMovieImg" src={item.hinhAnh} alt={item.biDanh} onClick={() => navigate(`/movie/${item.maPhim}`)}/>
                     <p className="numMovies">{index+1}</p>
                     {item.hot && <img className="hotMovies" src="https://cse.tlu.edu.vn/Portals/0/icon-hot.png" alt="" />}
                     <div className="playTrailerMovie">

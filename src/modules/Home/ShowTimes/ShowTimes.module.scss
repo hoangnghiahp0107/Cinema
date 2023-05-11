@@ -51,6 +51,7 @@
             border-right: solid 1px $header-border-color;
             padding-right: 0;
             height: 550px;
+            overflow: scroll;
             .swiper {
                 width: 100%;
                 height: 100%;
@@ -138,6 +139,7 @@
         .right{
             padding-left: 0;
             height: 550px;
+            overflow: scroll;
             .swiper {
                 width: 100%;
                 height: 100%;
@@ -149,6 +151,7 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 padding: 0 !important;
+                // height: 550px;
               }
             .mySwiper{
                 // height: 550px;
@@ -168,9 +171,6 @@
                             font-size: 0.8rem;
                             color: $text-secondary-color;
                         }
-                    }
-                    .realTime{
-    
                     }
                 }
     

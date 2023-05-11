@@ -31,7 +31,6 @@ function PlayingMovies() {
       setMovies((data.content).filter((item) => {
         return item.dangChieu === true;
       }));
-
     } catch (err) {
       console.log(err);
       setErr(err)
@@ -65,11 +64,12 @@ function PlayingMovies() {
           className='swiperPlayingMovies'
         >
           {movies.map((item, index) => {
+            // console.log(item.trailer);
             return (
               <SwiperSlide key={item.maPhim} className="swiperPlayingMovies-slide -mx-5">
-                <Card style={{ width: '18rem', backgroundColor: 'transparent'}} onClick={() => navigate(`/movie/${item.maPhim}`)}>
+                <Card style={{ width: '18rem', backgroundColor: 'transparent'}} >
                   <div className="playingMovieHeader">
-                    <Card.Img variant="top" className="playingMovieImg" src={item.hinhAnh} alt={item.biDanh}/>
+                    <Card.Img variant="top" className="playingMovieImg" src={item.hinhAnh} alt={item.biDanh} onClick={() => navigate(`/movie/${item.maPhim}`)}/>
                     <p className="numMovies">{index+1}</p>
                     {item.hot && <img className="hotMovies" src="https://cse.tlu.edu.vn/Portals/0/icon-hot.png" alt="" />}
                     <div className="playTrailerMovie">
@@ -78,7 +78,7 @@ function PlayingMovies() {
                     
                   </div>
                   <Card.Body className="text-white mt-2 p-0">
-                    <a href="" className="infoMovies text-start" onClick={() => navigate(`/movie/${item.maPhim}`)}>
+                    <a href="#" className="infoMovies text-start" onClick={() => navigate(`/movie/${item.maPhim}`)}>
                       <Card.Title className="nameMovie">
                         {item.tenPhim}
                      </Card.Title>

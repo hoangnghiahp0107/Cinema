@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // Import Swiper React components
 import  {Swiper,SwiperSlide} from 'swiper/react';
-import {apiGetBanners,apiGetMovieDetails} from '../../../apis/movieAPI';
+import {apiGetBanners} from '../../../apis/movieAPI';
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,8 +10,6 @@ import style from './Banner.module.scss';
 // import required modules
 import {EffectFade, Autoplay, Pagination, Navigation, Controller } from "swiper";
 
-// import btn play
-import BtnPlay from '../../../components/Button/BtnPlay/BtnPlay';
 
 function Banner() {
   const [banner, setBanner] = useState([]);

@@ -1,12 +1,9 @@
+@import "../../index.scss";
 
 .movie {
-    background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
+    background-color: $bg-dark-color;
     background-repeat: no-repeat;
     background-size: cover;
-    // background: hsla(0.25);
-    width: 100%;
-    height: 100vh;
-    position: absolute;
 }
 .screen {
     border-bottom: 15px solid #ffa008;
@@ -21,10 +18,7 @@
 .seatNum {
     font-size: 14px;
 }
-.seat {
-    height: 35px;
-    width: 35px;
-}
+
 
 .seatStatus {
     display: flex;

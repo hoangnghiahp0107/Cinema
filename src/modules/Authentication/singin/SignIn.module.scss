@@ -16,10 +16,10 @@
     transition-property: all;
     transition-timing-function: cubic-bezier(.4,0,.2,1);
     transition-duration: .15s;
-    // &:hover {
-    //     --tw-bg-opacity: 1;
-    //     background-color: rgb(193 23 124/var(--tw-bg-opacity));
-    // };
+    &:hover {
+        --tw-bg-opacity: 0.7;
+        background-color: rgb(193 23 124/var(--tw-bg-opacity));
+    };
 }
 
 .quenPass{

@@ -10,3 +10,9 @@ export const apiSignUp = async (value) => {
     const {data} = await axiosClient.post('/QuanLyNguoiDung/DangKy', payload);
     return data;
 };
+
+export const apiGetInfoUser = async (user) => {
+    const { data } = await axiosClient.post(`/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${user}`);
+    console.log(data);
+    return data;
+};
