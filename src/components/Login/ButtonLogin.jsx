@@ -1,76 +1,41 @@
-import React, {useEffect, useState} from "react";
-import { Animated } from "react-animated-css";
-import {Modal, Button} from 'react-bootstrap';
+import React from "react";
+import {Button} from 'react-bootstrap';
 import {useSelector, useDispatch } from "react-redux";
-import {useParams} from 'react-router-dom';
-
-import SignIn from "../../modules/Authentication/singin/SignIn";
+import {useNavigate} from 'react-router-dom';
+import swal from 'sweetalert';
 import { signout } from "../../slices/userSlice";
+import { removeRegisUser } from "../../slices/regisUserSlice";
 // my style
 import style from "./ButtonLogin.module.scss";
 
 function ButtonLogin() {
   // debugger;
-  const {bookingID} = useParams();
   const {user} = useSelector((state) => state.user);
-  const [isLogin, setIsLogin] = useState(false);
-  // chờ nếu có user -> đăng nhập thành công tắt form bằng cách set cờ về false
-  // ngược lại nếu là trang booking chưa login bật cờ để user login
-  useEffect(() => {
-    if(user) {
-      setIsLogin(false);
-    }
-  },[user]);
-
-  // nếu là trang booking và ko có user -> bật bật cờ đăng nhập
-  // phải chờ sau lần render đầu tiên và nếu có bookingID thay đổi mới set cờ
-  useEffect(() => {
-    if(bookingID && !user) setIsLogin(true);
-  }, [bookingID])
-
-  const handleLogin = (event) => {
-    setIsLogin(true);
-    event.preventDefault();
-  }
-
-  const handleClose = () => {
-    setIsLogin(false);
-  }
+  console.log(user?.accessToken);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   // logout
   const handleSignOut = () => {
-    dispatch(signout());
-    localStorage.removeItem('user');
+    swal({
+      title: "Bạn có muốn đăng xuất!",
+      text: "Nhấn Ok để tiếp tục!",
+      icon: "warning",
+      buttons: true,
+    })
+    .then((willSuccess) => {
+      if (willSuccess) {
+        dispatch(signout());
+        dispatch(removeRegisUser());
+        localStorage.removeItem('user');
+      } 
+    });
   }
 
   return (
     <div>
       {/* btn đăng nhập */}
-      {!user && <Button onClick={() => setIsLogin(true)} disabled={isLogin} bsPrefix={style.btnPrimary}>ĐĂNG NHẬP</Button>}
-      
-      <Animated
-        className="position-absolute z-10"
-        animationIn="fadeInUp"
-        animationOut="fadeOutUp"
-        animationInDuration={300}
-        animationOutDuration={200}
-        isVisible={isLogin}
-      >
-        <Modal show={isLogin} onHide={handleClose} className="text-light-emphasis" >
-          <Modal.Header>
-              <ul className={style.headerLogin}>
-                <li className={`ms-1 ${isLogin? style.active : ''}`}>
-                  <a href="" onClick={handleLogin}>Đăng nhập</a>
-                </li>
-                {/* <li className={`ms-3 ${isRegister? style.active : ''}`}>
-                  <a href="" onClick={handleRegister}>Đăng ký</a>
-                </li> */}
-              </ul>
-          </Modal.Header>
-          <SignIn />
-        </Modal>
-      </Animated>
+      {!user && <Button onClick={() => navigate('/signin')} bsPrefix={style.btnPrimary}>ĐĂNG NHẬP</Button>}
 
       {/* avatar */}
       {user && (
@@ -80,9 +45,9 @@ function ButtonLogin() {
             <div className="position-absolute thongbaoNum">1</div>
           </div>
           <div className={style.userShow}>
-            <img className={style.avatarImg} src="/img/avatar.jpeg"/>
+            <img className={style.avatarImg} alt='' src="/img/avatar.jpeg"/>
           </div>
-          <button onClick={handleSignOut}>Đăng xuất</button>
+          <button className="ms-3 btn btn-danger" onClick={handleSignOut}>Đăng xuất</button>
         </div>)}
     </div>
   );

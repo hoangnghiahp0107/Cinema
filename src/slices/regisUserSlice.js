@@ -23,7 +23,11 @@ const initialState = {
 const regisUserSlice = createSlice ({
     name : 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        removeRegisUser: (state, action) => {
+            return {...state, user: null}
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(signup.pending, (state) => {
             return {...state, isLoading: true, error: null}
@@ -36,5 +40,7 @@ const regisUserSlice = createSlice ({
         });
     }
 })
+
+export const {removeRegisUser} = regisUserSlice.actions;
 
 export default regisUserSlice.reducer;

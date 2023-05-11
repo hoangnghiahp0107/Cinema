@@ -3,7 +3,6 @@ import Banner from './Banner/Banner';
 import PlayingMovies from './PlayingMovies/PlayingMovies';
 import ShowTimes from './ShowTimes/ShowTimes';
 import IncomingMovies from './IncomingMovies/IncomingMovies';
-import Footer from '../../components/Footers/Footer';
 
 function Home() {
   return (

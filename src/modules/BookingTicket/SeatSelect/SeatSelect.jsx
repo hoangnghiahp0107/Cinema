@@ -1,73 +1,106 @@
-import {React} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { seat_remove} from '../reducers/moviesreducer';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+import { seat_cancle} from '../../../slices/ticketSlice';
+import {datve, booking_remove} from '../../../slices/datVeSlice';
+import style from './SeatSelect.module.scss'
+
 
 
 function SeatSelect() {
-
+    const navigate = useNavigate();
     const dispath = useDispatch();
-    const {carts} = useSelector((state) => state.moviesReducer);
-
+    const {carts, thongTinPhim, isLoading, error} = useSelector((state) => state.ticket);
+    // console.log();
     const total = carts.reduce((tol, item) => {
-        return tol + item.gia;
+        return tol + item.giaVe;
     },0)
-    const removeBook = (seat) => {
-        dispath(seat_remove(seat));
+    const handleCancle = () => {
+        dispath(seat_cancle());
     }
-  return (
-    <>
-        <h3 className='text-center text-light mt-5'>DANH SÁCH GHẾ BẠN CHỌN</h3>
-        <div className="seatStatus">
-            <div className="seatDone seatBtn"></div>
-            <span>Ghế đã đặt</span>
-        </div>
-        <div className="seatStatus mt-3">
-            <div className="seatSelecting seatBtn">
-            </div>
-            <span>Ghế đang chọn</span>
-        </div>
-        <div className="seatStatus mt-3">
-            <div className="seatEmpty seatBtn">
-            </div>
-            <span>Ghế chưa đặt</span>
-        </div>
-        <div className="w-75 " data-bs-scroll="true" >
-            <table className="table table-bordered mt-4 text-light">
-                <thead>
-                    <tr>
-                        <th scope="col">Số ghế</th>
-                        <th scope="col">Giá</th>
-                        <th scope="col">Hủy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {carts.map((seat,index) => {
-                        return (
-                            <tr key={index} className='fs-6'>
-                                <td >{seat.soGhe}</td>
-                                <td>{(seat.gia).toLocaleString()}</td>
-                                <td className='p-1 m-auto text-center'>
-                                    <button
-                                        type="button" 
-                                        className="btn btn-danger btn-sm"
-                                        onClick={() => removeBook(seat)}
-                                    >x</button>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                    <tr>
-                        <td>Tổng</td>
-                        <td colSpan="2">{total.toLocaleString()}</td>
-                    </tr>
-                    <tr>
-                        <button className='btn btn-success w-100'>Thanh Toán</button>
-                    </tr>
-                </tbody>
-            </table>
+    let danhSachVe =[];
+    danhSachVe = carts.map((item) => {
+        return {...danhSachVe, 'maGhe': item.maGhe,'giaVe': item.giaVe}
+    })
 
+    const datVe = {
+        "maLichChieu": thongTinPhim.maLichChieu,
+        "danhSachVe": danhSachVe,
+      }
+    //   console.log('datVe.danhSachVe :',datVe.danhSachVe );
+    const handlePay = () => {
+        dispath( datve(datVe));
+    }
+
+    const {listTicket} = useSelector((state) => state.datve);
+    // console.log('lisTicket: ',listTicket);
+    // console.log('listTicket error: ',error);
+    if(listTicket.length) {
+        swal({
+            title: "Bạn đã đặt vé thành công",
+            text: "Nhấn Ok để tiếp tục!",
+            icon: "success",
+          })
+          .then((willSuccess) => {
+            if (willSuccess) {
+                navigate('/info-ticketed', {state:{thongTinPhim, carts, total}});
+                dispath(booking_remove());
+                dispath(seat_cancle());
+            } 
+          });
+    }
+    // if(!error) dispath(seat_cancle());
+
+    if(isLoading) return (
+        <div className="h-100vh d-flex justify-content-center align-items-center">
+          <img src='img/loading.gif' alt="" />
         </div>
-    </>
+      )
+    
+  return (
+    <div className={`${style.seatSelect} container`}>
+        <div className="col-4">
+            <div className={style.infoMovie}>
+                <img src={thongTinPhim.hinhAnh} alt={thongTinPhim.tenPhim} />
+                <p>{thongTinPhim.tenPhim}</p>
+            </div>
+        </div>
+        <div className="col-4 ps-5">
+            <div className={style.ticketDetail}>
+                <div className={style.ticketItem}>Rap: <span>{thongTinPhim.tenCumRap}</span></div>
+                <div className={style.ticketItem}>Suất chiếu: <span>{thongTinPhim.gioChieu}, {thongTinPhim.ngayChieu}</span></div>
+                <div className={style.ticketItem}>Phòng chiếu: <span>{thongTinPhim.tenRap}</span></div>
+                {carts.length ? (
+                    <div>
+                        <div className={style.ticketItem}>Ghế: 
+                            {carts.map((item, index) => {
+                                return (
+                                    <span key={index}>{index !== 0 && '-' } {item.tenGhe} </span>
+                                )
+                            })}
+                        </div>
+                        <div className='my-3'><button onClick={() => handleCancle()} className='btn btn-danger px-5'>Hủy</button></div>
+                    </div>
+
+                ) : ''}
+            </div>
+        </div>
+        <div className="col-4 ps-5">
+            <div className={style.tickPrice}>
+                Tổng: <span>{total.toLocaleString()} đ</span>
+                <div className={style.pay}>
+                    <button 
+                        className={`${style.btnPay} ${datVe.danhSachVe.length ? style.btnPay_Hover : ''}`} 
+                        disabled={datVe.danhSachVe.length ? false : true} 
+                        onClick={()=>handlePay()}
+                        >
+                            Thanh Toán
+                        </button>
+                </div>
+            </div>
+        </div>
+    </div>
   )
 }
 

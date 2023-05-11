@@ -1,5 +1,5 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import { apiSignIn, apiSignUp } from '../apis/userAPI';
+import { apiSignIn } from '../apis/userAPI';
 
 // create thunk
 // asyn action

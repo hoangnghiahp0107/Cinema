@@ -64,14 +64,14 @@ function CumRap({heThongCumRap}) {
         <div className={`${style.left} col-4`}>
           {/* render cụm rạp CGV, Galaxy... */}
         <Swiper
-            direction={"vertical"}
-            slidesPerView={"auto"}
-            freeMode={true}
-            scrollbar={true}
-            mousewheel={true}
-            modules={[FreeMode, Scrollbar, Mousewheel]}
+           direction={"vertical"}
+           slidesPerView={"auto"}
+           freeMode={true}
+           scrollbar={true}
+           mousewheel={true}
+           modules={[FreeMode, Scrollbar, Mousewheel]}
             className={style.mySwiper}
-            isactive={true}
+            // isactive={true}
           >
             <SwiperSlide className={style.swiper_slide}>
                 <div className={style.searchCinema}>
@@ -90,6 +90,7 @@ function CumRap({heThongCumRap}) {
             freeMode={true}
             scrollbar={true}
             mousewheel={true}
+            // draggable={true}
             modules={[FreeMode, Scrollbar, Mousewheel]}
             className={style.mySwiper}
           >
@@ -102,9 +103,7 @@ function CumRap({heThongCumRap}) {
                     </div>
                 </div>
                 <div className={style.body}>
-
                     {lichChieu?.danhSachPhim?.map((item, index) => {
-                        // console.log(item);
                         if(item.dangChieu) return (
                             <div className={`row ${style.movieDetail}`} key={index}>
                                 <div className={`col-4 ${style.movieDetail_left}`}>

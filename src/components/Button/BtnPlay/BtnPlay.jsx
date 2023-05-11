@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Modal,Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import { Animated } from "react-animated-css";
 // import ReactPlayer from 'react-player';
 import ReactPlayer from 'react-player/lazy'
@@ -10,9 +10,10 @@ function BtnPlay({wh, urlMovie}) {
 
   const handleCloseTrailerMovie = () => setShowTrailerMovie(false);
   const handleShowTrailerMovie = () => setShowTrailerMovie(true);
+  // console.log(showTrailerMovie);
   return (
     <>
-      <div onClick={handleShowTrailerMovie} className='showInfo' style={{ fontSize: `${wh/2}px`, width: `${wh}px`, height: `${wh}px` }}>
+      <div onClick={handleShowTrailerMovie} className='showInfo z-10' style={{ fontSize: `${wh/2}px`, width: `${wh}px`, height: `${wh}px` }}>
           <a className='showInfoLink'><i className='bi bi-play-fill iconPlay'></i></a>
       </div>
       <Animated animationIn="slideInDown" animationInDuration={1000} isVisible={showTrailerMovie}>
