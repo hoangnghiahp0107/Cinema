@@ -49,3 +49,12 @@ export const apiGetCinema = async (maHeThongRap) => {
     return data;
 };
 
+export const apiLayThongTinLichChieuPhim = async (MaPhim) => {
+    const {data} = await axiosClient.get('/QuanLyRap/LayThongTinLichChieuPhim', {
+        params: {
+            MaPhim: MaPhim,
+        },
+    });
+    return data;
+}
+

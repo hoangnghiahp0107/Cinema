@@ -11,8 +11,16 @@ export const apiSignUp = async (value) => {
     return data;
 };
 
+// lấy thông tin user đầy đủ
 export const apiGetInfoUser = async (user) => {
     const { data } = await axiosClient.post(`/QuanLyNguoiDung/LayThongTinNguoiDung?taiKhoan=${user}`);
-    console.log(data);
+    return data;
+};
+
+// update info user
+export const apiUpdateInfoUser = async (value) => {
+    console.log(value);
+    const data  = await axiosClient.post(`/QuanLyNguoiDung/CapNhatThongTinNguoiDung`, value);
+    // if(value ==)
     return data;
 };
