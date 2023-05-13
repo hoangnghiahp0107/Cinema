@@ -11,7 +11,6 @@ import style from "./ButtonLogin.module.scss";
 function ButtonLogin() {
   // debugger;
   const {user} = useSelector((state) => state.user);
-  console.log(user?.accessToken);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

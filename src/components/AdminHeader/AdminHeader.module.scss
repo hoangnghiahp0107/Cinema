@@ -1,0 +1,9 @@
+@import '../../index.scss';
+
+.btnPrimary{
+    @extend .btnPrimary;
+    // &:hover{
+    //     --tw-bg-opacity: 0.6;
+    //     background-color: rgb(216 45 139/var(--tw-bg-opacity));
+    // }
+}

@@ -1,12 +1,13 @@
 import React from 'react';
 import {useDispatch } from "react-redux";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom'
 import swal from 'sweetalert';
 import { signout } from "../../slices/userSlice";
 import { removeRegisUser } from "../../slices/regisUserSlice";
+import style from './AdminHeader.module.scss'
+
 function AdminHeader() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     // logout
       const handleSignOut = () => {
         swal({
@@ -23,9 +24,14 @@ function AdminHeader() {
           } 
         });
       }
+    
+      const navigate = useNavigate();
   return (
     <div className='py-3 d-flex justify-content-end'>
-        <button className='btn btn-primary me-4'>Trang chủ</button>
+        <button 
+          className={`btn me-4 ${style.btnPrimary}`}
+          onClick={()=>navigate('/')}
+          >Trang chủ</button>
         <button className='btn btn-danger me-5' onClick={handleSignOut}>Đăng xuất</button>
     </div>
   )

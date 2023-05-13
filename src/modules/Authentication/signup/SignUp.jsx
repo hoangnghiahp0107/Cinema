@@ -27,7 +27,6 @@ function SignUp() {
 
   const onSubmit = (data) => {
     dispatch(signup(data));
-    
   };
 
   const onErrer = (err) => {

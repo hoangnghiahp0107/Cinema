@@ -26,6 +26,7 @@ const SignIn = lazy(()=> import('./modules/Authentication/singin/SignIn'));
 
 const MovieManagement = lazy(()=> import('./modules/MovieManagement/MovieManagement'));
 const AdminInfoUser = lazy(()=> import('./modules/AdminInfoUser/AdminInfoUser'));
+const BookingTicketed = lazy(()=> import('./modules/TicketedHistory/TicketedHistory'));
 
 const TestComponent = lazy(()=> import('./test/TestComponent'));
 
@@ -62,15 +63,16 @@ function App() {
           </Route>
 
           <Route 
-            path='/admin' 
+            path='admin' 
             element = {
               <AdminRouter>
                 <AdminLayout/>
               </AdminRouter>
             }
             >
-              <Route path='info' element={<AdminInfoUser/>}/>
+              <Route index element={<AdminInfoUser/>}/>
               <Route path='movies' element={<MovieManagement/>}/>
+              <Route path='history' element={<BookingTicketed/>}/>
           </Route>
       </Routes>
       </BrowserRouter>
