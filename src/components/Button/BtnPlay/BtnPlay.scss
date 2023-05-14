@@ -1,0 +1,64 @@
+@import '../../../assets/config/variables';
+.showInfo {
+    position: absolute;
+    opacity: 0.8;
+    border: solid 2px $bg-pink-color;
+    border-radius: 100%;
+    overflow: hidden;
+    z-index: 100;
+    .showInfoLink {
+      background-color: $bg-dark-color;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      &:hover {
+        // opacity: 0.8;
+        background-color: black;
+        cursor: pointer;
+      };
+      .iconPlay {
+        color: white;
+        opacity: 0.9;
+      };
+    };
+  }
+
+.sizeModalTrailerMovie{
+  // width: 650px !important;
+  // margin: auto;
+  .modal-dialog{
+    .modal-content{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: inherit;
+      border: none;
+      
+      .player-wrapper{
+        border: solid 2px $bg-pink-color;
+        background-color: $bg-pink-color;
+        border-radius: 10px;
+        padding: 3px;
+        .react-player{
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .closeBtn{
+          position: absolute;
+          top: 0%;
+          right: 10%;
+          color: $text-secondary-color;
+          font-size: 27px;
+          cursor: pointer;
+        }
+      }
+  }
+  
+}
+}
+
+
+

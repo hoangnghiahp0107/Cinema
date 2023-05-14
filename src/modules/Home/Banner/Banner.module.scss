@@ -1,0 +1,135 @@
+@import '../../../index.scss';
+
+.banner {
+    background-color: black;
+    position: relative;
+    width: 100%;
+    max-height: 700px;
+    overflow: hidden;
+
+    .swiperBanner {     
+      // position: relative; 
+      overflow: hidden;
+      img{
+        display: block;
+        object-fit: cover;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+      .swiperBanner_slide{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+      }
+      // .swiper-wrapper {
+    
+
+      //     .playBanner{
+      //       transform: translate(-50%, -50%);
+      //       position: absolute;
+      //       top: 50%;
+      //       left: 50%;
+      //       height: 100px;
+      //       width: 100px;
+      //     }
+      //   }
+      // }
+      &::after {
+          background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, rgb(0, 0, 0) 70%);
+          height: 100%;
+          width: 10%;
+          content: " ";
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+      }
+      &::before {
+          background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(0, 0, 0) 70%);
+          height: 100%;
+          width: 10%;
+          content: " ";
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 2;
+      }
+    
+      
+      
+      .swiper-pagination-horizontal {
+        bottom: 35px;
+        >.swiper-pagination-bullet {
+          padding: 8px;
+          margin: 9px;
+          background-color: $bg-pink-color;
+          opacity: 0.6;
+          // bottom: 40px;
+  
+          &:hover {
+            background-color: $pink-primary;
+            opacity: 1;
+          };
+        }
+        .swiper-pagination-bullet-active {
+          background-color: $pink-primary;
+          opacity: 1;
+        }   
+      }
+    }
+  .prevs, .nexts{
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    color: $text-dark-color;
+    margin: 10px;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    font-size: 60px;
+    cursor: pointer;
+    &:hover {
+      color: $bg-light-color;
+    }
+  }
+  .prevs{
+    left: 0;
+  }
+
+  .nexts{
+    right: 0;
+  }
+
+  .swiper_pagination{
+    position: absolute;
+    text-align: center;
+    z-index: 11;
+    .bull{
+      margin: 12px !important;
+      // padding: 10px;
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 100%;
+      background-color: $pink-primary;
+      opacity: 0.6;
+      // background-color: $bg-pink-color;
+      &:hover{
+        opacity: 1;
+      }
+    }
+    .active{
+        opacity: 1;
+        z-index: 11;
+    }
+  }
+}
+
+
+
+
+
+
+
