@@ -1,0 +1,26 @@
+@import '../../../index.scss';
+.infoTicketed{
+    width: 75%;
+    margin: auto;
+    border-radius: 30px;
+    border: solid 1px $text-secondary-color;
+    background-color: $bg-pink-color;
+    padding: 30px;
+    img{
+        width: 80%;
+        border-radius: 8px;
+    }
+    ul{
+        list-style: none;
+        text-align: start;
+        li{
+            font-size: 20px;
+            margin-bottom: 10px;
+            padding: 4px 20px;
+            background-color: $bg-light-color;
+            border-radius: 4px;
+            border: solid 1px $header-border-color;
+            color: $text-dark-color;
+        }
+    }
+}

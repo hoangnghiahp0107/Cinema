@@ -1,0 +1,67 @@
+@import '../../index.scss';
+
+.btnPrimary {
+    @extend .btnPrimary;
+}
+.headerLogin {
+    list-style: none;
+    display: flex;
+    color: #525252;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 2rem;
+    
+    .active{
+        color: $pink-primary;
+        border-bottom: solid 2px $pink-primary;
+        padding: 10px 0;
+        a{ 
+            position: relative;
+            &::after {
+                color: $pink-primary;
+                border-bottom: solid 2px $pink-primary;
+                padding: 10px 0;
+                // transform: scale(1) 0.2s;
+                transform: scale(1);
+                transition: all 0.2s;
+                position: absolute;
+                content: '';
+                height: 1px;
+                bottom: 0   ;
+            }
+        }
+    }
+}
+
+.quenPass{
+    font-size: 1rem;
+    font-style: italic;
+    color: $text-dark-color;
+    &:hover{
+        transition: all 0.3s;
+        color: $pink-primary;
+        font-style: normal;
+    };
+}
+
+.userShow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: $bg-light-color;
+    &:hover{
+        background-color: $bg-pink-color;
+        color: $pink-primary;
+    }
+}
+
+.avatarImg{
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}

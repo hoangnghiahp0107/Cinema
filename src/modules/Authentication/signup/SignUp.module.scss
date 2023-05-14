@@ -1,0 +1,11 @@
+@import '../../../index.scss';
+
+.signUp{
+// background-color: black;
+// width: 50%;
+margin: auto;
+}
+
+.btnPrimary {
+    @extend .btnPrimary;
+}
