@@ -1,13 +1,25 @@
 import React, {useState} from 'react';
+import {useNavigate } from 'react-router-dom'
 import style from './AdminSideBar.module.scss';
 import Collapse from 'react-bootstrap/Collapse';
 
 function AdminSideBar() {
     const [activeFooterItem, setActiveFooterItem] = useState(1);
+    const navigate = useNavigate();
+    // debugger
     const handleFooterItem = (itemId) => {
-        if(activeFooterItem === itemId) return;
-        setActiveFooterItem((prevActiveItem) => (prevActiveItem === itemId ? null : itemId));
+        setActiveFooterItem(itemId);
       };
+
+    const handleThongTin = () => {
+        handleFooterItem(1);
+        navigate('info');
+    }
+
+    const handleHistory = () => {
+        handleFooterItem(2);
+        navigate('history');
+    }
     //   console.log(activeFooterItem);
     return (
     <div className={style.sideBar}>
@@ -19,7 +31,7 @@ function AdminSideBar() {
             <div>
                 <li 
                     className={`${style.footerItem} ${activeFooterItem === 1 ? style.action : ''}`}
-                    onClick={() => handleFooterItem(1)}
+                    onClick={handleThongTin}
                 >
                     Thông tin 
                 </li>
@@ -27,7 +39,7 @@ function AdminSideBar() {
             <div>
                 <li
                     className={`${style.footerItem} ${activeFooterItem === 2 ? style.action : ''}`}
-                    onClick={() => handleFooterItem(2)}
+                    onClick={handleHistory}
                 >Lịch sử đặt vé</li>
             </div>
             <div>

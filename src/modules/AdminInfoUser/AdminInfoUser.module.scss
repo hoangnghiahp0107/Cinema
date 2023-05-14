@@ -17,3 +17,23 @@
         cursor: pointer;
     }
 }
+
+.formBody{
+    .input{
+        margin-bottom: 10px;
+        span{
+            width: 10rem;
+        }
+    }
+    p{
+        margin-bottom: 10px;
+    }
+}
+
+.btnPrimary{
+    @extend .btnPrimary;
+    // &:hover{
+    //     --tw-bg-opacity: 0.6;
+    //     background-color: rgb(216 45 139/var(--tw-bg-opacity));
+    // }
+}

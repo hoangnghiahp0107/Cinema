@@ -3,6 +3,7 @@ import userReducer from './slices/userSlice';
 import regisUserReducer from './slices/regisUserSlice';
 import ticketSlice from './slices/ticketSlice';
 import datveSlice from './slices/datVeSlice';
+import infoUserSlice from './slices/infoUserSlice';
 
 const store = configureStore({
     reducer:{
@@ -10,6 +11,7 @@ const store = configureStore({
         regisUser: regisUserReducer,
         ticket: ticketSlice,
         datve: datveSlice,
+        infoUser: infoUserSlice,
     }
 })
 

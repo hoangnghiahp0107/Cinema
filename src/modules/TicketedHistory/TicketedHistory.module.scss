@@ -1,0 +1,46 @@
+@import '../../index.scss';
+
+.ticketedHistory{
+    h2{
+        background-color: $bg-dark-color;
+        color: $bg-light-color;
+        text-align: center;
+        margin: 3px;
+        padding: 5px;
+        border-radius: 4px;
+    }
+    .body{
+        margin: 3px;
+        border-radius: 4px;
+        background-color: $bg-pink-color;
+        border: solid 1px $header-border-color;
+        .listOrder{
+            color: $text-dark-color;
+            list-style: none;
+            .detailOrder{
+                padding: 10px 0 20px;
+                border-bottom: 1px solid $text-secondary-color;
+                .header{
+                    font-weight: 600;
+                }
+                .item{
+                    display: flex;
+                    margin-top: 10px;
+                    img{
+                        max-height: 230px;
+                        max-width: 130px;
+                        object-fit: contain;
+                    }
+                    .info{
+                        margin-left: 10px;
+                        p{
+                            margin: 0;
+                            font-size: 1rem;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+}
