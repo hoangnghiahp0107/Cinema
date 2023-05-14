@@ -75,8 +75,8 @@ function SignUp() {
                       message: 'Mật khẩu không được để trống',
                     },
                     pattern: {
-                      value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-                      message: 'Mật khẩu có ít nhất 6 ký tự bao gồm 1 ký tự hoa, thường',
+                      value: /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                      message: 'Mật khẩu có ít nhất 8 ký tự bao gồm 1 ký tự hoa, thường.',
                     },
                   })}/>
                 </InputGroup>
@@ -91,15 +91,15 @@ function SignUp() {
                         message: 'Mật khẩu không được để trống',
                       },
                       pattern: {
-                        value: /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-                        message: 'Mật khẩu có ít nhất 6 ký tự bao gồm 1 ký tự hoa, thường',
+                        value: /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                        message: 'Mật khẩu có ít nhất 8 ký tự bao gồm 1 ký tự hoa, thường.',
                       },
                     },{
                       validate: {
                         value: (value) => {
-                          const { password } = getValues();
-                          return password === value || "Passwords should match!";},
-                        message: 'Mật khẩu có ít nhất 8 ký tự bao gồm 1 ký tự hoa, thường và đặc biệt',
+                          const { matKhau } = getValues();
+                          return matKhau === value ? null : "Mật khẩu nhập lại không trùng khớp."},
+                        message: "Mật khẩu nhập lại không trùng khớp.",
                       },
                     })} />
                 </InputGroup>
