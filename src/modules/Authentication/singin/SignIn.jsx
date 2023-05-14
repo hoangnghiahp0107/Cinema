@@ -40,7 +40,7 @@ function SignIn() {
     });
   }
 
-  const onErrer = (err) => {
+  const onError = (err) => {
       console.log(err);
   }
 
@@ -53,7 +53,7 @@ function SignIn() {
   return (
     <div className="bg-bg-dark-color p-5">
       <div className="w-50 m-auto">
-        <form onSubmit={handleSubmit(onSubmit, onErrer)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <InputGroup className="mb-2">
             <InputGroup.Text className="row col-4 mx-1">Tài khoản</InputGroup.Text>
             <Form.Control 

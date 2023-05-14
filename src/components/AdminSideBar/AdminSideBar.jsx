@@ -13,7 +13,7 @@ function AdminSideBar() {
 
     const handleThongTin = () => {
         handleFooterItem(1);
-        navigate('info');
+        navigate('/admin');
     }
 
     const handleHistory = () => {
