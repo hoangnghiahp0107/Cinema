@@ -29,7 +29,7 @@ $custom-colors: (
     'text-dark-hover-color': #181818,
     'text-secondary-color': #a3a3a3,
     
-    'header-border-color': rgb(226 232 240),
+    'header-border-color': #e2e8f0,
 );
 
 // merge theo hướng dẫn của boóttrap5
@@ -130,4 +130,13 @@ a{
     background-color: $pink-600;
     color: map-get($custom-colors, 'bg-light-color');
   };
+}
+
+.titleAdmin {
+    background-color: $bg-dark-color;
+    color: $bg-light-color;
+    text-align: center;
+    margin: 3px;
+    padding: 5px;
+    border-radius: 4px;
 }

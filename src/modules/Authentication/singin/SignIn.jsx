@@ -23,7 +23,8 @@ function SignIn() {
     },
   });
 
-  const { user, isLoading, error } = useSelector((state) => state.user);
+  const {user, isLoading, error} = useSelector((state) => state.user);
+
 
   const onSubmit = (data) => {
     dispatch(signin(data));

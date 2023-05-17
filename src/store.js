@@ -4,6 +4,7 @@ import regisUserReducer from './slices/regisUserSlice';
 import ticketSlice from './slices/ticketSlice';
 import datveSlice from './slices/datVeSlice';
 import infoUserSlice from './slices/infoUserSlice';
+import danhSachPhimPhanTrangSlide from './slices/danhSachPhimPhanTrangSlide';
 
 const store = configureStore({
     reducer:{
@@ -12,6 +13,7 @@ const store = configureStore({
         ticket: ticketSlice,
         datve: datveSlice,
         infoUser: infoUserSlice,
+        listMoviePage: danhSachPhimPhanTrangSlide,
     }
 })
 
