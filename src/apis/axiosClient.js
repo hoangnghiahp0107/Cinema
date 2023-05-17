@@ -48,26 +48,25 @@ axiosClient.interceptors.request.use((confign) => {
 
 axiosClient.interceptors.response.use(
   (response) => {
-      return response
+    return response;
   },
   (error) => {
-      // xử lý lỗi chung, vd 401
-      if(error.response.status === 401) {
-          localStorage.removeItem('user');
-          // khác navigate của react-router-dom là sẽ reload trình duyệt mất luôn state của redux
-          // window.lo.replaceState(null, "/signin")
-          swal({
-            title: "Đã xảy ra lỗi đăng nhập",
-            text: "Nhấn Ok để đăng nhập lại!",
-            icon: "error",
-          })
-          .then((willSuccess) => {
-            if (willSuccess) {
-                window.location.href = '/signin';
-            } 
-          });
-      }
-      throw error;
+    // xử lý lỗi chung, vd 401
+    if (error.response.status === 401) {
+      localStorage.removeItem("user");
+      // khác navigate của react-router-dom là sẽ reload trình duyệt mất luôn state của redux
+      // window.lo.replaceState(null, "/signin")
+      swal({
+        title: "Đã xảy ra lỗi đăng nhập",
+        text: "Nhấn Ok để đăng nhập lại!",
+        icon: "error",
+      }).then((willSuccess) => {
+        if (willSuccess) {
+          window.location.href = "/signin";
+        }
+      });
+    }
+    throw error;
   }
 );
 
