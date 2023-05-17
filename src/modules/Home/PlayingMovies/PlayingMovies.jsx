@@ -40,7 +40,6 @@ function PlayingMovies() {
   useEffect(() => {
     getMovies();
   },[]);
-
   // nếu có lỗi thì return ko hiện
   if(err) return null;
   return (

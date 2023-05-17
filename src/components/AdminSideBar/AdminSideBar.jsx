@@ -52,8 +52,8 @@ function AdminSideBar() {
             </li>
             <Collapse in={activeFooterItem === 3}>
                 <ul className={style.listItem}>
-                    <li className={style.listItemDetail}>Danh sách phim</li>
-                    <li className={style.listItemDetail}>Thêm phim</li>
+                    <li onClick={()=>{navigate('movies')}} className={style.listItemDetail}>Danh sách phim</li>
+                    <li onClick={()=>navigate('addmovies')} className={style.listItemDetail}>Thêm phim</li>
                 </ul>
             </Collapse>
             </div>

@@ -14,7 +14,7 @@ function TicketedHistory() {
                 <div className="row">
                     <ul className={style.listOrder}>
                         {infoUser?.thongTinDatVe?.map((item, index) => {
-                            console.log(item);
+                            // console.log(item);
                         return (
                             <li className={style.detailOrder} key={index}>
                                 <div className={style.header}>

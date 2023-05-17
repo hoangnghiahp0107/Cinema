@@ -24,9 +24,11 @@ const InfoTicketed = lazy(()=> import('./modules/BookingTicket/InfoTicketed/Info
 const SignUp = lazy(()=> import('./modules/Authentication/signup/SignUp'));
 const SignIn = lazy(()=> import('./modules/Authentication/singin/SignIn'));
 
-const MovieManagement = lazy(()=> import('./modules/MovieManagement/MovieManagement'));
 const AdminInfoUser = lazy(()=> import('./modules/AdminInfoUser/AdminInfoUser'));
 const BookingTicketed = lazy(()=> import('./modules/TicketedHistory/TicketedHistory'));
+const MovieManagement = lazy(()=> import('./modules/MovieManagement/MovieManagement'));
+const MovieAddNew = lazy(()=> import('./modules/MovieManagement/MovieAddNew/MovieAddNew'));
+
 
 const TestComponent = lazy(()=> import('./test/TestComponent'));
 
@@ -71,8 +73,9 @@ function App() {
             }
             >
               <Route index element={<AdminInfoUser/>}/>
-              <Route path='movies' element={<MovieManagement/>}/>
               <Route path='history' element={<BookingTicketed/>}/>
+              <Route path='movies' element={<MovieManagement/>}/>
+              <Route path='addmovies' element={<MovieAddNew/>}/>
           </Route>
       </Routes>
       </BrowserRouter>

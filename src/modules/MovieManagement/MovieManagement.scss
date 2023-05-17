@@ -1,0 +1,80 @@
+@import '../../index.scss';
+
+.itemPagination{
+    border: none;
+    margin: 0 0.5rem;
+    height: 2rem;
+    width: 2rem;
+    background-color: inherit;
+    color: $pink-primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    &:hover{
+        background-color: $bg-pink-color;
+    }
+}
+
+.movieManagement{
+    h2{
+        @extend .titleAdmin;
+    }
+    .body{
+        margin: 3px;
+        border-radius: 4px;
+        background-color: $bg-pink-color;
+        border: solid 1px $header-border-color;
+        .table{
+            img{
+                max-width: 60px;
+                max-height: 90px;
+                object-fit: contain;
+            }
+        }
+    
+        .pagination{
+            display: flex;
+            justify-content: end;
+            .rc-pagination-prev{
+                .rc-pagination-item-link{
+                    @extend .itemPagination;
+                    &::after{
+                        content: '<';
+                    }
+                }
+                }
+            .rc-pagination-next{
+                .rc-pagination-item-link{
+                    @extend .itemPagination;
+                    &::after{
+                        content: '>';
+                    }
+                }
+            }
+            .rc-pagination-jump-next,
+            .rc-pagination-jump-prev{
+                .rc-pagination-item-link{
+                    @extend .itemPagination;
+                    &::after{
+                        content: '...';
+                    }
+                }
+            }
+            .rc-pagination-item{
+                @extend .itemPagination;
+            }
+            .rc-pagination-item-active{
+                background-color: $pink-primary !important;
+                // border: 1px solid $pink-primary;
+                color: $bg-light-color;
+                // &:hover{
+                //     background-color: $pink-primary ;
+                // }
+            }
+        }
+    }
+
+}
+
