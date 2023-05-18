@@ -17,7 +17,7 @@ import AdminLayout from './layouts/AdminLayout/AdminLayout';
 // import TestComponent from './test/TestComponent';
 
 const Home = lazy(()=> import('./modules/Home/Home'));
-const MovieDetails = lazy(()=> import('./modules/MovieDetail/MovieDetail.jsx'));
+const MovieDetails = lazy(()=> import('./modules/MovieDetail/MovieDetails.jsx'));
 const BookingTicket = lazy(()=> import('./modules/BookingTicket/BookingTicket'));
 const InfoTicketed = lazy(()=> import('./modules/BookingTicket/InfoTicketed/InfoTicketed'));
 
@@ -42,7 +42,7 @@ function App() {
           <Route path='/' element={<MainLayout/>}>
             <Route index element={<Home/>}/>
 
-            <Route path="movie/:movieID" element={<MovieDetails/>}/>
+            <Route path="movies/:movieID" element={<MovieDetails/>}/>
 
             <Route 
               path='/booking/:bookingID' 

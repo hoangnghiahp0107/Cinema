@@ -107,7 +107,7 @@ function CumRap({heThongCumRap}) {
                         if(item.dangChieu) return (
                             <div className={`row ${style.movieDetail}`} key={index}>
                                 <div className={`col-4 ${style.movieDetail_left}`}>
-                                    <img src={item.hinhAnh} alt="" srcset="" />
+                                    <img onClick={()=> navigate(`/movies/${item.maPhim}`)} src={item.hinhAnh} alt="" srcset="" />
                                 </div>
                                 <div className={`col ${style.movieDetail_right}`}>
                                     <div className={style.movieName}>{item.tenPhim}</div>

@@ -1,0 +1,101 @@
+.foot{
+    background-color: #262626;
+    .row{
+        column-gap: 2rem;
+        row-gap: 2rem;
+        justify-content: center;
+        margin-left: 30px;
+        &.line{
+            border-bottom: 1px solid hsla(0,0%,100%,.8);
+        }
+        .care{
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+        .choice{
+            cursor: pointer;
+        }
+        .diaChi{
+            display: flex;
+        }
+        .chon:hover{
+            color: white;
+        }
+        .col-left{
+            .icon{
+                color:#d82d8b;
+            }
+        }
+        .col-right{
+            .address-top{
+                font-weight: 700;
+                font-size: .875rem;
+                line-height: 1.25rem;
+            }
+            .address-bot{
+                color: hsla(0,0%,100%,.8);
+                font-size: .75rem;
+                line-height: 1rem;
+            }
+        }
+        .head{
+            color: hsla(0,0%,100%,.8);
+            font-size: .75rem;
+            line-height: 1rem;
+        }
+        .contact{
+            color:white;
+            font-size: .875rem;
+            line-height: 1.25rem;
+            font-weight: 700;
+            &:hover{
+                color: #eb2f96;
+            }
+        }
+        .hinhAnh{
+            inset: 0px;
+            box-sizing: border-box;
+            padding: 0px;
+            border: none;
+            margin: auto;
+            display: block;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            margin-left: 0px;
+        }
+    }
+    a{
+        span{
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+        .headfoot{
+            transition-property: all;
+            transition-timing-function: cubic-bezier(.4,0,.2,1);
+            transition-duration: .15s;
+            &:hover{
+                color:inherit;
+            }
+        }
+    }
+   ul{
+    list-style: none;
+    padding-left: 0;
+    padding-top: 10px ;
+    color: hsla(0,0%,100%,.8);
+    white-space: nowrap;
+    li{
+        font-size: .875rem;
+        line-height: 1.25rem;
+        padding-bottom: 5px;
+        .download{
+            width: 130px;
+            height: 39px;
+            cursor: pointer;
+        }
+    }
+   }
+}
