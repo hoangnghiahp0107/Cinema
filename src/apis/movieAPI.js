@@ -57,14 +57,15 @@ export const apiGetCinema = async (maHeThongRap) => {
     return data;
 };
 
-export const apiLayThongTinLichChieuPhim = async (MaPhim) => {
+// Lấy thông tin thời gian chiếu của phim
+export const apiMovieHours = async (movieID) => {
     const {data} = await axiosClient.get('/QuanLyRap/LayThongTinLichChieuPhim', {
         params: {
-            MaPhim: MaPhim,
+            MaPhim: movieID,
         },
     });
     return data;
-}
+};
 
 // update phim
 export const apiCapNhatPhimUpload = async (value) => {
