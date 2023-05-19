@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {dsPhimPhanTrang} from '../../slices/danhSachPhimPhanTrangSlide';
+import {useNavigate } from 'react-router-dom';
 import Pagination from 'rc-pagination';
 import MovieForm from './MovieForm/MovieForm';
 import {apiXoaPhim} from '../../apis/movieAPI';
 import './MovieManagement.scss';
 
 function MovieManagement() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
 
@@ -44,6 +46,10 @@ const handleShow = (value) => {
   setShow(value);
 }
 
+const handleAddShowTimes = (value) => {
+  navigate('addshowtimes', {state: {movie: value}});
+}
+
   if(isLoading) return (
     <div className="h-100 d-flex justify-content-center align-items-center">
       <img src={'/img/loading.gif'} className="img-fluid" style={{height: '100px', width: '100px'}}/>
@@ -78,8 +84,11 @@ const handleShow = (value) => {
                       <td>{item.tenPhim}</td>
                       <td>{item.moTa}</td>
                       <td className=''>
-                        <button onClick={()=>handleUpdateMovie(index)} className='btn text-secondary'><i className="bi bi-pencil-square"></i></button>
-                        <button onClick={()=>handleDeleteMovie(item.maPhim)} className='btn text-danger'> <i className="bi bi-trash3"></i></button>
+                        <div className="d-flex">
+                          <button onClick={()=>handleUpdateMovie(index)} className='btn text-secondary'><i className="bi bi-pencil-square"></i></button>
+                          <button onClick={()=>handleDeleteMovie(item.maPhim)} className='btn text-danger'> <i className="bi bi-trash3"></i></button>
+                          <button onClick={()=>handleAddShowTimes(item)} className='btn text-success'> <i class="bi bi-calendar2"></i></button>
+                        </div>
                       </td>
                     </tr>
                   )

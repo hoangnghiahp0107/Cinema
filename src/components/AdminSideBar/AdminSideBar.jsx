@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useNavigate } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom';
 import style from './AdminSideBar.module.scss';
 import Collapse from 'react-bootstrap/Collapse';
 

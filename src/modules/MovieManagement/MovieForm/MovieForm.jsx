@@ -12,9 +12,9 @@ const schema = yup.object({
   maPhim: yup.string().required("Mã phim không được để trống"),
   tenPhim: yup.string().required("Tên phim không được để trống"),
   trailer: yup.string().required("Trailer không được để trống"),
-  hinhAnh: yup.string().required("Hình ảnh không được để trống"),
+  hinhAnh: '',
   moTa: yup.string(),
-  ngayKhoiChieu: yup.string(),
+  ngayKhoiChieu: yup.string(),  
   danhGia: yup.number(),
   hot: yup.string(),
   dangChieu: yup.string(),
@@ -26,8 +26,8 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
     register,
     handleSubmit,
     reset,
-    setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -39,24 +39,30 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
   const [err, setErr] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  let formData = new FormData();
-
+  const [imgPreview, setImgPreview] = useState("");
+  // watch là hàm dùng để theo dõi và lấy được giá trị mới của input trong form
+  // debugger;
+  const imageField = watch("hinhAnh");
+  // console.log(typeof imageField);
+  useEffect(() => {
+    if (typeof imageField === 'string') return;
+    // FileReader là một đối tượng trong JS dùng để xử lý file
+    const fileReader = new FileReader();
+    // readAsDataURL là phương thức dùng để chuyển file thành url để sử dụng trong thuộc tính src của thẻ img
+    if(typeof imageField === 'object') {
+      console.log(imageField[0]?.constructor?.name);
+      fileReader.readAsDataURL(imageField[0]);
+    }
+    // onload là callback để chờ sau khi xử lý xong nhận được kết quả
+    fileReader.onload = (evt) => {
+      setImgPreview(evt?.target.result);
+    };
+  }, [imageField]);
   const onSubmit = async (value) => {
     setIsLoading(true);
-    // console.log(value);
-    formData.append('maPhim',value.maPhim);
-    formData.append('tenPhim',value.tenPhim);
-    formData.append('trailer',value.trailer);
-    formData.append('hinhAnh',value.hinhAnh);
-    formData.append('moTa',value.moTa);
-    formData.append('ngayKhoiChieu',value.ngayKhoiChieu);
-    formData.append('danhGia',value.danhGia);
-    formData.append('hot',value.hot);
-    formData.append('dangChieu',value.dangChieu);
-    formData.append('sapChieu',value.sapChieu);
-    formData.append('maNhom',value.maNhom);
+    const payload = {...value, hinhAnh: value.hinhAnh[0]}
     try {
-      const data = await apiCapNhatPhimUpload(formData);
+      const data = await apiCapNhatPhimUpload(payload);
       setMovieUpdate(data);
       setIsLoading(false);
       
@@ -84,7 +90,6 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
       hot: onDataMovieDetail.hot,
       dangChieu: onDataMovieDetail.dangChieu,
       sapChieu: onDataMovieDetail.sapChieu,
-      maNhom: "GP03",
     });
     // setStartDate(onDataMovieDetail.ngayKhoiChieu);
   }, [onDataMovieDetail]);
@@ -259,7 +264,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
             )}
 
             <img
-                src={getValues("hinhAnh")}
+                src={imgPreview? imgPreview : getValues("hinhAnh")}
                 className="text-center"
                 srcset=""
                 style={{ width: "100px" }}

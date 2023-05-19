@@ -1,0 +1,24 @@
+@import '../../../index.scss';
+
+.addShowTimes{
+    h2{
+        @extend .titleAdmin;
+    }
+    .body{
+        margin: 3px;
+        border-radius: 4px;
+        background-color: $bg-pink-color;
+        border: solid 1px $header-border-color;
+        .container{
+            color: $text-dark-color !important;
+            .imgLeft{
+                width: 100%;
+                border-radius: 4px;
+                border: solid 1px $header-border-color;
+            }
+            .btnPrimary{
+                width: 150px;
+            }
+        }
+    }
+}
