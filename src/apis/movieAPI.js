@@ -51,7 +51,7 @@ export const apiGetCinema = async (maHeThongRap) => {
     const {data} = await axiosClient.get('/QuanLyRap/LayThongTinLichChieuHeThongRap', {
         params: {
             maHeThongRap: maHeThongRap,
-            maNhom: 'GP03',
+            maNhom: maNhom,
         },
     });
     return data;
@@ -67,8 +67,15 @@ export const apiLayThongTinLichChieuPhim = async (MaPhim) => {
 }
 
 // update phim
-export const apiCapNhatPhimUpload = async (value) => {
-    const {data} = await axiosClient.post('/QuanLyPhim/CapNhatPhimUpload',value);
+export const apiCapNhatPhimUpload = async (movie) => {
+    // console.log(m);
+    const formData = new FormData();
+    for (const key in movie) {
+        formData.append(key, movie[key]);
+        }
+    formData.append("maNhom", maNhom);
+    // formData.append("maPhim", 0);
+    const {data} = await axiosClient.post('/QuanLyPhim/CapNhatPhimUpload',formData);
     return data;
 }
 
@@ -83,14 +90,21 @@ export const apiXoaPhim = async (movieID) => {
 
 // add new phim
 export const apiThemPhimUploadHinh = async (movie) => {
+    // console.log(movie);
     const formData = new FormData();
     for (const key in movie) {
         formData.append(key, movie[key]);
         }
-    formData.append("maNhom", "GP03");
-        console.log(formData);
+    formData.append("maNhom", maNhom);
     const {data} = await axiosClient.post('/QuanLyPhim/ThemPhimUploadHinh',formData);
+    // console.log(data);
     return data;
 }
+
+// thêm lịch chiếu
+export const apiTaoLichChieu = async (payload) => {
+    const { data } = await axiosClient.post('/QuanLyDatVe/TaoLichChieu', payload);
+    return data;
+};
 
 

@@ -32,19 +32,23 @@ function MovieAddNew() {
   const [movieAdd, setMovieAdd] = useState(null);
   // console.log('movieAdd: ',movieAdd);
 
+  // từ API
   const [err, setErr] = useState(null);
   console.log('err: ',err?.response.data);
 
   const [isLoading, setIsLoading] = useState(false);
   const [imgPreview, setImgPreview] = useState("");
-  // / watch là hàm dùng để theo dõi và lấy được giá trị mới của input trong form
+  // watch là hàm dùng để theo dõi và lấy được giá trị mới của input trong form
+  // debugger;
   const imageField = watch("hinhAnh");
   useEffect(() => {
     if (!imageField) return;
     // FileReader là một đối tượng trong JS dùng để xử lý file
     const fileReader = new FileReader();
     // readAsDataURL là phương thức dùng để chuyển file thành url để sử dụng trong thuộc tính src của thẻ img
-    fileReader.readAsDataURL(imageField[0]);
+    if(imageField[0]) {
+      fileReader.readAsDataURL(imageField[0]);
+    }
     // onload là callback để chờ sau khi xử lý xong nhận được kết quả
     fileReader.onload = (evt) => {
       setImgPreview(evt?.target.result);
@@ -58,6 +62,7 @@ function MovieAddNew() {
       const data = await apiThemPhimUploadHinh(payload);
       setMovieAdd(data);
       setIsLoading(false);
+      
     } catch (error) {
         setErr(error);
         setIsLoading(false);
@@ -124,15 +129,13 @@ function MovieAddNew() {
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Hình ảnh</div>
               <div className="col-10">
-                <input type='file' multiple placeholder='hinhAnh ...' {...register('hinhAnh')}/>
-                <img className="imgPreview" src={imgPreview} alt="" />
+                <input type="file" multiple placeholder='hinhAnh ...' {...register('hinhAnh')}/>
+                <img className="imgPreview" src={imgPreview ? imgPreview : ''} alt="" />
               </div>
             </div>
             <button className="add">Thêm phim</button>
           </div>
         </form>
-        {/* {console.log(getValues('hinhAnh') ? (getValues('hinhAnh'), null, 2) : '')} */}
-        {/* {console.log(img)} */}
       </div>
     </div>
   );
