@@ -16,11 +16,12 @@ import style from "./ShowTimes.module.scss";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 function CumRap({heThongCumRap}) {
-    const [err, setErr] = useState(null);
-    const [cumRap, setCumRap] = useState([]);
-    const [lichChieu, setLichChieu] = useState(null);
-    // console.log(cumRap[0]?.lstCumRap[0]);
-    const navigate = useNavigate();
+  const dayjs = require('dayjs')
+  const [err, setErr] = useState(null);
+  const [cumRap, setCumRap] = useState([]);
+  const [lichChieu, setLichChieu] = useState(null);
+  // console.log(cumRap[0]?.lstCumRap[0]);
+  const navigate = useNavigate();
   const getInfoCumRap = async () => {
     try {
       const data = await apiGetCinema(heThongCumRap?.maHeThongRap);
@@ -115,10 +116,14 @@ function CumRap({heThongCumRap}) {
                                     <p>Thời gian chiếu</p>
                                     <div className="row">
                                         {item.lstLichChieuTheoPhim.map((timeShow, index) => {
-                                          // console.log(timeShow);
+                                          console.log(timeShow);
                                             return(
                                                 <div className="col-3 px-1" key={index}>
-                                                    <div className={style.showTimeMovieDetail} onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}><span>{timeShow.ngayChieuGioChieu}</span></div>
+                                                    <div className={style.showTimeMovieDetail} onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}>
+                                                      <span>{dayjs(timeShow.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
+                                                      <span>~</span>
+                                                      <span className='text-pink-primary'>{dayjs(timeShow.ngayChieuGioChieu).format('hh:mm')}</span>
+                                                    </div>
                                                 </div>
                                             )
                                         })}

@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Modal from 'react-bootstrap/Modal';
+import { useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
+import { Navigate } from "react-router-dom";
+import swal from 'sweetalert';
+import Modal from 'react-bootstrap/Modal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {apiUpdateInfoUser} from '../../apis/userAPI';
@@ -58,7 +60,6 @@ function AdminInfoUser() {
         dispatch(getInfoUser(user?.taiKhoan));
       }, [user?.taiKhoan]);
 
-    // react form
     
     // gọi api trả về, ko lưu redux vì chỉ sài 1 lần sau đó put update thông tin
     const onSubmit = async (value) => {
@@ -92,6 +93,8 @@ function AdminInfoUser() {
           <img src={'/img/loading.gif'} className="img-fluid" style={{height: '100px', width: '100px'}}/>
         </div>
       )
+    
+    if(error) {<Navigate to='*' replace={true}/>}
 
   return (
     <>
