@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import swal from 'sweetalert';
 import {dsPhimPhanTrang} from '../../slices/danhSachPhimPhanTrangSlide';
 import {useNavigate } from 'react-router-dom';
 import Pagination from 'rc-pagination';
@@ -29,7 +30,7 @@ const handleUpdateMovie = (index) => {
   setDataMovieDetail(dataMovies?.items[index]);
   setShow(true);
 }
-
+//xóa phim
 const [deleteMovie, setDeleteMovie] = useState(null);
 const [err, setErr] = useState(null);
 const handleDeleteMovie = async (movieID) => {
@@ -41,11 +42,24 @@ const handleDeleteMovie = async (movieID) => {
     setErr(err);
   }
 }
-
+if(deleteMovie?.statusCode === 200) {
+  swal({
+      title: "Bạn đã xóa phim thành công",
+      text: "Nhấn Ok để tiếp tục!",
+      icon: "success",
+      })
+      .then((willSuccess) => {
+        setDeleteMovie(null);
+      if (willSuccess) {
+        window.location.reload(false);
+      } 
+      });
+  }
+//hiện modal
 const handleShow = (value) => {
   setShow(value);
 }
-
+//chuyển page thêm lịch chiếu
 const handleAddShowTimes = (value) => {
   navigate('addshowtimes', {state: {movie: value}});
 }
@@ -102,7 +116,9 @@ const handleAddShowTimes = (value) => {
               className='pagination'
               // showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
               onChange={PaginationChange}
-              total={dataMovies.totalPages}
+              total={dataMovies.totalCount % 10 == 0 ? dataMovies.totalPages -1 : dataMovies.totalPages
+
+              }
               // ko thể thiếu current
               current={current}
               pageSize={1}

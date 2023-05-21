@@ -97,6 +97,9 @@ export const apiThemPhimUploadHinh = async (movie) => {
         formData.append(key, movie[key]);
         }
     formData.append("maNhom", maNhom);
+    // for (let [key, value] of formData.entries()) {
+    //     console.log(key, value);
+    //   }
     const {data} = await axiosClient.post('/QuanLyPhim/ThemPhimUploadHinh',formData);
     // console.log(data);
     return data;
