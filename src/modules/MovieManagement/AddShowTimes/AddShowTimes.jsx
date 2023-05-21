@@ -1,31 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from "react-hook-form";
-import {useLocation} from 'react-router-dom';
+import swal from 'sweetalert';
+import {useLocation, useNavigate} from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import {apiGetListHeThongCumRap, apiGetCinema, apiTaoLichChieu} from '../../../apis/movieAPI';
 import './AddShowTimes.scss';
 
 // định nghĩa các xác thực input
+const dateValidator = (value) => {
+    const currentDate = new Date();
+    if (value < currentDate) {
+      throw new yup.ValidationError('Date must be later than the current date');
+    }
+    return value;
+  };
+  const dayjs = require('dayjs');
 const schema = yup.object({
+    
     maPhim: '',
-    giaVe: yup.number().typeError('Giá vé phải là số').required("Giá vé không được để trống"),
+    giaVe: yup.number().max(200000, 'Đánh giá lớn nhất là 200.000đ').min(75000,'Đánh giá nhỏ nhất là 75.000đ').typeError('Giá vé phải là số').required("Giá vé không được để trống"),
     maRap: yup.string().required("Mã rạp không được để trống"),
-    ngayChieuGioChieu: yup.string().required("Ngày chiếu giờ chiếu không được để trống"),
+    ngayChieuGioChieu: yup.string().min(new Date(), 
+    (value) => {
+        // chuyển từ string về lại type data time
+        const givenDateString = value.value;
+        const [day, month, year, hours, minutes, seconds] = givenDateString.split(/\/|\s|:/);
+        const givenDate = new Date(year, month - 1, +day, +hours, +minutes, +seconds);
+
+        if (givenDate < value.min) {
+            return 'Ngày giờ chiếu phải lớn hơn thời điểm hiện tại';
+          } else return null;
+    }),
   });
 
 function AddShowTimes() {
+    const dayjs = require('dayjs');
     // lấy bookingID từ react-dom
-  const {state} =  useLocation();
-  const {register,handleSubmit,formState: { errors }} = useForm({mode: "onTouched",resolver: yupResolver(schema),});
-  const [listHeThongCumRap, setListHeThongCumRap] = useState(null);
-  const [heThongRap, setHeThongRap] = useState(null);
-  const [listCumRap, setListCumRap] = useState(null);
-  const [lichChieu, setLichChieu] = useState(null);
-  console.log(lichChieu);
-  const [error, setError] = useState(null);
-  console.log(error);
-
+    const {state} =  useLocation();
+    const navigate = useNavigate();
+    const {register,handleSubmit, setValue,formState: { errors }} = useForm({mode: "onTouched",resolver: yupResolver(schema),});
+    const [listHeThongCumRap, setListHeThongCumRap] = useState(null);
+    const [heThongRap, setHeThongRap] = useState(null);
+    const [listCumRap, setListCumRap] = useState(null);
+    const [lichChieu, setLichChieu] = useState(null);
+    const [error, setError] = useState(null);
+ 
+    // ========= set type date =======================
+    const [startDate, setStartDate] = useState(new Date());
+    // console.log('startDate: ',dayjs(startDate).format('DD/MM/YYYY HH:MM:ss'));
+    // set về đúng định dạng
+    useEffect(()=>{
+        setValue('ngayChieuGioChieu', dayjs(startDate).format('DD/MM/YYYY HH:mm:ss'));
+    },[startDate])
 
   // error form
   function onErrer(err) {
@@ -40,7 +69,6 @@ function AddShowTimes() {
         setError(err.response?.data?.content)
     }
   };
-
   useEffect(() => {
     getListHeThongCumRap();
   }, []);
@@ -57,14 +85,12 @@ function AddShowTimes() {
         setError(err?.response?.data?.content)
     }
   };
-
   useEffect(() => {
     getCinema(heThongRap);
   }, [heThongRap]);
 
   const onSubmit = async (value) => {
     const payload = {...value, maPhim: state?.movie.maPhim};
-    await console.log(payload);
     try {
       const data = await apiTaoLichChieu(payload);
       setLichChieu(data);
@@ -72,11 +98,20 @@ function AddShowTimes() {
         setError(error);
     }
   };
-
-    // error form
-    function onErrer(err) {
-        console.log(err);
-      }
+    
+    if(lichChieu?.statusCode === 200) {
+    swal({
+        title: "Bạn đã tạo lịch chiếu thành công",
+        text: "Nhấn Ok để tiếp tục!",
+        icon: "success",
+        })
+        .then((willSuccess) => {
+        if (willSuccess) {
+            navigate('/admin/movies');
+        } 
+        });
+    }
+    // console.log(getValues('ngayChieuGioChieu'));
 
   return (
     <div className='addShowTimes'>
@@ -111,21 +146,42 @@ function AddShowTimes() {
                                     </select>
                                 </div>
                             </div>
-                            {errors.maRap && (
-                                <p className="ms-3 fs-7 text-danger fst-italic">
-                                {errors.maRap.message}
-                                </p>)}
+                            <div className="row">
+                                <div className="col-2"></div>
+                                <div className="col-10">
+                                    {errors.maRap && (
+                                        <p className="ms-3 fs-7 text-danger fst-italic">
+                                        {errors.maRap.message}
+                                        </p>)}
+                                </div>
+                            </div>
 
                             <div className="row mb-3 align-items-center">
                                 <div className="col-2 text-end">Ngày giờ chiếu: </div>
                                 <div className="col-10">
-                                    <input type="text" class="form-control" placeholder="Ngày giờ chiếu ..." {...register("ngayChieuGioChieu")}></input>
+                                    {/* <input type="text" class="form-control" placeholder="Ngày giờ chiếu ..." {...register("ngayChieuGioChieu")}></input> */}
+                                    <DatePicker
+                                        value={startDate}
+                                        showIcon
+                                        selected={startDate}
+                                        onChange={(date) => setStartDate(date)}
+                                        className='datePicker'
+                                        timeInputLabel="Time:"
+                                        dateFormat="dd/MM/yyyy h:mm aa"
+                                        showTimeInput
+                                        // {...register("ngayChieuGioChieu", {value: startDate})}
+                                    />
                                 </div>
                             </div>
-                            {errors.ngayChieuGioChieu && (
-                                <p className="ms-3 fs-7 text-danger fst-italic">
-                                {errors.ngayChieuGioChieu.message}
-                                </p>)}
+                            <div className="row">
+                                <div className="col-2"></div>
+                                <div className="col-10">
+                                    {errors?.ngayChieuGioChieu?.message && (
+                                        <p className="ms-3 fs-7 text-danger fst-italic">
+                                        {errors.ngayChieuGioChieu.message}
+                                    </p>)}
+                                </div>
+                            </div>
 
                             <div className="row mb-3 align-items-center">
                                 <div className="col-2 text-end">Giá vé: </div>
@@ -133,10 +189,15 @@ function AddShowTimes() {
                                     <input type="text" class="form-control" placeholder="Giá vé ..." {...register("giaVe")}/>
                                 </div>
                             </div>
-                            {errors.giaVe && (
-                                <p className="ms-3 fs-7 text-danger fst-italic">
-                                {errors.giaVe.message}
-                                </p>)}
+                            <div className="row">
+                                <div className="col-2"></div>
+                                <div className="col-10">
+                                    {errors.giaVe && (
+                                        <p className="ms-3 fs-7 text-danger fst-italic">
+                                        {errors.giaVe.message}
+                                        </p>)}
+                                </div>
+                            </div>
 
                             <div className="row mb-3 me-3 justify-content-end">
                                 <button className='btnPrimary'>Tạo lịch chiếu</button>
