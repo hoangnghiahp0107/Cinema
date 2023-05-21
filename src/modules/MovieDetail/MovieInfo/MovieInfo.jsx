@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import { apiGetMovieDetails } from '../../../apis/movieAPI'
-import BtnPlay from "../../../components/Button/BtnPlay/BtnPlay";
+import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import LinesEllipsis from 'react-lines-ellipsis';
+import { apiGetMovieDetails } from '../../../apis/movieAPI'
+import BtnPlay from "../../../components/Button/BtnPlay/BtnPlay";
 import "./MovieInfo.scss";
 
 function MovieInfo({movieID}) {
@@ -25,7 +25,6 @@ function MovieInfo({movieID}) {
   },[]);
 
   return (
-
     <div className='cinema-header' >
       <div className="container">
         <div className="row">

@@ -32,6 +32,7 @@ const AddShowTimes = lazy(()=> import('./modules/MovieManagement/AddShowTimes/Ad
 
 
 const TestComponent = lazy(()=> import('./test/TestComponent'));
+const Erros = lazy(()=> import('./components/Error/Error'));
 
 
 function App() {
@@ -57,6 +58,7 @@ function App() {
             <Route path='info-ticketed' element={<InfoTicketed />} />
             
             <Route path='test' element={<TestComponent/>}/>
+            <Route path='*' element={<Erros/>}/>
 
           </Route>
 
