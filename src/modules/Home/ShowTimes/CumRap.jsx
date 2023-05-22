@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 import {apiGetCinema} from "../../../apis/movieAPI";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -16,7 +16,7 @@ import style from "./ShowTimes.module.scss";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 function CumRap({heThongCumRap}) {
-  const dayjs = require('dayjs')
+  const dayjs = require('dayjs');
   const [err, setErr] = useState(null);
   const [cumRap, setCumRap] = useState([]);
   const [lichChieu, setLichChieu] = useState(null);
@@ -116,7 +116,7 @@ function CumRap({heThongCumRap}) {
                                     <p>Thời gian chiếu</p>
                                     <div className="row">
                                         {item.lstLichChieuTheoPhim.map((timeShow, index) => {
-                                          console.log(timeShow);
+                                          // console.log(timeShow);
                                             return(
                                                 <div className="col-3 px-1" key={index}>
                                                     <div className={style.showTimeMovieDetail} onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}>
