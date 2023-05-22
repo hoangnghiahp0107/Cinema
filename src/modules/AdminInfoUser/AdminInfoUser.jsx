@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import {useForm} from 'react-hook-form';
-import { Navigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import swal from 'sweetalert';
 import Modal from 'react-bootstrap/Modal';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,6 +27,7 @@ const schema = yup.object({
 });
 
 function AdminInfoUser() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     // get info user from redux để => thông tin tài khoản call API
     const {user} = useSelector((state) => state.user);
@@ -36,9 +37,9 @@ function AdminInfoUser() {
     const [passShow, setPassShow] = useState(false);
 
     const [updateUser, setUpdateUser] = useState(null);
-    console.log(updateUser);
     // console.log(updateUser);
     const [err, setErr] = useState(null);
+    // console.log(err);
 
     const {register, handleSubmit, reset,formState: {errors}} = useForm({
         defaultValues: {
@@ -55,6 +56,7 @@ function AdminInfoUser() {
     });
 
     const {infoUser, isLoading, error} = useSelector((state) => state.infoUser);
+    console.log(error);
     // console.log(infoUser);
     useEffect(() => {
         dispatch(getInfoUser(user?.taiKhoan));
@@ -65,10 +67,19 @@ function AdminInfoUser() {
     const onSubmit = async (value) => {
         try{
             const data = await apiUpdateInfoUser(value);
-            // console.log(data);
+            console.log(data);
             setUpdateUser(data);
+            swal({
+                title: `Bạn đã cập nhật thành công tài khoản: ${data?.data?.content?.taiKhoan}`,
+                text: "Nhấn Ok để tiếp tục!",
+                icon: "success",
+                })
+                .then((willSuccess) => {
+                    if (willSuccess) dispatch(getInfoUser(data?.data?.content?.taiKhoan));
+                    setShow(false);
+                });
         }catch (err) {
-            setErr(err)
+            setErr(err?.message);
         }
         };
     // vì giá trị defaultValues phải đợi từ asyn trả về nên phải sử dụng reset, ko set defaultValues bên trong hàm dc
@@ -88,13 +99,15 @@ function AdminInfoUser() {
         console.log(err);
     }
 
+    if(err ||error) {
+        navigate('/*');
+    }
+
     if(isLoading) return (
         <div className="h-100 d-flex justify-content-center align-items-center">
           <img src={'/img/loading.gif'} className="img-fluid" style={{height: '100px', width: '100px'}}/>
         </div>
-      )
-    
-    if(error) {<Navigate to='*' replace={true}/>}
+      );
 
   return (
     <>
@@ -225,8 +238,9 @@ function AdminInfoUser() {
             {errors.maLoaiNguoiDung && <p className='fs-7 text-danger fst-italic'>{errors.maLoaiNguoiDung.message}</p>}
     </Modal.Body>
     <Modal.Footer>
-        <button type='submit' className={`btn ${style.btnPrimary}`}>Cập nhật</button>
+        <button type='submit' className={`btn ${style.btn}`}>Cập nhật</button>
     </Modal.Footer>
+        {err && <div className='fs-7 text-danger fst-italic text-center mb-3'>{err}</div>}
     </form>
     </Modal>
     </>

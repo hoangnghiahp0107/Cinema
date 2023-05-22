@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector} from 'react-redux';
 import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import swal from 'sweetalert';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { apiCapNhatPhimUpload } from "../../../apis/movieAPI";
+import { getInfoUser } from "../../../slices/infoUserSlice";
 import './MovieForm.scss';
 
 // định nghĩa các xác thực input
@@ -18,10 +21,10 @@ const schema = yup.object({
     return value && value.length
   } )
   .test("fileSize", "Max size 1mb", (value, context) => {
-    return typeof value ==='object' && value && value[0] && value[0].size <= 1048576;
+    return typeof value ==='string' || value && value[0] && value[0].size <= 1048576;
   })
   .test("type", "Phải chọn type hình ảnh", function (value) {
-    return value && value[0] && value[0]?.type === "image/jpeg" || value[0]?.type === "image/png";
+    return typeof value ==='string' || value && value[0] && value[0]?.type === "image/jpeg" || value[0]?.type === "image/png";
   }),
   moTa: yup.string(),
   ngayKhoiChieu: yup.string().required("Ngày khởi chiếu không được để trống"),
@@ -34,6 +37,8 @@ const schema = yup.object({
 function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
   //khởi tạo format data to dd/mm/yyyy
   const dayjs = require('dayjs');
+  const dispatch = useDispatch();
+  const {user} = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
@@ -62,7 +67,15 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
       const data = await apiCapNhatPhimUpload(payload);
       setMovieUpdate(data);
       setIsLoading(false);
-      
+      swal({
+        title: `Bạn đã cập nhật thành công phim: ${payload.tenPhim}`,
+        text: "Nhấn Ok để tiếp tục!",
+        icon: "success",
+        })
+        .then((willSuccess) => {
+          if (willSuccess) dispatch(getInfoUser(user?.taiKhoan));
+          handleShow(!onShow);
+        });
     } catch (error) {
         setErr(error);
         setIsLoading(false);

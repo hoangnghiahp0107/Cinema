@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getInfoUser } from "../../slices/infoUserSlice";
+import { useNavigate} from "react-router-dom";
 import style from './TicketedHistory.module.scss';
 
 function TicketedHistory() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const {infoUser, isLoading, error} = useSelector((state) => state.infoUser);
-    // const range = Array.from({ length: high - low + 1 }, (_, index) => index + low);
-    // console.log();
+    const {user} = useSelector((state) => state.user);
+    useEffect(()=> {
+        dispatch(getInfoUser(user?.taiKhoan));
+    },[user])
+    if(error) {
+        navigate('/*');
+    }
+
+    if(isLoading) return (
+        <div className="h-100 d-flex justify-content-center align-items-center">
+          <img src={'/img/loading.gif'} className="img-fluid" style={{height: '100px', width: '100px'}}/>
+        </div>
+      );
   return (
     <div className={style.ticketedHistory}>
         <h2>Lịch sử giao dịch</h2>
