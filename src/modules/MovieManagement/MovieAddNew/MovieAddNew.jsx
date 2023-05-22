@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { apiThemPhimUploadHinh } from '../../../apis/movieAPI';
+import { apiThemPhimUploadHinh } from "../../../apis/movieAPI";
 import "./MovieAddNew.scss";
 
 // định nghĩa các xác thực input
 const schema = yup.object({
   tenPhim: yup.string().required("Tên phim không được để trống"),
   trailer: yup.string().required("Trailer không được để trống"),
-  hinhAnh: '',
+  hinhAnh: "",
   moTa: yup.string(),
   ngayKhoiChieu: yup.string(),
   danhGia: yup.number(),
@@ -33,7 +33,7 @@ function MovieAddNew() {
   // console.log('movieAdd: ',movieAdd);
 
   const [err, setErr] = useState(null);
-  console.log('err: ',err?.response.data);
+  console.log("err: ", err?.response.data);
 
   const [isLoading, setIsLoading] = useState(false);
   const [imgPreview, setImgPreview] = useState("");
@@ -52,15 +52,15 @@ function MovieAddNew() {
   }, [imageField]);
 
   const onSubmit = async (value) => {
-    const payload = {...value, hinhAnh: value.hinhAnh[0]}
+    const payload = { ...value, hinhAnh: value.hinhAnh[0] };
     console.log(value.ngayKhoiChieu);
     try {
       const data = await apiThemPhimUploadHinh(payload);
       setMovieAdd(data);
       setIsLoading(false);
     } catch (error) {
-        setErr(error);
-        setIsLoading(false);
+      setErr(error);
+      setIsLoading(false);
     }
   };
   // error form
@@ -76,59 +76,82 @@ function MovieAddNew() {
             <div className="row mb-3 mt-3 align-items-center">
               <div className="col-2 text-end">Tên Phim</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("tenPhim")}/>
+                <input type="text" className="w-100" {...register("tenPhim")} />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Trailer</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("trailer")}/>
+                <input type="text" className="w-100" {...register("trailer")} />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Mô tả</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("moTa")}/>
+                <input type="text" className="w-100" {...register("moTa")} />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Ngày khởi chiếu</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("ngayKhoiChieu")}/>
+                <input
+                  type="text"
+                  className="w-100"
+                  {...register("ngayKhoiChieu")}
+                />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Đang chiếu</div>
               <div className="col-10">
-                <input class="form-check-input" type="checkbox" {...register("dangChieu")}/>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  {...register("dangChieu")}
+                />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Sắp chiếu</div>
               <div className="col-10">
-                <input class="form-check-input" type="checkbox" {...register("sapChieu")}/>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  {...register("sapChieu")}
+                />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Hot</div>
               <div className="col-10">
-                <input class="form-check-input" type="checkbox" {...register("hot")}/>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  {...register("hot")}
+                />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Đánh giá</div>
               <div className="col-10">
-                <input type="text" {...register("danhGia")}/>
+                <input type="text" {...register("danhGia")} />
               </div>
             </div>
             <div className="row mb-3 align-items-center">
               <div className="col-2 text-end">Hình ảnh</div>
               <div className="col-10">
-                <input type='file' multiple placeholder='hinhAnh ...' {...register('hinhAnh')}/>
+                <input
+                  type="file"
+                  multiple
+                  placeholder="hinhAnh ..."
+                  {...register("hinhAnh")}
+                />
                 <img className="imgPreview" src={imgPreview} alt="" />
               </div>
             </div>
-            <button className="add">Thêm phim</button>
+            <div className="text-center">
+              <button className="add">Thêm phim</button>
+            </div>
           </div>
         </form>
         {/* {console.log(getValues('hinhAnh') ? (getValues('hinhAnh'), null, 2) : '')} */}

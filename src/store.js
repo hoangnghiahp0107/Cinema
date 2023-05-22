@@ -5,7 +5,9 @@ import ticketSlice from "./slices/ticketSlice";
 import datveSlice from "./slices/datVeSlice";
 import infoUserSlice from "./slices/infoUserSlice";
 import danhSachPhimPhanTrangSlide from "./slices/danhSachPhimPhanTrangSlide";
-import userSlice from "./slices/userSlice";
+import userListSlice from "./slices/userListSlice";
+import userListPageSlice from "./slices/userListPageSlice";
+import adminCreateUserSlice from "./slices/createUserSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,7 +17,9 @@ const store = configureStore({
     datve: datveSlice,
     infoUser: infoUserSlice,
     listMoviePage: danhSachPhimPhanTrangSlide,
-    userList: userSlice,
+    userList: userListSlice,
+    userListPage: userListPageSlice,
+    createUser: adminCreateUserSlice,
   },
 });
 

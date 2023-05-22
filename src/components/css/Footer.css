@@ -1,0 +1,96 @@
+.foot {
+  background-color: #262626;
+}
+.foot .row {
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
+  row-gap: 2rem;
+  justify-content: center;
+  margin-left: 30px;
+}
+.foot .row.line {
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.8);
+}
+.foot .row .care {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.foot .row .choice {
+  cursor: pointer;
+}
+.foot .row .diaChi {
+  display: flex;
+}
+.foot .row .chon:hover {
+  color: white;
+}
+.foot .row .col-left .icon {
+  color: #d82d8b;
+}
+.foot .row .col-right .address-top {
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.foot .row .col-right .address-bot {
+  color: hsla(0, 0%, 100%, 0.8);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.foot .row .head {
+  color: hsla(0, 0%, 100%, 0.8);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.foot .row .contact {
+  color: white;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+.foot .row .contact:hover {
+  color: #eb2f96;
+}
+.foot .row .hinhAnh {
+  inset: 0px;
+  box-sizing: border-box;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  display: block;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  margin-left: 0px;
+}
+.foot a span {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.foot a .headfoot {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+.foot a .headfoot:hover {
+  color: inherit;
+}
+.foot ul {
+  list-style: none;
+  padding-left: 0;
+  padding-top: 10px;
+  color: hsla(0, 0%, 100%, 0.8);
+  white-space: nowrap;
+}
+.foot ul li {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding-bottom: 5px;
+}
+.foot ul li .download {
+  width: 130px;
+  height: 39px;
+  cursor: pointer;
+}/*# sourceMappingURL=Footer.css.map */

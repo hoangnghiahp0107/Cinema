@@ -97,7 +97,7 @@ function SignUp() {
                   pattern: {
                     value: /^(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
                     message:
-                      "Mật khẩu có ít nhất 8 ký tự bao gồm 1 ký tự hoa, thường.",
+                      "Mật khẩu có ít nhất 8 ký tự bao gồm 1 ký tự hoa, thường và ký tự đặc biệt.",
                   },
                 })}
               />
