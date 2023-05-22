@@ -10,30 +10,11 @@ import {apiGetListHeThongCumRap, apiGetCinema, apiTaoLichChieu} from '../../../a
 import './AddShowTimes.scss';
 
 // định nghĩa các xác thực input
-const dateValidator = (value) => {
-    const currentDate = new Date();
-    if (value < currentDate) {
-      throw new yup.ValidationError('Date must be later than the current date');
-    }
-    return value;
-  };
-  const dayjs = require('dayjs');
 const schema = yup.object({
-    
     maPhim: '',
     giaVe: yup.number().max(200000, 'Đánh giá lớn nhất là 200.000đ').min(75000,'Đánh giá nhỏ nhất là 75.000đ').typeError('Giá vé phải là số').required("Giá vé không được để trống"),
     maRap: yup.string().required("Mã rạp không được để trống"),
-    ngayChieuGioChieu: yup.string().min(new Date(), 
-    (value) => {
-        // chuyển từ string về lại type data time
-        const givenDateString = value.value;
-        const [day, month, year, hours, minutes, seconds] = givenDateString.split(/\/|\s|:/);
-        const givenDate = new Date(year, month - 1, +day, +hours, +minutes, +seconds);
-
-        if (givenDate < value.min) {
-            return 'Ngày giờ chiếu phải lớn hơn thời điểm hiện tại';
-          } else return null;
-    }),
+    ngayChieuGioChieu: yup.date().min(new Date(), 'Ngày giờ chiếu phải lớn hơn thời điểm hiện tại'),
   });
 
 function AddShowTimes() {
@@ -41,7 +22,10 @@ function AddShowTimes() {
     // lấy bookingID từ react-dom
     const {state} =  useLocation();
     const navigate = useNavigate();
-    const {register,handleSubmit, setValue,formState: { errors }} = useForm({mode: "onTouched",resolver: yupResolver(schema),});
+    //set react form
+    const {
+        register,handleSubmit,setValue,formState: { errors }
+    } = useForm({mode: "onTouched",resolver: yupResolver(schema)});
     const [listHeThongCumRap, setListHeThongCumRap] = useState(null);
     const [heThongRap, setHeThongRap] = useState(null);
     const [listCumRap, setListCumRap] = useState(null);
@@ -53,13 +37,14 @@ function AddShowTimes() {
     // console.log('startDate: ',dayjs(startDate).format('DD/MM/YYYY HH:MM:ss'));
     // set về đúng định dạng
     useEffect(()=>{
-        setValue('ngayChieuGioChieu', dayjs(startDate).format('DD/MM/YYYY HH:mm:ss'));
+        setValue('ngayChieuGioChieu', startDate);
     },[startDate])
 
   // error form
   function onErrer(err) {
     console.log(err);
   }
+//   console.log('ngay gio chieu',getValues('ngayChieuGioChieu'));
 //lấy danh sách hệ thống rạp
   const getListHeThongCumRap = async () => {
     try{
@@ -90,7 +75,7 @@ function AddShowTimes() {
   }, [heThongRap]);
 
   const onSubmit = async (value) => {
-    const payload = {...value, maPhim: state?.movie.maPhim};
+    const payload = {...value, maPhim: state?.movie.maPhim, ngayChieuGioChieu: dayjs(startDate).format('DD/MM/YYYY HH:MM:ss')};
     try {
       const data = await apiTaoLichChieu(payload);
       setLichChieu(data);
@@ -111,7 +96,9 @@ function AddShowTimes() {
         } 
         });
     }
-    // console.log(getValues('ngayChieuGioChieu'));
+    if(error) {
+        navigate('/*');
+    }
 
   return (
     <div className='addShowTimes'>
@@ -161,7 +148,7 @@ function AddShowTimes() {
                                 <div className="col-10">
                                     {/* <input type="text" class="form-control" placeholder="Ngày giờ chiếu ..." {...register("ngayChieuGioChieu")}></input> */}
                                     <DatePicker
-                                        value={startDate}
+                                        // value={startDate}
                                         showIcon
                                         selected={startDate}
                                         onChange={(date) => setStartDate(date)}
@@ -169,7 +156,7 @@ function AddShowTimes() {
                                         timeInputLabel="Time:"
                                         dateFormat="dd/MM/yyyy h:mm aa"
                                         showTimeInput
-                                        // {...register("ngayChieuGioChieu", {value: startDate})}
+                                        // {...register("ngayChieuGioChieu")}
                                     />
                                 </div>
                             </div>

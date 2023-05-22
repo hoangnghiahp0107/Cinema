@@ -19,7 +19,6 @@ export const apiGetInfoUser = async (user) => {
 
 // update info user
 export const apiUpdateInfoUser = async (value) => {
-    console.log(value);
     const data  = await axiosClient.post('/QuanLyNguoiDung/CapNhatThongTinNguoiDung', value);
     // if(value ==)
     return data;

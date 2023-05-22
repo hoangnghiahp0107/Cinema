@@ -32,7 +32,9 @@ const handleUpdateMovie = (index) => {
 }
 //xóa phim
 const [deleteMovie, setDeleteMovie] = useState(null);
+console.log(deleteMovie);
 const [err, setErr] = useState(null);
+
 const handleDeleteMovie = async (movieID) => {
   try {
     const data = await apiXoaPhim(movieID);
@@ -44,7 +46,7 @@ const handleDeleteMovie = async (movieID) => {
 }
 if(deleteMovie?.statusCode === 200) {
   swal({
-      title: "Bạn đã xóa phim thành công",
+      title: `Bạn đã xóa phim thành công`,
       text: "Nhấn Ok để tiếp tục!",
       icon: "success",
       })
@@ -73,7 +75,7 @@ const handleAddShowTimes = (value) => {
   return (
     <div className='movieManagement'>
       <h2>Quản lý phim</h2>
-      <button>Thêm phim</button>
+      <button className='btn btn-pink-primary text-bg-light-color' onClick={() => navigate('/admin/addmovies')}>Thêm phim</button>
       <div className='body'>
         <div className="container">
           <div className="row">
