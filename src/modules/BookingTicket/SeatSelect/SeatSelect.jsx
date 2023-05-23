@@ -60,43 +60,45 @@ function SeatSelect() {
     
   return (
     <div className={`${style.seatSelect} container`}>
-        <div className="col-4">
-            <div className={style.infoMovie}>
-                <img src={thongTinPhim.hinhAnh} alt={thongTinPhim.tenPhim} />
-                <p>{thongTinPhim.tenPhim}</p>
+        <div className="row">
+            <div className="col-sm-3 ps-5">
+                <div className={style.infoMovie}>
+                    <img src={thongTinPhim.hinhAnh} alt={thongTinPhim.tenPhim} />
+                    <p>{thongTinPhim.tenPhim}</p>
+                </div>
             </div>
-        </div>
-        <div className="col-4 ps-5">
-            <div className={style.ticketDetail}>
-                <div className={style.ticketItem}>Rap: <span>{thongTinPhim.tenCumRap}</span></div>
-                <div className={style.ticketItem}>Suất chiếu: <span>{thongTinPhim.gioChieu}, {thongTinPhim.ngayChieu}</span></div>
-                <div className={style.ticketItem}>Phòng chiếu: <span>{thongTinPhim.tenRap}</span></div>
-                {carts.length ? (
-                    <div>
-                        <div className={style.ticketItem}>Ghế: 
-                            {carts.map((item, index) => {
-                                return (
-                                    <span key={index}>{index !== 0 && '-' } {item.tenGhe} </span>
-                                )
-                            })}
+            <div className="col-sm-6 ps-5">
+                <div className={style.ticketDetail}>
+                    <div className={style.ticketItem}>Rap: <span>{thongTinPhim.tenCumRap}</span></div>
+                    <div className={style.ticketItem}>Suất chiếu: <span>{thongTinPhim.gioChieu}, {thongTinPhim.ngayChieu}</span></div>
+                    <div className={style.ticketItem}>Phòng chiếu: <span>{thongTinPhim.tenRap}</span></div>
+                    {carts.length ? (
+                        <div>
+                            <div className={style.ticketItem}>Ghế: 
+                                {carts.map((item, index) => {
+                                    return (
+                                        <span key={index}>{index !== 0 && '-' } {item.tenGhe} </span>
+                                    )
+                                })}
+                            </div>
+                            <div className='my-3'><button onClick={() => handleCancle()} className='btn btn-danger px-5'>Hủy</button></div>
                         </div>
-                        <div className='my-3'><button onClick={() => handleCancle()} className='btn btn-danger px-5'>Hủy</button></div>
-                    </div>
 
-                ) : ''}
+                    ) : ''}
+                </div>
             </div>
-        </div>
-        <div className="col-4 ps-5">
-            <div className={style.tickPrice}>
-                Tổng: <span>{total.toLocaleString()} đ</span>
-                <div className={style.pay}>
-                    <button 
-                        className={`${style.btnPay} ${datVe.danhSachVe.length ? style.btnPay_Hover : ''}`} 
-                        disabled={datVe.danhSachVe.length ? false : true} 
-                        onClick={()=>handlePay()}
-                        >
-                            Thanh Toán
-                        </button>
+            <div className="col-sm-3 ps-5">
+                <div className={style.tickPrice}>
+                    Tổng: <span>{total.toLocaleString()} đ</span>
+                    <div className={style.pay}>
+                        <button 
+                            className={`${style.btnPay} ${datVe.danhSachVe.length ? style.btnPay_Hover : ''}`} 
+                            disabled={datVe.danhSachVe.length ? false : true} 
+                            onClick={()=>handlePay()}
+                            >
+                                Thanh Toán
+                            </button>
+                    </div>
                 </div>
             </div>
         </div>
