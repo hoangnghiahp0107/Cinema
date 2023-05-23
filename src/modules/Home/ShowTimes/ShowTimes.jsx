@@ -56,7 +56,7 @@ function ShowTimes() {
           <h2 className='text-pink-primary fw-semibold fs-2'>Lịch chiếu phim</h2>
         </div>
         <div className={style.showTime}>
-          <div className={`${style.header} p-3`}>
+          <div className={`${style.header} p-3 row`}>
             {renderLstCumRap()}
           </div>
           <div className={style.body}>

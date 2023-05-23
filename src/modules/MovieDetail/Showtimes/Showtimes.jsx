@@ -59,7 +59,7 @@ function Showtimes({movieID}) {
           <h2 className='text-pink-primary fw-semibold fs-2'>Lịch chiếu phim {movie.tenPhim}</h2>
         </div>
         <div className={style.showTime}>
-          <div className={`${style.header} p-3`}>
+          <div className={`${style.header} p-3 row`}>
             {renderLstCumRap()}
           </div>
           <div className={style.body}>

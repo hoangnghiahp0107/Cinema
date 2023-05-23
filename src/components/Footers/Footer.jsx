@@ -58,24 +58,24 @@ function Footer() {
                 </li>
                 <li>
                   <span>Hotline: </span>
-                  <a href="#" className='contact'>1900 5454 41 </a>
+                  <a href="#" className='contact'>1900 9999 99 </a>
                   (1000 đ/phút)
                 </li>
                 <li>
                   <span>Email: </span>
                   <a href="#">
-                    <span className='contact'>hotro@momo.vn</span>
+                    <span className='contact'>bhn@cinema.com</span>
                   </a>
                 </li>
                 <li>
                   <span>Tổng đài gọi ra </span>
-                  <a href="#" className='contact'>028.7306.5555 </a>
+                  <a href="#" className='contact'>028.8888.9999 </a>
                   <span>-</span>
                   <a href="#" className='contact'> 028.9999.5555</a>
                 </li> 
                  <li className='mt-2 mb-2'>
-                    <img className='mx-2 download' src="./img/momo-AppStore.jpg" alt="Apple" />
-                    <img className='mx-2 download' src="./img/momo-GooglePlay.jpg" alt="Android" />
+                    <img className='mx-2 download' src="/img/momo-AppStore.jpg" alt="Apple" />
+                    <img className='mx-2 download' src="/img/momo-GooglePlay.jpg" alt="Android" />
                  </li>  
               </ul>
             </div>

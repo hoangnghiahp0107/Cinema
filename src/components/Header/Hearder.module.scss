@@ -86,3 +86,50 @@
         cursor: pointer;
     }
 }
+
+.right{
+    display: flex;
+}
+
+nav span{
+    text-decoration: none;
+}
+
+.navBar{
+    padding: 5px;
+    background: transparent;
+    border: none;
+    outline: none;
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1024px){
+    .navBar{
+        visibility: visible;
+        opacity: 1;
+    }
+    nav{
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.5rem;
+        transition: 1s;
+        transform: translateY(-120vh);
+        background-color: white;
+    }
+    .responsive_nav{
+        transform: none;
+    }
+    .navClose{
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+    }
+}

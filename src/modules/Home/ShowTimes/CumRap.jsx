@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import {apiGetCinema} from "../../../apis/movieAPI";
+import { Button } from 'react-bootstrap';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -62,7 +64,7 @@ function CumRap({heThongCumRap}) {
   if(err) return null;
   return (
     <div className="row">
-        <div className={`${style.left} col-4`}>
+        <div className={`${style.left} col-md-4`}>
           {/* render cụm rạp CGV, Galaxy... */}
         <Swiper
            direction={"vertical"}
@@ -84,7 +86,7 @@ function CumRap({heThongCumRap}) {
         </Swiper>
             
         </div>
-        <div className={`col-8 ${style.right}`}>
+        <div className={`col-md-8 ${style.right}`}>
           <Swiper
             direction={"vertical"}
             slidesPerView={"auto"}
@@ -118,13 +120,18 @@ function CumRap({heThongCumRap}) {
                                         {item.lstLichChieuTheoPhim.map((timeShow, index) => {
                                           // console.log(timeShow);
                                             return(
-                                                <div className="col-3 px-1" key={index}>
-                                                    <div className={style.showTimeMovieDetail} onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}>
-                                                      <span>{dayjs(timeShow.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
-                                                      <span>~</span>
-                                                      <span className='text-pink-primary'>{dayjs(timeShow.ngayChieuGioChieu).format('hh:mm')}</span>
-                                                    </div>
-                                                </div>
+                                              <div className="col-sm-3 px-1" key={index}>
+                                                <Button
+                                                className={`mb-2 mx-2 mt-2 ${style.times}`}
+                                                variant="outline-primary"
+                                                size="sm"
+                                                onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}
+                                                >
+                                                  <span>{dayjs(timeShow.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
+                                                  <span className='mx-2'>~</span>
+                                                  <span className='text-pink-primary'>{dayjs(timeShow.ngayChieuGioChieu).format('hh:mm')}</span>
+                                                </Button>
+                                            </div>
                                             )
                                         })}
                                     </div>

@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Animated } from "react-animated-css";
 import ButtonLogin from "../Login/ButtonLogin";
 import style from './Hearder.module.scss';
+import {FaBars, FaTimes} from "react-icons/fa";
+
 
 function Header() {
   const [isVisibleRapChieu, setIsVisibleRapChieu] = useState(false);
   const [isVisibleLichChieu, setIsVisibleLichChieu] = useState(false);
   const [isVisibleBlockChieu, setIsVisibleBlockChieu] = useState(false);
+    const navRef = useRef();
+  const showNavbar = () => {
+    navRef.current.classList.toggle(style.responsive_nav);
+  }
 
   return (
     <div className="sticky-top bg-white bg-opacity-75 py-3">
@@ -16,15 +22,23 @@ function Header() {
          <span className="fs-3">BHN</span>
         </div>
 
-        <nav className="d-flex align-items-center ms-3 text-text-dark-color fw-semibold fs-6">
+        <nav className="d-flex align-items-center ms-3 text-text-dark-color fw-semibold fs-6" ref={navRef}>
           <div
             className="mx-3 py-6 position-relative"
-            onMouseLeave={() => setIsVisibleRapChieu(false)}
-            onMouseEnter={() => setIsVisibleRapChieu(true)}
+            onMouseLeave={() => {
+              if (!window.matchMedia("(max-width: 1024px)").matches) {
+                setIsVisibleRapChieu(false);
+              }
+            }} 
+            onMouseEnter={() => {
+              if (!window.matchMedia("(max-width: 1024px)").matches) {
+                setIsVisibleRapChieu(true);
+              }
+            }}
           >
-            <span className={style.textHeaderHover}>Rạp chiếu<i className="bi bi-chevron-down ms-2 fs-7 "></i></span>
+            <span className={style.textHeaderHover} onClick={() => setIsVisibleRapChieu(!isVisibleRapChieu)}>Rạp chiếu<i className="bi bi-chevron-down ms-2 fs-7 "></i></span>
             <Animated
-              className="position-absolute z-10 "
+              className="position-absolute z-3"
               animationIn="fadeInUp"
               animationOut="fadeOutUp"
               animationInDuration={300}
@@ -51,9 +65,17 @@ function Header() {
 
           <div
             className="mx-3 py-6 position-relative"
-            onMouseLeave={() => setIsVisibleLichChieu(false)}
-            onMouseEnter={() => setIsVisibleLichChieu(true)}
-          ><span className={style.textHeaderHover}>Lịch chiếu<i className="bi bi-chevron-down ms-2 fs-7"></i></span>
+            onMouseLeave={() => {
+              if (!window.matchMedia("(max-width: 1024px)").matches) {
+                setIsVisibleLichChieu(false);
+              }
+            }}
+            onMouseEnter={() => {
+              if (!window.matchMedia("(max-width: 1024px)").matches) {
+                setIsVisibleLichChieu(true);
+              }
+            }}
+          ><span className={style.textHeaderHover} onClick={() => setIsVisibleLichChieu(!isVisibleLichChieu)}>Lịch chiếu<i className="bi bi-chevron-down ms-2 fs-7"></i></span>
             <Animated
               className="position-absolute z-10"
               animationIn="fadeInUp"
@@ -77,14 +99,22 @@ function Header() {
             </Animated>
           </div>
 
-          <div className={`mx-3 py-6 py-6 ${style.textHeaderHover}`}>Phim chiếu</div>
-          <div className={`mx-3 py-6 py-6 ${style.textHeaderHover}`}> Review phim</div>
+          <div className={`mx-3 py-6 ${style.textHeaderHover}`}>Phim chiếu</div>
+          <div className={`mx-3 py-6 ${style.textHeaderHover}`}> Review phim</div>
           <div
             className="mx-3 py-6 position-relative"
-            onMouseLeave={() => setIsVisibleBlockChieu(false)}
-            onMouseEnter={() => setIsVisibleBlockChieu(true)}
+            onMouseLeave={() => {
+              if (!window.matchMedia("(max-width: 1024px)").matches) {
+                setIsVisibleBlockChieu(false);
+              }
+            }}
+            onMouseEnter={() => {
+              if (!window.matchMedia("(max-width: 1024px)").matches) {
+                setIsVisibleBlockChieu(true);
+              }
+            }}
           >
-          <span className={style.textHeaderHover}>Block phim<i className="bi bi-chevron-down ms-2 fs-7"></i></span>
+          <span className={style.textHeaderHover} onClick={() => setIsVisibleBlockChieu(!isVisibleBlockChieu)}>Block phim<i className="bi bi-chevron-down ms-2 fs-7"></i></span>
           <Animated
               className="position-absolute z-10"
               animationIn="fadeInUp"
@@ -110,9 +140,18 @@ function Header() {
           <div className={`mx-3 py-6 ${style.textHeaderHover}`}>
             Khuyến mãi
           </div>
+          <button className={`${style.navBar} ${style.navClose}`} onClick={showNavbar}>
+              <FaTimes/>
+           </button>
         </nav>
+        
 
+        <div className={style.right}>
         <ButtonLogin/>
+        <button className={`${style.navBar} mx-2`} onClick={showNavbar}>
+          <FaBars/>
+        </button>
+       </div>
         {/* này ông Hoàng làm nè, vừa login và kiểu sau khi login thì ông set hiện avatar.... tùy ý tưởng của ông */}
       </div>
 
