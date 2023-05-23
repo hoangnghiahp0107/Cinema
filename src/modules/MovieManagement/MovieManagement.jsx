@@ -12,14 +12,25 @@ function MovieManagement() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  
+  //value input to search by movie name
+  const [inputValue, setInputValue] = useState(null);
+  console.log(inputValue);
+  const [current, setCurrent] = useState(1);
+  const handleInput = evt => {
+    console.log(evt.target);
+    if (evt?.key === 'Enter' || evt?.key === 'Tab') {
+      setInputValue(evt?.target?.value);
+    }
+  }
 
   // current page 
-  const [current, setCurrent] = useState(1);
 
   const {dataMovies, isLoading, error} = useSelector((state) => state.listMoviePage);
+  console.log(dataMovies.count);
   useEffect(() => {
-    dispatch(dsPhimPhanTrang({soTrang: current, soPhanTuTrenTrang:10}))
-  },[current]);
+    dispatch(dsPhimPhanTrang({soTrang: current, soPhanTuTrenTrang:10, tenPhim: inputValue ? inputValue : null}))
+  },[current, inputValue]);
 
   // cài đặt Pagination
   const PaginationChange = (page) => {
@@ -32,7 +43,6 @@ const handleUpdateMovie = (index) => {
 }
 //xóa phim
 const [deleteMovie, setDeleteMovie] = useState(null);
-console.log(deleteMovie);
 const [err, setErr] = useState(null);
 
 const handleDeleteMovie = async (movieID) => {
@@ -75,7 +85,22 @@ const handleAddShowTimes = (value) => {
   return (
     <div className='movieManagement'>
       <h2>Quản lý phim</h2>
-      <button className='btn btn-pink-primary text-bg-light-color' onClick={() => navigate('/admin/addmovies')}>Thêm phim</button>
+      <div className="d-flex justify-content-around">
+        <div className="input-group w-50">
+          <input 
+            type="text" 
+            className="form-control" 
+            placeholder="Nhập tên phim và nhấn Enter..." 
+            name="inputValue"
+            // value={inputValue}
+            onKeyDown={handleInput}
+            // onChange={(event)=>setInputValue(event.target.value)}
+            />
+          {/* <span className="input-group-text enable-button-pointers" value='Enter' onClick={handleInput}><i value='Enter' class="bi bi-search"></i></span> */}
+        </div>
+        <button className='btn btn-pink-primary text-bg-light-color' onClick={() => navigate('/admin/addmovies')}>Thêm phim</button>
+
+      </div>
       <div className='body'>
         <div className="container">
           <div className="row">
@@ -109,6 +134,8 @@ const handleAddShowTimes = (value) => {
                     </tr>
                   )
                 })}
+
+                {!dataMovies?.count && <p>Không tìm thấy phim</p> }
               </tbody>
             </table>
             {/* dùng thư viện pagination cho lẹ
