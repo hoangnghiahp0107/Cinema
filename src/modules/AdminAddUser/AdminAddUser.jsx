@@ -186,7 +186,7 @@ function AdminAddUser() {
               </div>
             </div>
             <div className="text-center">
-              <button className="add">Thêm người dùng</button>
+              <button className="add" disabled={isLoading?true:false}>Thêm người dùng</button>
               {error && (
                 <p className="text-center fs-7 text-danger fst-italic">
                   {error}

@@ -238,9 +238,16 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
             )}
           </Modal.Body>
           <Modal.Footer>
-            <button type="submit" className="btn btnPrimary">
+            <button
+              disabled={isLoading ? true : false}
+              type="submit"
+              className="btn btnPrimary"
+            >
               Cập nhật
             </button>
+            {error && (
+              <p className="text-center fs-7 text-danger fst-italic">{error}</p>
+            )}
           </Modal.Footer>
         </form>
       )}
