@@ -104,7 +104,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
     });
     // setStartDate(onDataMovieDetail.ngayKhoiChieu);
   }, [onDataMovieDetail]);
-  console.log(watch("hinhAnh"));
+  // console.log(watch("hinhAnh"));
 
    // ==========set type img =======================
  // watch là hàm dùng để theo dõi và lấy được giá trị mới của input trong form
