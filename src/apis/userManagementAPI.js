@@ -33,20 +33,15 @@ export const apiDeleteUser = async (taiKhoan) => {
 };
 //Thêm user
 export const apiCreateUser = async (user) => {
-  const formData = new FormData();
-  for (let key in user) {
-    formData.append(key, user[key]);
-  }
-  formData.append("maNhom", "GP03");
   const { data } = await axiosClient.post(
     "/QuanLyNguoiDung/ThemNguoiDung",
-    formData
+    user
   );
   return data;
 };
 //UpdateUser
 export const apiUpdateUser = async (value) => {
-  const { data } = await axiosClient.post(
+  const data = await axiosClient.post(
     "/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
     value
   );

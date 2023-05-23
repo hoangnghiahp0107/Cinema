@@ -1,14 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiGetUsersPage } from "../apis/userManagementAPI";
 
-export const getUserListPage = createAsyncThunk("userListPage", async (value) => {
-  try {
-    const data = await apiGetUsersPage(value);
-    return data.content;
-  } catch (error) {
-    throw error.response?.data?.content;
+export const getUserListPage = createAsyncThunk(
+  "userListPage",
+  async (value) => {
+    try {
+      const data = await apiGetUsersPage(value);
+      return data.content;
+    } catch (error) {
+      throw error.response?.data?.content;
+    }
   }
-});
+);
 
 const initialState = {
   users: [],
@@ -19,7 +22,9 @@ const initialState = {
 const userListPageSlice = createSlice({
   name: "userListPage",
   initialState,
-  reducers: {},
+  reducers: {
+    userUpdate: (state, action) => {},
+  },
   extraReducers: (builder) => {
     builder.addCase(getUserListPage.pending, (state) => {
       return { ...state, isLoading: true, error: null };

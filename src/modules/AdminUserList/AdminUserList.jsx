@@ -6,6 +6,8 @@ import { apiDeleteUser } from "../../apis/userManagementAPI";
 import Pagination from "rc-pagination";
 import { useNavigate } from "react-router-dom";
 import AdminUserForm from "../AdminUserForm/AdminUserForm";
+import { userUpdated } from "../../slices/updateUserSlice";
+import swal from "sweetalert";
 
 function AdminUserList() {
   const navigate = useNavigate();
@@ -15,13 +17,15 @@ function AdminUserList() {
   const { users, isLoading, error } = useSelector(
     (state) => state.userListPage
   );
+  const { updated } = useSelector((state) => state.updateUser);
   useEffect(() => {
     dispatch(getUserListPage({ soTrang: current, soPhanTuTrenTrang: 10 }));
-  }, [current]);
+  }, [current, updated]);
   const [updateUser, setUpdateUser] = useState();
   const handleUpdateUser = (index) => {
     setUpdateUser(users?.items[index]);
     setShow(true);
+    dispatch(userUpdated(false));
   };
 
   const [deleteUser, setDeleteUser] = useState(null);
@@ -29,9 +33,14 @@ function AdminUserList() {
     try {
       const data = await apiDeleteUser(taiKhoan);
       setDeleteUser(data);
+      console.log(deleteUser);
       dispatch(getUserListPage({ soTrang: current, soPhanTuTrenTrang: 10 }));
-      console.log(data);
-    } catch (error) {}
+      if (deleteUser) {
+        swal("Xóa người dùng thành công", "You clicked the button!", "success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const PaginationChange = (page) => {
@@ -54,7 +63,7 @@ function AdminUserList() {
   return (
     <div className="userManagement">
       <h2>Danh sách người dùng</h2>
-      <button onClick={() => navigate("/admin/add-user")}>
+      <button className="button" onClick={() => navigate("/admin/add-user")}>
         Thêm người dùng mới
       </button>
       <div className="body">
@@ -65,10 +74,10 @@ function AdminUserList() {
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Tài khoản</th>
-                  <th scope="col">Họ tên</th>
+                  <th scope="col">Họ tên</th> 
+                  <th scope="col">Mật khẩu</th>
                   <th scope="col">Email</th>
                   <th scope="col">Số điện thoại</th>
-                  <th scope="col">Mật khẩu</th>
                   <th scope="col">Loại người dùng</th>
                 </tr>
               </thead>
@@ -79,19 +88,20 @@ function AdminUserList() {
                       <th>{index + 1}</th>
                       <td>{item.taiKhoan}</td>
                       <td>{item.hoTen}</td>
+                      <td>{item.matKhau}</td>
                       <td>{item.email}</td>
                       <td>{item.soDt}</td>
-                      <td>{item.matKhau}</td>
+                      
                       <td>{item.maLoaiNguoiDung}</td>
                       <td>
                         <button
-                          className="btn btn-secondary"
+                          className="btn text-secondary me-1 border-warning"
                           onClick={() => handleUpdateUser(index)}
                         >
                           <i className="bi bi-pencil-square"></i>
                         </button>
                         <button
-                          className="btn btn-danger"
+                          className="btn text-danger border-success"
                           onClick={() => handleDeleteUser(item.taiKhoan)}
                         >
                           <i className="bi bi-trash3"></i>

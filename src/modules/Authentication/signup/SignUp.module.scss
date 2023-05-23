@@ -1,5 +1,16 @@
 @import '../../../index.scss';
 
+.login{
+    font-size: 1rem;
+  font-style: italic;
+  color: $text-dark-color;
+  &:hover {
+    transition: all 0.3s;
+    color: $pink-primary;
+    font-style: normal;
+  }
+}
+
 .signUp{
 // background-color: black;
 // width: 50%;
@@ -8,4 +19,7 @@ margin: auto;
 
 .btnPrimary {
     @extend .btnPrimary;
+}
+.cursor{
+    cursor: pointer;
 }

@@ -6,10 +6,8 @@ export const adminCreateUser = createAsyncThunk(
   async (value) => {
     try {
       const data = await apiCreateUser(value);
-
       return data.content;
     } catch (error) {
-      console.log(error);
       throw error.response?.data?.content;
     }
   }

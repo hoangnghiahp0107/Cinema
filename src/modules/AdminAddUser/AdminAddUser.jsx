@@ -46,18 +46,25 @@ function AdminAddUser() {
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
+  const [passShow, setPassShow] = useState(false);
   const dispatch = useDispatch();
   const { user, isLoading, error } = useSelector((state) => state.createUser);
-  const [addUser, setAddUser] = useState(null);
+  const [addUser, setAddUser] = useState(false);
   const [err, setErr] = useState(null);
 
   const onSubmit = async (value) => {
-    console.log(value);
-    dispatch(adminCreateUser(value));
+    const payload = { ...value, maNhom: "GP03" };
+    dispatch(adminCreateUser(payload));
   };
 
-  user &&
+  const onError = (errors) => {
+    console.log(errors);
+  };
+
+  if (user && !error && !isLoading) {
     swal("Đã thêm người dùng thành công", "You clicked the button!", "success");
+  }
+
   if (isLoading)
     return (
       <div className="h-100vh d-flex justify-content-center align-items-center">
@@ -68,12 +75,16 @@ function AdminAddUser() {
     <div className="createUser">
       <h2>Thêm người dùng mới</h2>
       <div className="body">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="container">
-            <div className="row mb-2 mt-2 align-items-top">
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
+          <div className="container mb-2">
+            <div className="row mb-2 mt-2 align-items-top input-group">
               <div className="col-2 text-end">Họ & tên</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("hoTen")} />
+                <input
+                  type="text"
+                  className="w-100 form-control"
+                  {...register("hoTen")}
+                />
                 {errors.hoTen && (
                   <p className="ms-3 fs-7 text-danger fst-italic">
                     {errors.hoTen.message}
@@ -82,12 +93,12 @@ function AdminAddUser() {
               </div>
             </div>
 
-            <div className="row mb-2 mt-2 align-items-top">
+            <div className="row mb-2 mt-2 align-items-top input-group">
               <div className="col-2 text-end">Tài khoản</div>
               <div className="col-10">
                 <input
                   type="text"
-                  className="w-100"
+                  className="w-100 form-control"
                   {...register("taiKhoan")}
                 />
                 {errors.taiKhoan && (
@@ -98,10 +109,24 @@ function AdminAddUser() {
               </div>
             </div>
 
-            <div className="row mb-2 mt-2 align-items-top">
-              <div className="col-2 text-end">Mật khẩu</div>
+            <div className="row mb-2 mt-2 align-items-top input-group">
+              <spa className="col-2 text-end">Mật khẩu</spa>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("matKhau")} />
+                <input
+                  type="text"
+                  className="form-control"
+                  {...register("matKhau")}
+                />
+                {/* <div
+                  className="input-group-text"
+                  onClick={() => setPassShow(!passShow)}
+                >
+                  {passShow ? (
+                    <i class="bi bi-eye"></i>
+                  ) : (
+                    <i class="bi bi-eye-slash"></i>
+                  )}
+                </div> */}
                 {errors.matKhau && (
                   <p className="ms-3 fs-7 text-danger fst-italic">
                     {errors.matKhau.message}
@@ -110,10 +135,14 @@ function AdminAddUser() {
               </div>
             </div>
 
-            <div className="row mb-2 mt-2 align-items-top">
+            <div className="row mb-2 mt-2 align-items-top input-group">
               <div className="col-2 text-end">Email</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("email")} />
+                <input
+                  type="text"
+                  className="w-100 form-control"
+                  {...register("email")}
+                />
                 {errors.email && (
                   <p className="ms-3 fs-7 text-danger fst-italic">
                     {errors.email.message}
@@ -122,10 +151,14 @@ function AdminAddUser() {
               </div>
             </div>
 
-            <div className="row mb-2 mt-2 align-items-top">
+            <div className="row mb-2 mt-2 align-items-top input-group">
               <div className="col-2 text-end">Số điện thoại</div>
               <div className="col-10">
-                <input type="text" className="w-100" {...register("soDt")} />
+                <input
+                  type="text"
+                  className="w-100 form-control"
+                  {...register("soDt")}
+                />
                 {errors.soDt && (
                   <p className="ms-3 fs-7 text-danger fst-italic">
                     {errors.soDt.message}
@@ -134,10 +167,14 @@ function AdminAddUser() {
               </div>
             </div>
 
-            <div className="row mb-2 mt-2 align-items-top">
+            <div className="row mb-2 mt-2 align-items-top input-group">
               <div className="col-2 text-end">Loại người dùng</div>
               <div className="col-10">
-                <select name="mySelect" {...register("maLoaiNguoiDung")}>
+                <select
+                  className="form-control"
+                  name="mySelect"
+                  {...register("maLoaiNguoiDung")}
+                >
                   <option value="KhachHang">Khách hàng</option>
                   <option value="QuanTri">Quản trị</option>
                 </select>

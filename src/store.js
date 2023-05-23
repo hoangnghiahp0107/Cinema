@@ -8,6 +8,7 @@ import danhSachPhimPhanTrangSlide from "./slices/danhSachPhimPhanTrangSlide";
 import userListSlice from "./slices/userListSlice";
 import userListPageSlice from "./slices/userListPageSlice";
 import adminCreateUserSlice from "./slices/createUserSlice";
+import updateUserSlice from "./slices/updateUserSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     userList: userListSlice,
     userListPage: userListPageSlice,
     createUser: adminCreateUserSlice,
+    updateUser: updateUserSlice,
   },
 });
 

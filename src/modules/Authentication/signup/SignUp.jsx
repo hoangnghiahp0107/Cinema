@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Modal, Form, InputGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import style from "./SignUp.module.scss";
 
 function SignUp() {
+  const [passShow, setPassShow] = useState(false);
   const dispatch = useDispatch();
   const {
     register,
@@ -88,7 +89,7 @@ function SignUp() {
                 Mật khẩu
               </InputGroup.Text>
               <Form.Control
-                type="password"
+                 type={passShow ? "text" : "password"}
                 {...register("matKhau", {
                   required: {
                     value: true,
@@ -101,6 +102,16 @@ function SignUp() {
                   },
                 })}
               />
+              <div
+                className={`input-group-text ${style.cursor}`}
+                onClick={() => setPassShow(!passShow)}
+              >
+                {passShow ? (
+                  <i class="bi bi-eye-slash"></i>
+                ) : (
+                  <i class="bi bi-eye"></i>
+                )}
+              </div>
             </InputGroup>
             {errors.matKhau && (
               <p className="ms-3 fs-7 text-danger fst-italic">
@@ -113,7 +124,7 @@ function SignUp() {
                 Nhập lại mật khẩu
               </InputGroup.Text>
               <Form.Control
-                type="password"
+                type={passShow ? "text" : "password"}
                 {...register(
                   "reMatKhau",
                   {
@@ -138,6 +149,16 @@ function SignUp() {
                   {}
                 )}
               />
+               <div
+                className={`input-group-text ${style.cursor}`}
+                onClick={() => setPassShow(!passShow)}
+              >
+                {passShow ? (
+                  <i class="bi bi-eye-slash"></i>
+                ) : (
+                  <i class="bi bi-eye"></i>
+                )}
+              </div>
             </InputGroup>
             {errors.reMatKhau && (
               <p className="ms-3 fs-7 text-danger fst-italic">
@@ -207,7 +228,7 @@ function SignUp() {
             )}
           </Modal.Body>
 
-          <Modal.Footer className="w-100 justify-content-center">
+          <Modal.Footer className="w-100 justify-content-end">
             <div className="w-100 mt-4">
               <button
                 type="submit"
@@ -217,7 +238,12 @@ function SignUp() {
                 Đăng ký
               </button>
             </div>
-            <div className="w-100 py-2">
+            <div className="ms-4 text-end">
+              <a onClick={() => navigate("/signin")}
+               disabled={isLoading ? true : false}
+               className={style.login}>Đăng nhập.</a>
+            </div>
+            {/* <div className="w-100 py-2">
               <button
                 onClick={() => navigate("/signin")}
                 className={`${style.btnPrimary} w-100`}
@@ -225,7 +251,7 @@ function SignUp() {
               >
                 Đăng nhập
               </button>
-            </div>
+            </div> */}
           </Modal.Footer>
           {error && (
             <p className="text-center fs-7 text-danger fst-italic">{error}</p>

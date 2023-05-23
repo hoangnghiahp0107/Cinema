@@ -4,6 +4,10 @@ import Modal from "react-bootstrap/Modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { apiUpdateUser } from "../../apis/userManagementAPI";
+import { useDispatch, useSelector } from "react-redux";
+import style from "./AdminUserForm.module.scss";
+import { userUpdated, updateUser } from "../../slices/updateUserSlice";
+import swal from "sweetalert";
 
 const schema = yup.object({
   taiKhoan: yup.string().required("Tài khoản không được để trống."),
@@ -34,51 +38,67 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
     getValues,
     formState: { errors },
   } = useForm({
-    // defaultValues: {
-    //   taiKhoan: onUpdateUser.taiKhoan,
-    //   matKhau: "",
-    //   email: "",
-    //   soDt: "",
-    //   maLoaiNguoiDung: "",
-    //   hoTen: "",
-    // },
+    defaultValues: {
+      taiKhoan: "",
+      matKhau: "",
+      email: "",
+      soDt: "",
+      maLoaiNguoiDung: "",
+      hoTen: "",
+      maNhom: "GP03",
+    },
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
+  const dispatch = useDispatch();
+  const [passShow, setPassShow] = useState(false);
   const [userUpdate, setUserUpdate] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  let formData = new FormData();
+  const { updated, user, error, isLoading } = useSelector(
+    (state) => state.updateUser
+  );
+
   const onSubmit = async (value) => {
-    setIsLoading(true);
-    formData.append("hoTen", value.hoTen);
-    formData.append("taiKhoan", value.taiKhoan);
-    formData.append("matKhau", value.matKhau);
-    formData.append("email", value.email);
-    formData.append("soDt", value.soDt);
-    formData.append("maLoaiNguoiDung", value.maLoaiNguoiDung);
-    formData.append("maNhom", "GP03");
-    try {
-      const data = await apiUpdateUser(formData);
-      setUserUpdate(data);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      console.log(error);
-    }
+    const data = await dispatch(updateUser(value));
+    setUserUpdate(data);
+    dispatch(userUpdated(data));
+  };
+  const onErr = (error) => {
+    console.log(error);
   };
   useEffect(() => {
-    console.log(onUpdateUser);
     if (onUpdateUser) {
-      reset({
-        hoTen: onUpdateUser.hoTen,
-        taiKhoan: onUpdateUser.taiKhoan,
-        matKhau: onUpdateUser.matKhau,
-        email: onUpdateUser.email,
-        soDt: onUpdateUser.soDt,
-        maLoaiNguoiDung: onUpdateUser.maLoaiNguoiDung,
-      });
+      if (updated) {
+        //cập nhật thông tin người dùng vừa cập nhật lên modal
+        reset({
+          hoTen: user.hoTen,
+          taiKhoan: user.taiKhoan,
+          matKhau: user.matKhau,
+          email: user.email,
+          soDt: user.soDt,
+          maLoaiNguoiDung: user.maLoaiNguoiDung,
+          maNhom: "GP03",
+        });
+      } else {
+        reset({
+          hoTen: onUpdateUser.hoTen,
+          taiKhoan: onUpdateUser.taiKhoan,
+          matKhau: onUpdateUser.matKhau,
+          email: onUpdateUser.email,
+          soDt: onUpdateUser.soDt,
+          maLoaiNguoiDung: onUpdateUser.maLoaiNguoiDung,
+          maNhom: "GP03",
+        });
+      }
+    }
+    if (updated) {
+      swal(
+        "Cập nhật người dùng thành công",
+        "You clicked the button!",
+        "success"
+      );
     }
   }, [onUpdateUser]);
+
   if (isLoading)
     return (
       <div className="h-100 d-flex justify-content-center align-items-center">
@@ -111,9 +131,25 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
           />
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onErr)}>
           <Modal.Body className="formBody">
-            <div className="input-group input">
+            <div className={`input-group ${style.input}`}>
+              <span className="input-group-text">Tài khoản</span>
+              <input
+                type="text"
+                className="form-control"
+                disabled
+                placeholder="Tài khoản"
+                {...register("taiKhoan")}
+              />
+            </div>
+            {errors.taiKhoan && (
+              <p className="ms-3 fs-7 text-danger fst-italic">
+                {errors.taiKhoan.message}
+              </p>
+            )}
+
+            <div className={`input-group ${style.input}`}>
               <span className="input-group-text">Họ & tên</span>
               <input
                 type="text"
@@ -128,37 +164,33 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
               </p>
             )}
 
-            <div className="input-group input">
-              <span className="input-group-text">Tài khoản</span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Tài khoản"
-                {...register("taiKhoan")}
-              />
-            </div>
-            {errors.taiKhoan && (
-              <p className="ms-3 fs-7 text-danger fst-italic">
-                {errors.taiKhoan.message}
-              </p>
-            )}
-
-            <div className="input-group input">
+            <div className={`input-group ${style.input}`}>
               <span className="input-group-text">Mật khẩu</span>
               <input
-                type="text"
+                type={passShow ? "text" : "password"}
                 className="form-control"
                 placeholder="Mật khẩu"
                 {...register("matKhau")}
               />
+              <div
+                className={`input-group-text ${style.cursor}`}
+                onClick={() => setPassShow(!passShow)}
+              >
+                {passShow ? (
+                  <i class="bi bi-eye-slash"></i>
+                ) : (
+                  <i class="bi bi-eye"></i>
+                )}
+              </div>
             </div>
+
             {errors.matKhau && (
               <p className="ms-3 fs-7 text-danger fst-italic">
                 {errors.matKhau.message}
               </p>
             )}
 
-            <div className="input-group input">
+            <div className={`input-group ${style.input}`}>
               <span className="input-group-text">Email</span>
               <input
                 type="text"
@@ -173,7 +205,7 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
               </p>
             )}
 
-            <div className="input-group input">
+            <div className={`input-group ${style.input}`}>
               <span className="input-group-text">Số điện thoại</span>
               <input
                 type="text"
@@ -188,9 +220,13 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
               </p>
             )}
 
-            <div className="input-group input">
+            <div className={`input-group ${style.input}`}>
               <span className="input-group-text">Loại người dùng</span>
-              <select name="mySelect" {...register("maLoaiNguoiDung")}>
+              <select
+                className="form-control"
+                name="mySelect"
+                {...register("maLoaiNguoiDung")}
+              >
                 <option value="KhachHang">Khách hàng</option>
                 <option value="QuanTri">Quản trị</option>
               </select>
