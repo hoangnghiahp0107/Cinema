@@ -39,9 +39,8 @@ function ButtonLogin() {
       {/* avatar */}
       {user && (
         <div className="d-flex">
-          <div className={`${style.userShow} me-2 rounded-circle bg-gray-400 position-relative`}>
+          <div className={`${style.userShow} me-2 rounded-circle bg-gray-400`}>
             <i className="bi bi-bell"></i>
-            <div className="position-absolute thongbaoNum">1</div>
           </div>
           <div className={style.userShow}>
             <img className={style.avatarImg} alt='' src="/img/avatar.jpeg"/>

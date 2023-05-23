@@ -58,6 +58,14 @@ function IncomingMovies() {
             delay: 5000,
             disableOnInteraction: false,
           }}
+          breakpoints={{
+            1024: {
+              slidesPerView:5,
+            },
+            300:{
+              slidesPerView:1,
+            },
+          }}
           modules={[Pagination, Navigation, Autoplay]}
           className='swiperIncomingMovies'
         >

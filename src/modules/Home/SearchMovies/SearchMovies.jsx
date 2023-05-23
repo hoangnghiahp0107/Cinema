@@ -59,7 +59,7 @@ function SearchMovies() {
     <div className="searchMovies">
         <div className='container'>
             <div className="row px-5">
-                <div className="col-4">
+                <div className="col-sm-4 my-2">
                     <select class="form-select" onChange={handleCinema}>
                         <option selected>Chọn phim...</option>
                         {movies?.map((item, index) => {return (
@@ -71,7 +71,7 @@ function SearchMovies() {
 
                     </select>
                 </div>
-                <div className="col-3">
+                <div className="col-sm-3 my-2">
                     <select class="form-select" disabled={lichChieuTungRap?.length ? false : true} onChange={handleTime}>
                         <option selected>Chọn rạp...</option>
                         {lichChieuTungRap?.map((obj, index) => {
@@ -80,7 +80,7 @@ function SearchMovies() {
                             )})}
                         </select>
                 </div>
-                <div className="col-3">
+                <div className="col-sm-3 my-2">
                     <select class="form-select" disabled={timeShow?.length ? false : true} onChange={handleBook}>
                         <option selected>Chọn Ngày giờ chiếu...</option>
                         {timeShow?.map((obj, index) => {
@@ -93,7 +93,7 @@ function SearchMovies() {
                             )})}
                     </select>
                 </div>
-                <div className="col">
+                <div className="col my-2">
                     <button className='btn' onClick={() => navigate(`/booking/${bookID}`)}>Mua vé</button>
                 </div>
             </div>

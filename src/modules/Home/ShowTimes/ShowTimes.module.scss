@@ -5,6 +5,7 @@
     border-radius: 10px;
     // cursor: pointer;
     .header{
+        white-space: nowrap;
         padding: 3rem;
         display: flex;
         border-bottom: solid 1px $header-border-color;
@@ -203,6 +204,10 @@
                         }
                         .movieDetail_right{
                             margin-right: 10px;
+                            .times:hover{
+                                color: #38bdf8;
+                                background: white;       
+                        }
                             .movieName{
                                 font-weight: 600;
                                 color: $text-dark-color;
