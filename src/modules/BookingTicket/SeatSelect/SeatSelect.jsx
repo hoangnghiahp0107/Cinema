@@ -59,7 +59,7 @@ function SeatSelect() {
       )
     
   return (
-    <div className={`${style.seatSelect} container`}>
+    <div className={`${style.seatSelect} container-lg container-md container-sm`}>
         <div className="row">
             <div className="col-sm-3 ps-5">
                 <div className={style.infoMovie}>

@@ -44,7 +44,7 @@ function PlayingMovies() {
   if(err) return null;
   return (
     <div className='bg-black playingMovies'>
-      <div className='container px-5'>
+      <div className='container-lg container-md container-sm px-5'>
         <div className="mb-5 text-center">
           <h2 className="fs-2 text-white fw-semibold">Phim đang chiếu</h2>
         </div>

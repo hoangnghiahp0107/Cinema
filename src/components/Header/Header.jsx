@@ -16,7 +16,7 @@ function Header() {
 
   return (
     <div className="sticky-top bg-white bg-opacity-75 py-3">
-      <div className="container mx-auto d-flex justify-content-between align-items-center">
+      <div className="container-lg container-md container-sm mx-auto d-flex justify-content-between align-items-center">
         <div className={style.logo}>
          <i className="bi bi-ticket-perforated fs-2 me-3"></i>
          <span className="fs-3">BHN</span>

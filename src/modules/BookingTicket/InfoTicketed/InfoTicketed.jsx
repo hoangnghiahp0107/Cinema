@@ -6,7 +6,7 @@ function InfoTicketed() {
     const {thongTinPhim, carts, total} = useLocation().state; 
     const navigate = useNavigate();
   return (
-    <div className='container text-center'>
+    <div className='container-lg container-md container-sm text-center'>
         <p className='text-danger fst-italic'>Vui lòng lưu thông tin đặt vé!!!</p>
         <div className={style.infoTicketed}>
             <div className={`row `}>

@@ -55,7 +55,7 @@ function Banner() {
             prevEl: `.${style.prevs}`,
           }}
           modules={[EffectFade,Autoplay, Pagination, Navigation, Controller]}
-          className={`${style.swiperBanner} container`}
+          className={`${style.swiperBanner} container-lg container-md container-sm`}
         >
           {banner.map((item, index) => {
             return (

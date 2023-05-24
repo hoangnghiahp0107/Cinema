@@ -43,7 +43,7 @@ function IncomingMovies() {
   if(err) return null;
   return (
     <div className='incomingMovies'>
-      <div className='container px-5'>
+      <div className='container-lg container-md container-sm px-5'>
         <div className="mb-5 text-center">
           <h2 className="fs-2 text-pink-primary fw-semibold">Phim sắp chiếu</h2>
         </div>

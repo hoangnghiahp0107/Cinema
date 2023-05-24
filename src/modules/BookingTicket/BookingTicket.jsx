@@ -24,7 +24,7 @@ function BookingTicket() {
   if(user) {
       return (
         <div className="movie">
-          <div className="container">
+          <div className="container-lg container-md container-sm">
               <div className="row">
                   <div className="col">
                       <h1 className='text-center text-warning my-4'>ĐẶT VÉ XEM FILM</h1>

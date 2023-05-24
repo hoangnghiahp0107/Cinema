@@ -53,7 +53,7 @@ function Showtimes({movieID}) {
 
   if (err) return null;
   return (
-    <div className='container py-5'>
+    <div className='container-lg container-md container-sm py-5'>
       <div className="mx-auto px-5">
         <div className="text-center mb-5">
           <h2 className='text-pink-primary fw-semibold fs-2'>Lịch chiếu phim {movie.tenPhim}</h2>
