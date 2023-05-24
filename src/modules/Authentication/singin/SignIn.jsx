@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, InputGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import { signin } from "../../../slices/userSlice";
 import style from "./SignIn.module.scss";
 
 function SignIn() {
+  const [passShow, setPassShow] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
@@ -23,8 +24,7 @@ function SignIn() {
     },
   });
 
-  const {user, isLoading, error} = useSelector((state) => state.user);
-
+  const { user, isLoading, error } = useSelector((state) => state.user);
 
   const onSubmit = (data) => {
     dispatch(signin(data));
@@ -81,7 +81,7 @@ function SignIn() {
               Mật khẩu
             </InputGroup.Text>
             <Form.Control
-              type="password"
+              type={passShow ? "text" : "password"}
               {...register("matKhau", {
                 required: {
                   value: true,
@@ -94,6 +94,16 @@ function SignIn() {
                 },
               })}
             />
+            <div
+              className={`input-group-text ${style.cursor}`}
+              onClick={() => setPassShow(!passShow)}
+            >
+              {passShow ? (
+                <i class="bi bi-eye-slash"></i>
+              ) : (
+                <i class="bi bi-eye"></i>
+              )}
+            </div>
           </InputGroup>
           {errors.matKhau && (
             <p className="ms-3 fs-7 text-danger fst-italic">
@@ -115,7 +125,16 @@ function SignIn() {
             </div>
             <div className="ms-4 text-end">
               <a href="#" className={style.quenPass}>
-                Quên mật khẩu
+                Quên mật khẩu?
+              </a>
+            </div>
+            <div className="ms-4 text-end">
+              <a
+                className={style.quenPass}
+                onClick={() => navigate("/signup")}
+                disabled={isLoading ? true : false}
+              >
+                Đăng ký thành viên mới.
               </a>
             </div>
             {error && (
@@ -123,7 +142,7 @@ function SignIn() {
             )}
           </div>
         </form>
-        <div className="w-100 py-2">
+        {/* <div className="w-100 py-2">
           <button
             type="submit"
             onClick={() => navigate("/signup")}
@@ -132,7 +151,7 @@ function SignIn() {
           >
             Đăng ký thành viên mới
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );

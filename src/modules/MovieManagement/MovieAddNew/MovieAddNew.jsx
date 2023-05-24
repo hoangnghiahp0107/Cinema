@@ -4,15 +4,19 @@ import swal from 'sweetalert';
 import { useNavigate} from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { apiThemPhimUploadHinh } from '../../../apis/movieAPI';
+
 import "./MovieAddNew.scss";
 
 // định nghĩa các xác thực input
 const schema = yup.object({
   tenPhim: yup.string().required("Tên phim không được để trống"),
   trailer: yup.string().required("Trailer không được để trống"),
+
   hinhAnh: yup.mixed()
   .test('required', "Vui lòng chọn hình ảnh", (value) =>{
     return value && value.length;
@@ -23,6 +27,7 @@ const schema = yup.object({
   .test("type", "Phải chọn type hình ảnh", function (value) {
     return value && value[0] && value[0]?.type === "image/jpeg" || value[0]?.type === "image/png";
   }),
+
   moTa: yup.string(),
   ngayKhoiChieu: yup.string().required("Ngày khởi chiếu không được để trống"),
   danhGia: yup.number().max(10, 'Đánh giá lớn nhất là 10').min(1,'Đánh giá nhỏ nhất là 1').typeError('Đánh giá phải là số từ 1 đến 10'),
@@ -83,14 +88,15 @@ function MovieAddNew() {
   const onSubmit = async (value) => {
     const payload = {...value, hinhAnh: value.hinhAnh[0]}
     // console.log(payload);
+
     try {
       const data = await apiThemPhimUploadHinh(payload);
       setMovieAdd(data);
       setIsLoading(false);
       
     } catch (error) {
-        setErr(error);
-        setIsLoading(false);
+      setErr(error);
+      setIsLoading(false);
     }
   };
   // error form
@@ -189,21 +195,33 @@ function MovieAddNew() {
             <div className="row mb-1 align-items-center">
               <div className="col-2 text-end">Đang chiếu</div>
               <div className="col-10">
-                <input class="form-check-input" type="checkbox" {...register("dangChieu")}/>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  {...register("dangChieu")}
+                />
               </div>
             </div>
 
             <div className="row mb-1 align-items-center">
               <div className="col-2 text-end">Sắp chiếu</div>
               <div className="col-10">
-                <input class="form-check-input" type="checkbox" {...register("sapChieu")}/>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  {...register("sapChieu")}
+                />
               </div>
             </div>
 
             <div className="row mb-1 align-items-center">
               <div className="col-2 text-end">Hot</div>
               <div className="col-10">
-                <input class="form-check-input" type="checkbox" {...register("hot")}/>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  {...register("hot")}
+                />
               </div>
             </div>
 
@@ -247,7 +265,7 @@ function MovieAddNew() {
                 {err && <p>Xử lý chưa thành công, liên hệ quản trị viên</p>}
               </div>
             </div>
-            
+
           </div>
         </form>
       </div>

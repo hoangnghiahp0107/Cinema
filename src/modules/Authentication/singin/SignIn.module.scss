@@ -1,16 +1,20 @@
-@import '../../../index.scss';
+@import "../../../index.scss";
 
-.btnPrimary {
-    @extend .btnPrimary;
+.cursor {
+  cursor: pointer;
 }
 
-.quenPass{
-    font-size: 1rem;
-    font-style: italic;
-    color: $text-dark-color;
-    &:hover{
-        transition: all 0.3s;
-        color: $pink-primary;
-        font-style: normal;
-    };
+.btnPrimary {
+  @extend .btnPrimary;
+}
+
+.quenPass {
+  font-size: 1rem;
+  font-style: italic;
+  color: $text-dark-color;
+  &:hover {
+    transition: all 0.3s;
+    color: $pink-primary;
+    font-style: normal;
+  }
 }

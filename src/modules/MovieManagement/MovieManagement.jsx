@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import swal from 'sweetalert';
@@ -7,6 +8,7 @@ import Pagination from 'rc-pagination';
 import MovieForm from './MovieForm/MovieForm';
 import {apiXoaPhim} from '../../apis/movieAPI';
 import './MovieManagement.scss';
+
 
 function MovieManagement() {
   const navigate = useNavigate();
@@ -23,8 +25,6 @@ function MovieManagement() {
       setInputValue(evt?.target?.value);
     }
   }
-
-  // current page 
 
   const {dataMovies, isLoading, error} = useSelector((state) => state.listMoviePage);
   console.log(dataMovies.count);
@@ -76,15 +76,21 @@ const handleAddShowTimes = (value) => {
   navigate('addshowtimes', {state: {movie: value}});
 }
 
-  if(isLoading) return (
-    <div className="h-100 d-flex justify-content-center align-items-center">
-      <img src={'/img/loading.gif'} className="img-fluid" style={{height: '100px', width: '100px'}}/>
-    </div>
-  )
+  if (isLoading)
+    return (
+      <div className="h-100 d-flex justify-content-center align-items-center">
+        <img
+          src={"/img/loading.gif"}
+          className="img-fluid"
+          style={{ height: "100px", width: "100px" }}
+        />
+      </div>
+    );
 
   return (
-    <div className='movieManagement'>
+    <div className="movieManagement">
       <h2>Quản lý phim</h2>
+
       <div className="d-flex justify-content-around">
         <div className="input-group w-50">
           <input 
@@ -102,37 +108,42 @@ const handleAddShowTimes = (value) => {
 
       </div>
       <div className='body'>
+
         <div className="container">
           <div className="row">
-            <table className='table'>
+            <table className="table">
               <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Mã phim</th>
-                <th scope="col">Hình ảnh</th>
-                <th scope="col">Tên phim</th>
-                <th scope="col">Mô tả</th>
-                <th scope="col">Hành động</th>
-              </tr>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Mã phim</th>
+                  <th scope="col">Hình ảnh</th>
+                  <th scope="col">Tên phim</th>
+                  <th scope="col">Mô tả</th>
+                  <th scope="col">Hành động</th>
+                </tr>
               </thead>
               <tbody>
                 {dataMovies?.items?.map((item, index) => {
                   return (
                     <tr key={index}>
-                      <th scope="row">{index + 1 + (current-1)*10}</th>
+                      <th scope="row">{index + 1 + (current - 1) * 10}</th>
                       <td>{item.maPhim}</td>
-                      <td><img src={item.hinhAnh} alt={item.biDanh} /></td>
+                      <td>
+                        <img src={item.hinhAnh} alt={item.biDanh} />
+                      </td>
                       <td>{item.tenPhim}</td>
                       <td>{item.moTa}</td>
+
                       <td className=''>
                         <div className="d-flex">
                           <button onClick={()=>handleUpdateMovie(index)} className='btn text-secondary'><i className="bi bi-pencil-square"></i></button>
                           <button onClick={()=>handleDeleteMovie(item.maPhim)} className='btn text-danger'> <i className="bi bi-trash3"></i></button>
                           <button onClick={()=>handleAddShowTimes(item)} className='btn text-success'> <i class="bi bi-calendar2"></i></button>
                         </div>
+
                       </td>
                     </tr>
-                  )
+                  );
                 })}
 
                 {!dataMovies?.count && <p>Không tìm thấy phim</p> }
@@ -141,8 +152,8 @@ const handleAddShowTimes = (value) => {
             {/* dùng thư viện pagination cho lẹ
               npm i rc-pagination
               https://pagination-react-component.vercel.app/ */}
-            <Pagination 
-              className='pagination'
+            <Pagination
+              className="pagination"
               // showTotal={(total, range) => `Showing ${range[0]}-${range[1]} of ${total}`}
               onChange={PaginationChange}
               total={dataMovies.totalCount % 10 == 0 ? dataMovies.totalPages -1 : dataMovies.totalPages
@@ -151,14 +162,18 @@ const handleAddShowTimes = (value) => {
               // ko thể thiếu current
               current={current}
               pageSize={1}
-              />
+            />
           </div>
         </div>
       </div>
 
-    <MovieForm onShow={show} handleShow={handleShow} onDataMovieDetail={dataMovieDetail}/>
+      <MovieForm
+        onShow={show}
+        handleShow={handleShow}
+        onDataMovieDetail={dataMovieDetail}
+      />
     </div>
-  )
+  );
 }
 
-export default MovieManagement
+export default MovieManagement;
