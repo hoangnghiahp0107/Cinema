@@ -6,6 +6,7 @@ import "./AdminAddUser.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { adminCreateUser } from "../../slices/createUserSlice";
 import swal from "sweetalert";
+import { useNavigate } from "react-router";
 //Định nghĩa các xác thực input
 const schema = yup.object({
   taiKhoan: yup.string().required("Tài khoản không được để trống."),
@@ -28,6 +29,7 @@ const schema = yup.object({
   hoTen: yup.string().required("Họ tên không được để trống"),
 });
 function AdminAddUser() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -54,15 +56,24 @@ function AdminAddUser() {
 
   const onSubmit = async (value) => {
     const payload = { ...value, maNhom: "GP03" };
-    dispatch(adminCreateUser(payload));
+    const data = await dispatch(adminCreateUser(payload));
+    setAddUser(data);
   };
 
   const onError = (errors) => {
     console.log(errors);
   };
-
-  if (user && !error && !isLoading) {
-    swal("Đã thêm người dùng thành công", "You clicked the button!", "success");
+  console.log(addUser);
+  if (addUser?.payload?.statusCode === 200) {
+    swal({
+      title: "Thêm người dùng mới thành công",
+      text: "Nhấn Ok để tiếp tục!",
+      icon: "success",
+    }).then((willSuccess) => {
+      if (willSuccess) {
+        navigate("/admin/users");
+      }
+    });
   }
 
   if (isLoading)
@@ -117,16 +128,6 @@ function AdminAddUser() {
                   className="form-control"
                   {...register("matKhau")}
                 />
-                {/* <div
-                  className="input-group-text"
-                  onClick={() => setPassShow(!passShow)}
-                >
-                  {passShow ? (
-                    <i class="bi bi-eye"></i>
-                  ) : (
-                    <i class="bi bi-eye-slash"></i>
-                  )}
-                </div> */}
                 {errors.matKhau && (
                   <p className="ms-3 fs-7 text-danger fst-italic">
                     {errors.matKhau.message}
@@ -186,7 +187,9 @@ function AdminAddUser() {
               </div>
             </div>
             <div className="text-center">
-              <button className="add" disabled={isLoading?true:false}>Thêm người dùng</button>
+              <button className="add" disabled={isLoading ? true : false}>
+                Thêm người dùng
+              </button>
               {error && (
                 <p className="text-center fs-7 text-danger fst-italic">
                   {error}

@@ -217,7 +217,11 @@ function SignUp() {
                     value: true,
                     message: "Số điện thoại không được để trống",
                   },
-                  valueAsNumber: true,
+                  pattern: {
+                    value:
+                    /^0[1-9]\d{8,}$/,
+                    message:  "Số điện thoại phải là dãy số bắt đầu là 0 và ít nhất 10 chữ số",
+                  },
                 })}
               />
             </InputGroup>
