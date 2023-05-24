@@ -4,7 +4,7 @@ import { apiUpdateUser } from "../apis/userManagementAPI";
 export const updateUser = createAsyncThunk("updateUser", async (value) => {
   try {
     const data = await apiUpdateUser(value);
-    return data.content;
+    return data;
   } catch (error) {
     throw error.response?.data?.content;
   }

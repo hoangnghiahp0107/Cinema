@@ -52,14 +52,13 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
   });
   const dispatch = useDispatch();
   const [passShow, setPassShow] = useState(false);
-  const [userUpdate, setUserUpdate] = useState(null);
+  const [updatedUser, setUpdatedUser] = useState(null);
   const { updated, user, error, isLoading } = useSelector(
     (state) => state.updateUser
   );
-
+  
   const onSubmit = async (value) => {
     const data = await dispatch(updateUser(value));
-    setUserUpdate(data);
     dispatch(userUpdated(data));
   };
   const onErr = (error) => {
@@ -90,14 +89,19 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
         });
       }
     }
-    if (updated) {
-      swal(
-        "Cập nhật người dùng thành công",
-        "You clicked the button!",
-        "success"
-      );
-    }
   }, [onUpdateUser]);
+  
+  if (user?.statusCode === 200) {
+    swal({
+      title: `Cập nhật người dùng thành công`,
+      text: "Nhấn Ok để tiếp tục!",
+      icon: "success",
+    }).then((willSuccess) => {
+      if (willSuccess) {
+        handleShow(!onShow);
+      }
+    });
+  }
 
   if (isLoading)
     return (
@@ -240,7 +244,7 @@ function AdminUserForm({ onShow, handleShow, onUpdateUser }) {
           <Modal.Footer>
             <button
               disabled={isLoading ? true : false}
-              type="submit"
+              
               className="btn btnPrimary"
             >
               Cập nhật

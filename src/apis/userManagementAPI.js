@@ -41,7 +41,7 @@ export const apiCreateUser = async (user) => {
 };
 //UpdateUser
 export const apiUpdateUser = async (value) => {
-  const data = await axiosClient.post(
+  const { data } = await axiosClient.post(
     "/QuanLyNguoiDung/CapNhatThongTinNguoiDung",
     value
   );
