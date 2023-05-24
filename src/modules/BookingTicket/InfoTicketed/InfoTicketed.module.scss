@@ -24,3 +24,35 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .infoTicketed{
+        ul{
+            li{
+                font-size: 0.75rem;
+            }
+        }
+        button{
+            font-size: 0.75rem;
+            width: 40% !important;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .img{
+        padding: 0;
+    }
+    .infoTicketed{
+        ul{
+            li{
+                font-size: 0.75rem;
+                padding: 4px 10px;
+            }
+        }
+        button{
+            font-size: 0.75rem;
+            width: 50% !important;
+        }
+    }
+}
