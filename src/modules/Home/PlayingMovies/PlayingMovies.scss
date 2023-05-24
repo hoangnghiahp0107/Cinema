@@ -11,7 +11,6 @@
         position: relative;
         margin-left: -2rem;
         margin-right: -2rem;
-
         .card{
             border: none !important;
         }
@@ -45,7 +44,7 @@
 
             .playingMovieImg {
                 height: 300px;
-                object-fit: contain;
+                object-fit: cover;
                 cursor: pointer;
                 position: relative;
             }

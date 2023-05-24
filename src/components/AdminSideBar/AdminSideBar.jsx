@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import style from "./AdminSideBar.module.scss";
 import Collapse from "react-bootstrap/Collapse";
 
+
 function AdminSideBar() {
   const [activeFooterItem, setActiveFooterItem] = useState(1);
   const navigate = useNavigate();
@@ -21,11 +22,6 @@ function AdminSideBar() {
     navigate("history");
   };
 
-//   const handleUserList = () => {
-//     handleFooterItem(4);
-//     navigate("users");
-//   };
-  //   console.log(activeFooterItem);
   return (
     <div className={style.sideBar}>
       <div className={style.userPage}>

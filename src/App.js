@@ -9,15 +9,6 @@ import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminAddUser from "./modules/AdminAddUser/AdminAddUser";
 import AdminUserList from "./modules/AdminUserList/AdminUserList";
 
-// import Home from './modules/Home/Home';
-// import SignUp from './modules/Authentication/signup/SignUp';
-// import SignIn from './modules/Authentication/singin/SignIn';
-// import MovieDetails from './modules/MovieDetail/MovieDetail.jsx';
-// import BookingTicket from './modules/BookingTicket/BookingTicket'
-// import InfoTicketed from './modules/BookingTicket/InfoTicketed/InfoTicketed';
-// import MovieManagement from './modules/MovieManagement/MovieManagement';
-// import TestComponent from './test/TestComponent';
-
 const Home = lazy(() => import("./modules/Home/Home"));
 const MovieDetails = lazy(() =>
   import("./modules/MovieDetail/MovieDetails.jsx")
@@ -44,8 +35,10 @@ const MovieManagement = lazy(() =>
 const MovieAddNew = lazy(() =>
   import("./modules/MovieManagement/MovieAddNew/MovieAddNew")
 );
+const AddShowTimes = lazy(()=> import('./modules/MovieManagement/AddShowTimes/AddShowTimes'));
 
 const TestComponent = lazy(() => import("./test/TestComponent"));
+const Erros = lazy(()=> import('./components/Error/Error'));
 
 function App() {
   return (
@@ -70,9 +63,15 @@ function App() {
                 <ProtectedRoute>
                   <BookingTicket />
                 </ProtectedRoute>
-              }
-            ></Route>
-            <Route path="info-ticketed" element={<InfoTicketed />} />
+
+                }>
+
+            </Route>
+            <Route path='info-ticketed' element={<InfoTicketed />} />
+            
+            <Route path='test' element={<TestComponent/>}/>
+            <Route path='*' element={<Erros/>}/>
+
 
             <Route path="test" element={<TestComponent />} />
           </Route>
@@ -94,8 +93,10 @@ function App() {
             <Route path="history" element={<BookingTicketed />} />
             <Route path="movies" element={<MovieManagement />} />
             <Route path="addmovies" element={<MovieAddNew />} />
+            <Route path='movies/addshowtimes' element={<AddShowTimes/>}/>
             <Route path="users" element={<AdminUserList />} />
             <Route path="add-user" element={<AdminAddUser />} />
+
           </Route>
         </Routes>
       </BrowserRouter>

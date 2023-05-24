@@ -1,0 +1,9 @@
+@import '../../../index.scss';
+
+.searchMovies{
+    background-color: black;
+    .btnBook {
+        @extend .btnPrimary;
+        width: 100%;
+    }
+}

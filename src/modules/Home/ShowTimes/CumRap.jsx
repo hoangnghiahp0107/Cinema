@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 import {apiGetCinema} from "../../../apis/movieAPI";
+import { Button } from 'react-bootstrap';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -16,11 +18,12 @@ import style from "./ShowTimes.module.scss";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 function CumRap({heThongCumRap}) {
-    const [err, setErr] = useState(null);
-    const [cumRap, setCumRap] = useState([]);
-    const [lichChieu, setLichChieu] = useState(null);
-    // console.log(cumRap[0]?.lstCumRap[0]);
-    const navigate = useNavigate();
+  const dayjs = require('dayjs');
+  const [err, setErr] = useState(null);
+  const [cumRap, setCumRap] = useState([]);
+  const [lichChieu, setLichChieu] = useState(null);
+  // console.log(cumRap[0]?.lstCumRap[0]);
+  const navigate = useNavigate();
   const getInfoCumRap = async () => {
     try {
       const data = await apiGetCinema(heThongCumRap?.maHeThongRap);
@@ -61,7 +64,7 @@ function CumRap({heThongCumRap}) {
   if(err) return null;
   return (
     <div className="row">
-        <div className={`${style.left} col-4`}>
+        <div className={`${style.left} col-sm-4`}>
           {/* render cụm rạp CGV, Galaxy... */}
         <Swiper
            direction={"vertical"}
@@ -83,7 +86,7 @@ function CumRap({heThongCumRap}) {
         </Swiper>
             
         </div>
-        <div className={`col-8 ${style.right}`}>
+        <div className={`col-sm-8 ${style.right}`}>
           <Swiper
             direction={"vertical"}
             slidesPerView={"auto"}
@@ -106,23 +109,29 @@ function CumRap({heThongCumRap}) {
                     {lichChieu?.danhSachPhim?.map((item, index) => {
                         if(item.dangChieu) return (
                             <div className={`row ${style.movieDetail}`} key={index}>
-                                <div className={`col-4 ${style.movieDetail_left}`}>
+                                <div className={`col-sm-4 ${style.movieDetail_left}`}>
                                     <img onClick={()=> navigate(`/movies/${item.maPhim}`)} src={item.hinhAnh} alt="" srcset="" />
                                 </div>
                                 <div className={`col ${style.movieDetail_right}`}>
                                     <div className={style.movieName}>{item.tenPhim}</div>
                                     <div className={style.showTimeMovie}>
                                     <p>Thời gian chiếu</p>
-                                    <div className="row">
                                         {item.lstLichChieuTheoPhim.map((timeShow, index) => {
                                           // console.log(timeShow);
                                             return(
-                                                <div className="col-3 px-1" key={index}>
-                                                    <div className={style.showTimeMovieDetail} onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}><span>{timeShow.ngayChieuGioChieu}</span></div>
-                                                </div>
+                                              <Button
+                                              className={`mb-2 mx-2 mt-2 ${style.times}`}
+                                              variant="outline-primary"
+                                              key={index}
+                                              size="sm"
+                                              onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}
+                                              >
+                                                <span>{dayjs(timeShow.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
+                                                <span className='mx-2'>~</span>
+                                                <span className='text-pink-primary'>{dayjs(timeShow.ngayChieuGioChieu).format('hh:mm')}</span>
+                                              </Button>
                                             )
                                         })}
-                                    </div>
                                     </div>
                                 </div>
                             </div>

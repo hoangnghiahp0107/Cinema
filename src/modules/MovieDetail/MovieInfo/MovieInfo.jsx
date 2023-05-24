@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import { apiGetMovieDetails } from '../../../apis/movieAPI'
-import BtnPlay from "../../../components/Button/BtnPlay/BtnPlay";
+import React, {useState, useEffect} from 'react';
 import Card from 'react-bootstrap/Card';
 import LinesEllipsis from 'react-lines-ellipsis';
+import { apiGetMovieDetails } from '../../../apis/movieAPI'
+import BtnPlay from "../../../components/Button/BtnPlay/BtnPlay";
 import "./MovieInfo.scss";
 
 function MovieInfo({movieID}) {
@@ -25,11 +25,10 @@ function MovieInfo({movieID}) {
   },[]);
 
   return (
-
     <div className='cinema-header' >
       <div className="container">
         <div className="row">
-          <div className="col-sm-4">
+          <div className="col-sm-4 cinema-left">
                 <div className="cinema-item">
                   <Card.Img variant="top" className="incomingMovieImg" src={movie.hinhAnh} alt={movie.biDanh}/>
                     {movie.hot && <img className="hotMovies" src="https://cse.tlu.edu.vn/Portals/0/icon-hot.png" alt="" />}
@@ -42,10 +41,8 @@ function MovieInfo({movieID}) {
             <h1 className='text-white tenPhim mt-2'>{movie.tenPhim}</h1>
             <h3 className='danhGia mt-2'>Đánh giá</h3>
             <div className="row mb-3">
-              <div className='col-sm-1'>
-                <i class="bi bi-star-fill icon"></i>
-              </div>
-              <div className="col-sm-9 score">
+              <div className="score">
+              <i class="bi bi-star-fill icon mx-2"></i>
                 <strong className='text-white'>{movie.danhGia}</strong>
                 <span className='text-white'>/10</span>
               </div>

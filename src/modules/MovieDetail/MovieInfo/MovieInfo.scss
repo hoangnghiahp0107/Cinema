@@ -40,10 +40,10 @@
         }
         .row{
             align-items: center;
+            display: flex;
             .icon{
                 font-size: 1.5rem;
                 color: #fac917;
-                padding-left: 8px;
             }
             .score{
                 font-size: 1.25rem;
@@ -64,7 +64,14 @@
    
 }
   
-  
+@media only screen and (max-width:1024px) {
+    .cinema-left{
+        width: 40%;
+    }
+    .cinema-right{
+        width: 60%;
+    }
+} 
   
   
   

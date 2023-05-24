@@ -59,6 +59,14 @@ function PlayingMovies() {
             delay: 5000,
             disableOnInteraction: false,
           }}
+          breakpoints={{
+            1024: {
+              slidesPerView:5,
+            },
+            300:{
+              slidesPerView:1,
+            },
+          }}
           modules={[Pagination, Navigation, Autoplay]}
           className='swiperPlayingMovies'
         >
@@ -68,7 +76,7 @@ function PlayingMovies() {
               <SwiperSlide key={item.maPhim} className="swiperPlayingMovies-slide -mx-5">
                 <Card style={{ width: '18rem', backgroundColor: 'transparent'}} >
                   <div className="playingMovieHeader">
-                    <Card.Img variant="top" className="playingMovieImg" src={item.hinhAnh} alt={item.biDanh} onClick={() => navigate(`/movie/${item.maPhim}`)}/>
+                    <Card.Img variant="top" className="playingMovieImg" src={item.hinhAnh} alt={item.biDanh} onClick={() => navigate(`/movies/${item.maPhim}`)}/>
                     <p className="numMovies">{index+1}</p>
                     {item.hot && <img className="hotMovies" src="https://cse.tlu.edu.vn/Portals/0/icon-hot.png" alt="" />}
                     <div className="playTrailerMovie">
@@ -77,7 +85,7 @@ function PlayingMovies() {
                     
                   </div>
                   <Card.Body className="text-white mt-2 p-0">
-                    <a href="#" className="infoMovies text-start" onClick={() => navigate(`/movie/${item.maPhim}`)}>
+                    <a href="#" className="infoMovies text-start" onClick={() => navigate(`/movies/${item.maPhim}`)}>
                       <Card.Title className="nameMovie">
                         {item.tenPhim}
                      </Card.Title>

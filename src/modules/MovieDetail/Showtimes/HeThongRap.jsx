@@ -16,6 +16,7 @@ import style from "./Showtimes.module.scss";
 import { FreeMode, Scrollbar, Mousewheel } from "swiper";
 
 function HeThongRap({heThongCumRap,movieID}) {
+    const dayjs = require('dayjs');
     const [err, setErr] = useState(null);
     const [cumRap, setCumRap] = useState([]);
     const [lichChieu, setLichChieu] = useState(null);
@@ -25,7 +26,7 @@ function HeThongRap({heThongCumRap,movieID}) {
   useEffect(() =>{
     getInfoCumRap();
   },[heThongCumRap]);
-  debugger
+  // debugger
 
   useEffect(()=>{
     if(cumRap.length>0){
@@ -67,15 +68,17 @@ function HeThongRap({heThongCumRap,movieID}) {
                 {lichChieu?.maCumRap === cumRap.maCumRap && (
                   <div className="selected-button">
                     {cumRap.lichChieuPhim?.map((lichChieuFilm, index) => (
-                      <Button
-                        className={`mb-2 mx-2 mt-2 ${style.times}`}
-                        variant="outline-primary"
-                        key={index}
-                        size="sm"
-                        onClick={() => navigate(`/booking/${lichChieuFilm.maLichChieu}`)}
-                        >
-                        {lichChieuFilm.ngayChieuGioChieu}
-                      </Button>
+                       <Button
+                       className={`mb-2 mx-2 mt-2 ${style.times}`}
+                       variant="outline-primary"
+                       key={index}
+                       size="sm"
+                       onClick={() => navigate(`/booking/${lichChieuFilm.maLichChieu}`)}
+                       >
+                         <span>{dayjs(lichChieuFilm.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
+                         <span className='mx-2'>~</span>
+                         <span className='text-pink-primary'>{dayjs(lichChieuFilm.ngayChieuGioChieu).format('hh:mm')}</span>
+                       </Button>
                         ))}
                   </div>
                 )}

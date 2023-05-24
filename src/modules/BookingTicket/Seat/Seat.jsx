@@ -45,23 +45,32 @@ if(isLoading) return (
             </div>
             )
         })}
-        <div className={style.loaiGhe}>
-            <div className={style.seatType}>
-                <p className={style.daDat}></p>
-                <span>Đã đặt</span>
-            </div>
-            <div className={style.seatType}>
-                <p className={style.dangChon}></p>
-                <span>Ghế bạn chọn</span>
-            </div>
-            <div className={style.seatType}>
-                <p className={style.veThuong}></p>
-                <span>Ghế thường</span>
-            </div>
-            
-            <div className={style.seatType}>
-                <p className={style.veVip}></p>
-                <span>Ghế VIP</span>
+        <div className="container">
+            <div className="row">
+                <div className="col-sm-3 my-2">
+                    <div className={style.seatType}>
+                        <p className={style.daDat}></p>
+                        <span>Đã đặt</span>
+                    </div> 
+                </div>
+                <div className="col-sm-3 my-2">
+                    <div className={style.seatType}>
+                        <p className={style.dangChon}></p>
+                        <span>Ghế bạn chọn</span>
+                    </div>
+                </div>
+                <div className="col-sm-3 my-2">
+                    <div className={style.seatType}>
+                        <p className={style.veThuong}></p>
+                        <span>Ghế thường</span>
+                    </div>
+                </div>
+                <div className="col-sm-3 my-2">
+                    <div className={style.seatType}>
+                        <p className={style.veVip}></p>
+                        <span>Ghế VIP</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

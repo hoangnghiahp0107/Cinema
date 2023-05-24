@@ -1,6 +1,6 @@
 @import '../../../index.scss';
 
-.movieAddNew{
+.addShowTimes{
     h2{
         @extend .titleAdmin;
     }
@@ -11,21 +11,14 @@
         border: solid 1px $header-border-color;
         .container{
             color: $text-dark-color !important;
-            .add{
-                @extend .btnPrimary;
-            }
-            .imgPreview{
-                margin-top: 5px;
-                width: 100px;
+            .imgLeft{
+                width: 100%;
                 border-radius: 4px;
                 border: solid 1px $header-border-color;
             }
-            input{
-                
+            .btnPrimary{
+                width: 150px;
             }
         }
-        // .react-datepicker{
-        //     z-index: 1;
-        // }
     }
 }

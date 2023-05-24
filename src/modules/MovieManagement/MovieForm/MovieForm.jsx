@@ -1,33 +1,50 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector} from 'react-redux';
 import { useForm } from "react-hook-form";
 import Modal from "react-bootstrap/Modal";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-// import DatePicker from 'react-datepicker';
+import swal from 'sweetalert';
+import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { apiCapNhatPhimUpload } from "../../../apis/movieAPI";
+import { getInfoUser } from "../../../slices/infoUserSlice";
+import './MovieForm.scss';
 
 // định nghĩa các xác thực input
 const schema = yup.object({
   maPhim: yup.string().required("Mã phim không được để trống"),
   tenPhim: yup.string().required("Tên phim không được để trống"),
   trailer: yup.string().required("Trailer không được để trống"),
-  hinhAnh: yup.string().required("Hình ảnh không được để trống"),
+  hinhAnh: yup.mixed()
+  .test('required', "Vui lòng chọn hình ảnh", (value) =>{
+    return value && value.length
+  } )
+  .test("fileSize", "Max size 1mb", (value, context) => {
+    return typeof value ==='string' || value && value[0] && value[0].size <= 1048576;
+  })
+  .test("type", "Phải chọn type hình ảnh", function (value) {
+    return typeof value ==='string' || value && value[0] && value[0]?.type === "image/jpeg" || value[0]?.type === "image/png";
+  }),
   moTa: yup.string(),
-  ngayKhoiChieu: yup.string(),
-  danhGia: yup.number(),
+  ngayKhoiChieu: yup.string().required("Ngày khởi chiếu không được để trống"),
+  danhGia: yup.number().max(10, 'Đánh giá nhỏ nhất là 10').min(1,'Đánh giá nhỏ nhất là 1').typeError('Đánh giá phải là số từ 1 đến 10'),
   hot: yup.string(),
   dangChieu: yup.string(),
   sapChieu: yup.string(),
 });
 
 function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
+  //khởi tạo format data to dd/mm/yyyy
+  const dayjs = require('dayjs');
+  const dispatch = useDispatch();
+  const {user} = useSelector((state) => state.user);
   const {
     register,
     handleSubmit,
     reset,
-    setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useForm({
     mode: "onTouched",
@@ -39,32 +56,32 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
   const [err, setErr] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  let formData = new FormData();
-
+    // ========= set type date =======================
+    const [startDate, setStartDate] = useState(new Date());
+    // console.log('startDate: ', dayjs(startDate).format('DD/MM/YYYY'));
   const onSubmit = async (value) => {
     setIsLoading(true);
-    // console.log(value);
-    formData.append('maPhim',value.maPhim);
-    formData.append('tenPhim',value.tenPhim);
-    formData.append('trailer',value.trailer);
-    formData.append('hinhAnh',value.hinhAnh);
-    formData.append('moTa',value.moTa);
-    formData.append('ngayKhoiChieu',value.ngayKhoiChieu);
-    formData.append('danhGia',value.danhGia);
-    formData.append('hot',value.hot);
-    formData.append('dangChieu',value.dangChieu);
-    formData.append('sapChieu',value.sapChieu);
-    formData.append('maNhom',value.maNhom);
+    const payload = {...value, hinhAnh: value.hinhAnh[0], ngayKhoiChieu:dayjs(startDate).format('DD/MM/YYYY')}
+    console.log('payload ',payload);
     try {
-      const data = await apiCapNhatPhimUpload(formData);
+      const data = await apiCapNhatPhimUpload(payload);
       setMovieUpdate(data);
       setIsLoading(false);
-      
+      swal({
+        title: `Bạn đã cập nhật thành công phim: ${payload.tenPhim}`,
+        text: "Nhấn Ok để tiếp tục!",
+        icon: "success",
+        })
+        .then((willSuccess) => {
+          if (willSuccess) dispatch(getInfoUser(user?.taiKhoan));
+          handleShow(!onShow);
+        });
     } catch (error) {
         setErr(error);
         setIsLoading(false);
     }
   };
+
   // error form
   const onErrer = (err) => {
     console.log(err);
@@ -84,15 +101,32 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
       hot: onDataMovieDetail.hot,
       dangChieu: onDataMovieDetail.dangChieu,
       sapChieu: onDataMovieDetail.sapChieu,
-      maNhom: "GP03",
     });
     // setStartDate(onDataMovieDetail.ngayKhoiChieu);
   }, [onDataMovieDetail]);
+  // console.log(watch("hinhAnh"));
+
+   // ==========set type img =======================
+ // watch là hàm dùng để theo dõi và lấy được giá trị mới của input trong form
+ const [imgPreview, setImgPreview] = useState("");
+ const imageField = watch("hinhAnh");
+ useEffect(() => {
+   if ((typeof imageField) == 'string') return
+   // FileReader là một đối tượng trong JS dùng để xử lý file
+   const fileReader = new FileReader();
+   // readAsDataURL là phương thức dùng để chuyển file thành url để sử dụng trong thuộc tính src của thẻ img
+   if(typeof imageField == 'object' && imageField[0]) {
+    // console.log('obj');
+     fileReader.readAsDataURL(imageField[0]);
+   }
+   // onload là callback để chờ sau khi xử lý xong nhận được kết quả
+   fileReader.onload = (evt) => {
+     setImgPreview(evt?.target.result);
+   };
+ }, [imageField]);
 
   const onChangeDate = (date) => {
-    // setStartDate(date.toLocaleDateString());
     console.log("date change: ", date);
-    // setValue("ngayKhoiChieu", date.toLocaleDateString());
   };
 
   if(isLoading) return (
@@ -119,7 +153,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
         </div> 
        : <form onSubmit={handleSubmit(onSubmit, onErrer)}>
             <Modal.Body className="formBody">
-            <div className="input-group input">
+            <div className="input-group input mb-3 align-items-center">
                 <span className="input-group-text">Mã phim</span>
                 <input
                 type="text"
@@ -135,7 +169,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 </p>
             )}
 
-            <div className="input-group input">
+            <div className="input-group input mb-3 align-items-center">
                 <span className="input-group-text">Tên phim</span>
                 <input
                 type="text"
@@ -150,7 +184,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 </p>
             )}
 
-            <div className="input-group input">
+            <div className="input-group input mb-3 align-items-center">
                 <span className="input-group-text">Trailer</span>
                 <input
                 type="text"
@@ -165,8 +199,10 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 </p>
             )}
 
-            <div className="input-group input">
-                <span className="input-group-text">Mô tả</span>
+            <div className="input-group input mb-3 ">
+                <div>
+                  <span className="input-group-text input_Des">Mô tả</span> 
+                </div>
                 <textarea className="form-control" rows="3" {...register("moTa")}>
                 {getValues("moTa")}
                 </textarea>
@@ -177,20 +213,22 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 </p>
             )}
 
-            <div className="input-group input">
+            <div className="input-group input mb-3 align-items-center">
                 <span className="input-group-text">Ngày khởi chiếu</span>
-                {/* <DatePicker
+                <DatePicker
+                    // value={value}
                     showIcon
-                    selected={startDate? new Date(startDate):null}
-                    onChange={onChangeDate}
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
                     dateFormat="dd/MM/yyyy"
-                /> */}
-                <input
+                    className='datePicker'
+                />
+                {/* <input
                 type="text"
                 className="form-control"
                 placeholder="Tên phim"
                 {...register("ngayKhoiChieu")}
-                />
+                /> */}
             </div>
             {errors.ngayKhoiChieu && (
                 <p className="ms-3 fs-7 text-danger fst-italic">
@@ -243,7 +281,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 </p>
             )}
 
-            <div className="input-group input">
+            <div className="input-group input mb-3 align-items-center">
                 <span className="input-group-text">Số sao</span>
                 <input
                 type="text"
@@ -259,7 +297,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
             )}
 
             <img
-                src={getValues("hinhAnh")}
+                src={imgPreview? imgPreview : watch("hinhAnh")}
                 className="text-center"
                 srcset=""
                 style={{ width: "100px" }}
@@ -270,7 +308,6 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 type="file"
                 {...register("hinhAnh")}
                 />
-                <label className="input-group-text">Hình ảnh</label>
             </div>
             {errors.hinhAnh && (
                 <p className="ms-3 fs-7 text-danger fst-italic">

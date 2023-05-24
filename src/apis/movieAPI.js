@@ -49,16 +49,14 @@ export const apiGetListHeThongCumRap = async (maHeThongRap) => {
 
 // lấy thông tin tên HeThongRap (CGV Bình tân, Tân Phú, BHD Q2...)
 export const apiGetCinema = async (maHeThongRap) => {
-  const { data } = await axiosClient.get(
-    "/QuanLyRap/LayThongTinLichChieuHeThongRap",
-    {
-      params: {
-        maHeThongRap: maHeThongRap,
-        maNhom: "GP03",
-      },
-    }
-  );
-  return data;
+
+    const {data} = await axiosClient.get('/QuanLyRap/LayThongTinLichChieuHeThongRap', {
+        params: {
+            maHeThongRap: maHeThongRap,
+            maNhom: maNhom,
+        },
+    });
+    return data;
 };
 
 // Lấy thông tin thời gian chiếu của phim
@@ -75,13 +73,17 @@ export const apiMovieHours = async (movieID) => {
 };
 
 // update phim
-export const apiCapNhatPhimUpload = async (value) => {
-  const { data } = await axiosClient.post(
-    "/QuanLyPhim/CapNhatPhimUpload",
-    value
-  );
-  return data;
-};
+export const apiCapNhatPhimUpload = async (movie) => {
+    // console.log(m);
+    const formData = new FormData();
+    for (const key in movie) {
+        formData.append(key, movie[key]);
+        }
+    formData.append("maNhom", maNhom);
+    // formData.append("maPhim", 0);
+    const {data} = await axiosClient.post('/QuanLyPhim/CapNhatPhimUpload',formData);
+    return data;
+}
 
 // xóa phim
 export const apiXoaPhim = async (movieID) => {
@@ -95,15 +97,23 @@ export const apiXoaPhim = async (movieID) => {
 
 // add new phim
 export const apiThemPhimUploadHinh = async (movie) => {
-  const formData = new FormData();
-  for (const key in movie) {
-    formData.append(key, movie[key]);
-  }
-  formData.append("maNhom", "GP03");
-  console.log(formData);
-  const { data } = await axiosClient.post(
-    "/QuanLyPhim/ThemPhimUploadHinh",
-    formData
-  );
-  return data;
+
+    // console.log(movie);
+    const formData = new FormData();
+    for (const key in movie) {
+        formData.append(key, movie[key]);
+        }
+    formData.append("maNhom", maNhom);
+    // for (let [key, value] of formData.entries()) {
+    //     console.log(key, value);
+    //   }
+    const {data} = await axiosClient.post('/QuanLyPhim/ThemPhimUploadHinh',formData);
+    // console.log(data);
+    return data;
+}
+
+// thêm lịch chiếu
+export const apiTaoLichChieu = async (payload) => {
+    const { data } = await axiosClient.post('/QuanLyDatVe/TaoLichChieu', payload);
+    return data;
 };
