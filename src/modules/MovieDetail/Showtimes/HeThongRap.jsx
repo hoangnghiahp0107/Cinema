@@ -46,7 +46,7 @@ function HeThongRap({heThongCumRap,movieID}) {
   }
   const renderCumRap = () => {
     return cumRap.heThongRapChieu?.map((heThongRap,index)=>{
-      console.log("heThongRap", heThongRap);
+      // console.log("heThongRap", heThongRap);
       if (heThongRap.maHeThongRap === heThongCumRap.maHeThongRap){
         return(
           <div key={index}>

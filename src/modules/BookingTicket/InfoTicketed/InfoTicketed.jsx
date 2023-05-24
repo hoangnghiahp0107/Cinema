@@ -10,7 +10,7 @@ function InfoTicketed() {
         <p className='text-danger fst-italic'>Vui lòng lưu thông tin đặt vé!!!</p>
         <div className={style.infoTicketed}>
             <div className={`row `}>
-                <div className="col-4">
+                <div className={`col-4 ${style.img}`}>
                     <img src={thongTinPhim.hinhAnh} alt={thongTinPhim.tenPhim}/>
                 </div>
                 <ul className="col-8">

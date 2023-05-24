@@ -63,7 +63,7 @@ function CumRap({heThongCumRap}) {
   // nếu có lỗi thì return ko hiện
   if(err) return null;
   return (
-    <div className="row">
+    <div className={`row ${style.bodyDetail}`}>
         <div className={`${style.left} col-sm-4`}>
           {/* render cụm rạp CGV, Galaxy... */}
         <Swiper
