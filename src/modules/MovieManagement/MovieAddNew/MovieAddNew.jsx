@@ -52,11 +52,11 @@ function MovieAddNew() {
     resolver: yupResolver(schema),
   });
   const [movieAdd, setMovieAdd] = useState(null);
-  console.log('movieAdd: ',movieAdd);
+  // console.log('movieAdd: ',movieAdd);
 
   // từ API
   const [err, setErr] = useState(null);
-  console.log('err from API: ',err?.message);
+  console.log('err from API: ',err);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -95,6 +95,7 @@ function MovieAddNew() {
       setIsLoading(false);
       
     } catch (error) {
+      console.log(error);
       setErr(error);
       setIsLoading(false);
     }
@@ -102,6 +103,7 @@ function MovieAddNew() {
   // error form
   function onErrer(err) {
     console.log('err from form: ',err);
+    setErr(err);
   }
 
   if(movieAdd?.statusCode === 200) {
@@ -133,9 +135,9 @@ function MovieAddNew() {
             <div className="row mb-1 align-items-center">
               <div className="col-2"></div>
               <div className="col-10">
-                {errors?.tenPhim && (
+                {err?.tenPhim && (
                    <p className="ms-3 mb-0 fs-7 text-danger fst-italic">
-                   {errors.tenPhim?.message}
+                   {err.tenPhim?.message}
                    </p>
                 )}
               </div>
@@ -150,9 +152,9 @@ function MovieAddNew() {
             <div className="row mb-1 align-items-center">
               <div className="col-2"></div>
               <div className="col-10">
-                {errors.tenPhim && (
+                {err.tenPhim && (
                    <p className="ms-3 mb-0 fs-7 text-danger fst-italic">
-                   {errors?.trailer?.message}
+                   {err?.trailer?.message}
                    </p>
                 )}
               </div>
@@ -184,9 +186,9 @@ function MovieAddNew() {
             <div className="row">
               <div className="col-2"></div>
               <div className="col-10">
-              {errors?.tenPhim && (
+              {err?.tenPhim && (
                    <p className="ms-3 mb-0 fs-7 text-danger fst-italic">
-                   {errors?.ngayKhoiChieu?.message}
+                   {err?.ngayKhoiChieu?.message}
                    </p>
                 )}
               </div>
@@ -234,9 +236,9 @@ function MovieAddNew() {
             <div className="row mb-1 align-items-center">
               <div className="col-2"></div>
               <div className="col-10">
-                {errors.tenPhim && (
+                {err.tenPhim && (
                    <p className="ms-3 mb-0 fs-7 text-danger fst-italic">
-                   {errors?.danhGia?.message}
+                   {err?.danhGia?.message}
                    </p>
                 )}
               </div>
@@ -252,9 +254,9 @@ function MovieAddNew() {
             <div className="row mb-1 align-items-center">
               <div className="col-2"></div>
               <div className="col-10">
-                {errors?.tenPhim && (
+                {err?.tenPhim && (
                    <p className="ms-3 mb-0 fs-7 text-danger fst-italic">
-                   {errors?.hinhAnh?.message}
+                   {err?.hinhAnh?.message}
                    </p>
                 )}
               </div>
