@@ -64,7 +64,7 @@ function CumRap({heThongCumRap}) {
   if(err) return null;
   return (
     <div className="row">
-        <div className={`${style.left} col-md-4`}>
+        <div className={`${style.left} col-sm-4`}>
           {/* render cụm rạp CGV, Galaxy... */}
         <Swiper
            direction={"vertical"}
@@ -86,7 +86,7 @@ function CumRap({heThongCumRap}) {
         </Swiper>
             
         </div>
-        <div className={`col-md-8 ${style.right}`}>
+        <div className={`col-sm-8 ${style.right}`}>
           <Swiper
             direction={"vertical"}
             slidesPerView={"auto"}
@@ -109,32 +109,29 @@ function CumRap({heThongCumRap}) {
                     {lichChieu?.danhSachPhim?.map((item, index) => {
                         if(item.dangChieu) return (
                             <div className={`row ${style.movieDetail}`} key={index}>
-                                <div className={`col-4 ${style.movieDetail_left}`}>
+                                <div className={`col-sm-4 ${style.movieDetail_left}`}>
                                     <img onClick={()=> navigate(`/movies/${item.maPhim}`)} src={item.hinhAnh} alt="" srcset="" />
                                 </div>
                                 <div className={`col ${style.movieDetail_right}`}>
                                     <div className={style.movieName}>{item.tenPhim}</div>
                                     <div className={style.showTimeMovie}>
                                     <p>Thời gian chiếu</p>
-                                    <div className="row">
                                         {item.lstLichChieuTheoPhim.map((timeShow, index) => {
                                           // console.log(timeShow);
                                             return(
-                                              <div className="col-sm-3 px-1" key={index}>
-                                                <Button
-                                                className={`mb-2 mx-2 mt-2 ${style.times}`}
-                                                variant="outline-primary"
-                                                size="sm"
-                                                onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}
-                                                >
-                                                  <span>{dayjs(timeShow.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
-                                                  <span className='mx-2'>~</span>
-                                                  <span className='text-pink-primary'>{dayjs(timeShow.ngayChieuGioChieu).format('hh:mm')}</span>
-                                                </Button>
-                                            </div>
+                                              <Button
+                                              className={`mb-2 mx-2 mt-2 ${style.times}`}
+                                              variant="outline-primary"
+                                              key={index}
+                                              size="sm"
+                                              onClick={() => navigate(`/booking/${timeShow.maLichChieu}`)}
+                                              >
+                                                <span>{dayjs(timeShow.ngayChieuGioChieu).format('DD/MM/YYYY')}</span>
+                                                <span className='mx-2'>~</span>
+                                                <span className='text-pink-primary'>{dayjs(timeShow.ngayChieuGioChieu).format('hh:mm')}</span>
+                                              </Button>
                                             )
                                         })}
-                                    </div>
                                     </div>
                                 </div>
                             </div>

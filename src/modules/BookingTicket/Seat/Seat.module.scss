@@ -34,16 +34,11 @@
     background-color: $bg-ghe-doi !important;
 }
 
-
-.loaiGhe{
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    margin-top: 50px;
-    .seatType {
+.seatType {
         position: relative;
         display: flex;
         align-items: center;
+        color: white;
         p{
             height: 30px;
             width: 30px;
@@ -54,5 +49,19 @@
             margin-left: 5px;
         }
     }
-}
 
+@media only screen and (max-width:1024px) {
+    .seatItem {
+        width: 10%;
+        border: none!important;
+        margin: 1%;
+        min-width: unset;
+        border-radius: 5px;
+        flex-wrap: wrap;
+        color: $bg-light-color;
+        &:hover{
+            cursor: pointer;
+            opacity: 0.7;
+        }
+    }
+}
