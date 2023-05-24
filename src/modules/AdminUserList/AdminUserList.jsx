@@ -43,17 +43,22 @@ function AdminUserList() {
     dispatch(userUpdated(false));
   };
 
-//   const [deleteUser, setDeleteUser] = useState(null);
-const deleteUser= useRef(null);  const handleDeleteUser = async (taiKhoan) => {
+  const [deleteError, setDeleteError] = useState('');
+  console.log(deleteError);
+const deleteUser= useRef(null);  
+const handleDeleteUser = async (taiKhoan) => {
     try {
       const data = await apiDeleteUser(taiKhoan);
     //   setDeleteUser(data);
-    deleteUser.current= data;
+      deleteUser.current= data;
       dispatch(getUserListPage({ soTrang: current, soPhanTuTrenTrang: 10 }));
+      setDeleteError('')
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.content);
+      setDeleteError(error?.response?.data?.content);
     }
   };
+  console.log(deleteError);
 
   const PaginationChange = (page) => {
     setCurrent(page);
@@ -92,7 +97,7 @@ const deleteUser= useRef(null);  const handleDeleteUser = async (taiKhoan) => {
           <input
             type="text"
             className="form-control"
-            placeholder="Nhập tên người dùng và nhấn Enter..."
+            placeholder="Nhập họ và tên người dùng và nhấn Enter..."
             name="inputValue"
             onKeyDown={handleInput}
           />
@@ -151,6 +156,7 @@ const deleteUser= useRef(null);  const handleDeleteUser = async (taiKhoan) => {
                 })}
               </tbody>
             </table>
+            {deleteError && <p className="text-danger text-center mt-3">{deleteError}</p>}
             <Pagination
               onChange={PaginationChange}
               total={
