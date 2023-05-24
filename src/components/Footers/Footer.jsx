@@ -4,7 +4,7 @@ import './Footer.scss';
 function Footer() {
   return (
     <div className='foot'>
-        <div className="container pt-4 pb-4">
+        <div className="container-lg container-md container-sm pt-4 pb-4">
           <div class="row line">
             <div className="col">
               <a  href="#">

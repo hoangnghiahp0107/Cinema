@@ -45,7 +45,7 @@ if(isLoading) return (
             </div>
             )
         })}
-        <div className="container">
+        <div className="container-lg container-md container-sm">
             <div className="row">
                 <div className="col-sm-3 my-2">
                     <div className={style.seatType}>
