@@ -125,6 +125,10 @@ a{
   transition-property: all;
   transition-timing-function: cubic-bezier(.4,0,.2,1);
   transition-duration: .15s;
+  &:disabled {
+    background-color: $pink-600 !important;
+    color: map-get($custom-colors, 'bg-light-color') !important;
+  };
   &:hover {
     // --tw-bg-opacity: 0.7;
     background-color: $pink-600;
