@@ -80,7 +80,9 @@ export const apiCapNhatPhimUpload = async (movie) => {
         formData.append(key, movie[key]);
         }
     formData.append("maNhom", maNhom);
-    // formData.append("maPhim", 0);
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
     const {data} = await axiosClient.post('/QuanLyPhim/CapNhatPhimUpload',formData);
     return data;
 }
@@ -104,9 +106,7 @@ export const apiThemPhimUploadHinh = async (movie) => {
         formData.append(key, movie[key]);
         }
     formData.append("maNhom", maNhom);
-    // for (let [key, value] of formData.entries()) {
-    //     console.log(key, value);
-    //   }
+   
     const {data} = await axiosClient.post('/QuanLyPhim/ThemPhimUploadHinh',formData);
     // console.log(data);
     return data;

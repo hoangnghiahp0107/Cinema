@@ -8,7 +8,7 @@
         white-space: nowrap;
         padding: 3rem;
         display: flex;
-        border-bottom: solid 1px $header-border-color;
+        // border-bottom: solid 1px $header-border-color;
         .item{
             width: 64px;
             margin-right: 2px;
@@ -48,6 +48,7 @@
     }
 
     .body{
+        border-top: solid 1px $header-border-color;
         .left{
             border-right: solid 1px $header-border-color;
             padding-right: 0;

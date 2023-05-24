@@ -54,6 +54,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
   const [movieUpdate, setMovieUpdate] = useState(null);
 //   console.log(movieUpdate);
   const [err, setErr] = useState(null);
+  console.log(err?.response.data.message);
   const [isLoading, setIsLoading] = useState(false);
 
     // ========= set type date =======================
@@ -62,11 +63,12 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
   const onSubmit = async (value) => {
     setIsLoading(true);
     const payload = {...value, hinhAnh: value.hinhAnh[0], ngayKhoiChieu:dayjs(startDate).format('DD/MM/YYYY')}
-    console.log('payload ',payload);
+    // console.log('payload ',payload);
     try {
       const data = await apiCapNhatPhimUpload(payload);
       setMovieUpdate(data);
       setIsLoading(false);
+      setErr(null);
       swal({
         title: `Bạn đã cập nhật thành công phim: ${payload.tenPhim}`,
         text: "Nhấn Ok để tiếp tục!",
@@ -75,6 +77,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
         .then((willSuccess) => {
           if (willSuccess) dispatch(getInfoUser(user?.taiKhoan));
           handleShow(!onShow);
+          window.location.reload(false);
         });
     } catch (error) {
         setErr(error);
@@ -125,10 +128,6 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
    };
  }, [imageField]);
 
-  const onChangeDate = (date) => {
-    console.log("date change: ", date);
-  };
-
   if(isLoading) return (
     <div className="h-100 d-flex justify-content-center align-items-center">
       <img src={'/img/loading.gif'} className="img-fluid" style={{height: '100px', width: '100px'}}/>
@@ -174,6 +173,7 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                 <input
                 type="text"
                 className="form-control"
+                
                 placeholder="Tên phim"
                 {...register("tenPhim")}
                 />
@@ -223,12 +223,6 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
                     dateFormat="dd/MM/yyyy"
                     className='datePicker'
                 />
-                {/* <input
-                type="text"
-                className="form-control"
-                placeholder="Tên phim"
-                {...register("ngayKhoiChieu")}
-                /> */}
             </div>
             {errors.ngayKhoiChieu && (
                 <p className="ms-3 fs-7 text-danger fst-italic">
@@ -316,6 +310,11 @@ function MovieForm({ onShow, handleShow, onDataMovieDetail }) {
             )}
             </Modal.Body>
             <Modal.Footer>
+            {err?.response.data.message && (
+                <p className="ms-3 fs-7 text-danger fst-italic">
+                {err?.response.data.message}
+                </p>
+            )}
             <button type="submit" className="btn btnPrimary">
                 Cập nhật
             </button>
